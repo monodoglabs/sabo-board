@@ -45,13 +45,14 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 <header>
   <h1>SABOTASK BUILD BOARD</h1>
   <span id="status">booting…</span>
-  <button id="refresh" onclick="reloadAll()">REFRESH ALL</button>
+  <button id="refresh" onclick="refresh()">REFRESH</button>
 </header>
 <div id="menu"></div>
 <div id="viewer"><div id="stage"><iframe id="vframe" title="screen"></iframe><div id="island"></div></div></div>
 <button class="chip" id="backChip" onclick="backToMenu()">◂ BOARD</button>
 <button class="chip" id="islandChip" onclick="toggleIsland()">ISLAND</button>
-<footer>tap a screen to open it fullscreen at true device scale · island overlay shows the real device no-go zones · board auto-polls the manifest every 60s</footer>
+<button class="chip" id="refChip" style="right:10px;bottom:calc(60px + env(safe-area-inset-bottom,0px));display:none" onclick="refresh()">↻ REFRESH</button>
+<footer>tap a screen to open it fullscreen at true device scale · island overlay shows the real device no-go zones · refresh is MANUAL — the board never reloads on its own, tap REFRESH (or ↻ in a screen) when you want the newest build</footer>
 <script>
 var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
 var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
@@ -59,7 +60,7 @@ var last=null, current=null, overlayURL=null, islandOn=store.get('saboIsland')==
 var timers=[];
 function status(t){document.getElementById('status').textContent=t}
 function clearTimers(){timers.forEach(clearInterval);timers=[]}
-function reloadAll(){if(last){status('refreshing…');renderMenu(last)}}
+
 function islandChip(){var c=document.getElementById('islandChip');c.textContent='ISLAND: '+(islandOn?'ON':'OFF');c.className='chip'+(islandOn?'':' off')}
 function toggleIsland(){islandOn=!islandOn;store.set('saboIsland',islandOn?'1':'0');islandChip();applyIsland()}
 function applyIsland(){var el=document.getElementById('island');el.className=islandOn?'on':''}
@@ -86,6 +87,7 @@ function openViewer(d){
   current=d;
   var v=document.getElementById('viewer');v.className='on';
   document.getElementById('backChip').style.display='block';
+  document.getElementById('refChip').style.display='block';
   fit();
   var fr=document.getElementById('vframe');
   fr.srcdoc='<!DOCTYPE html><html><body style="background:#000;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading…</body></html>';
@@ -99,6 +101,7 @@ function backToMenu(){
   current=null;
   document.getElementById('viewer').className='';
   document.getElementById('backChip').style.display='none';
+  document.getElementById('refChip').style.display='none';
 }
 function renderMenu(m){
   clearTimers();
@@ -120,20 +123,21 @@ function renderMenu(m){
     }
     g.appendChild(c);
   });
-  timers.push(setInterval(function(){
-    if(current){fetch(current.url).then(function(r){return r.text()}).then(function(html){var fr=document.getElementById('vframe');if(current&&fr.srcdoc!==html)fr.srcdoc=html}).catch(function(){})}
-  },(m.refresh_seconds||60)*1000));
 }
-function poll(){
+function refresh(){
+  status('refreshing…');
   fetch(MAN).then(function(r){return r.json()}).then(function(m){
     last=JSON.stringify(m);
     renderMenu(m);
-    status('live · '+m.demos.filter(function(d){return d.kind==='demo'}).length+' screens · island '+(islandOn?'ON':'OFF'));
-  }).catch(function(){status('manifest unreachable — retrying…')});
+    if(current){
+      var fr=document.getElementById('vframe');
+      fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current)fr.srcdoc=html}).catch(function(){});
+    }
+    status('build v'+m.board_version+' · manual — tap REFRESH for newest');
+  }).catch(function(){status('manifest unreachable — tap REFRESH')});
 }
 fit();islandChip();applyIsland();buildIsland();
-poll();
-setInterval(poll,60000);
+refresh();
 </script>
 </body>
 </html>

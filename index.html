@@ -196,7 +196,7 @@ var KIT_ID='fusekit';
 var KIT_MEMBERS=['flamewrap','line','trail'];
 var KIT={flamewrap:1,line:1,trail:1,bob:1,flame:1};
 function memberIds(id){return id===KIT_ID?KIT_MEMBERS:[id]}
-var tuneOn=false, SEL=null, BOOST=[], D={}, BASE={}, ZB={}, drag=null;
+var tuneOn=false, SEL=null, BOOST=[], D={}, ZB={}, drag=null;
 
 function fdoc(){try{return document.getElementById('vframe').contentDocument}catch(e){return null}}
 function fbody(){var d=fdoc();return d?d.body:null}
@@ -206,7 +206,6 @@ function tsave(){try{localStorage.setItem(tkey(),JSON.stringify(D))}catch(e){}}
 function tload(){try{D=JSON.parse(localStorage.getItem(tkey())||'{}')}catch(e){D={}}}
 function tscale(){var a=fapp();return (a&&a.getBoundingClientRect().width/1080)||1}
 function tstatus(t){document.getElementById('tstatus').textContent=t}
-function baseOf(el){var id=el.id;if(!(id in BASE)){var t=fdoc().defaultView.getComputedStyle(el).transform;BASE[id]=(t&&t!=='none')?t:'none'}return BASE[id]}
 function dval(id){var v=D[id];if(!v)v={};if(v.s===undefined)v.s=1;if(v.r===undefined)v.r=0;if(v.z===undefined)v.z=0;if(v.dx===undefined)v.dx=0;if(v.dy===undefined)v.dy=0;return v}
 function zbaseOf(el){var id=el.id;if(!(id in ZB)){var z=parseInt(fdoc().defaultView.getComputedStyle(el).zIndex,10);ZB[id]=isNaN(z)?0:z}return ZB[id]}
 function kitApply(v){var d=fdoc();KIT_MEMBERS.forEach(function(one){var el=d&&d.getElementById(one);if(!el)return;
@@ -216,11 +215,10 @@ function kitApply(v){var d=fdoc();KIT_MEMBERS.forEach(function(one){var el=d&&d.
   if(v.z)el.style.setProperty('z-index',String((KIT_ID===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
 })}
 function applyOne(id){var d=fdoc();if(id===KIT_ID){if(D[id])kitApply(dval(id));return}
-  var el=d&&d.getElementById(id);if(!el||!D[id])return;var b=baseOf(el);var v=dval(id);
-  var t=(b==='none'?'':b+' ')+'translate('+v.dx+'px,'+v.dy+'px)';
-  if(v.s!==1)t+=' scale('+v.s+')';
-  if(v.r)t+=' rotate('+v.r+'deg)';
-  el.style.setProperty('transform',t,'important');
+  var el=d&&d.getElementById(id);if(!el||!D[id])return;var v=dval(id);
+  el.style.setProperty('translate',v.dx+'px '+v.dy+'px','important');
+  if(v.s!==1)el.style.setProperty('scale',String(v.s),'important');
+  if(v.r)el.style.setProperty('rotate',v.r+'deg','important');
   if(v.z)el.style.setProperty('z-index',String((id===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
 }
 function applyAll(){Object.keys(D).forEach(applyOne)}
@@ -240,7 +238,7 @@ function attachDrag(){var d=fdoc();if(!d)return;
     else{el=(e.target&&e.target.closest)?e.target.closest('#app [id]'):null;if(!el||EXCLUDE[el.id])return;id=el.id;
       if(KIT[el.id]){id=KIT_ID;el=null}}
     e.preventDefault();e.stopPropagation();
-    var v=dval(id);if(el)baseOf(el);
+    var v=dval(id);
     drag={el:el,id:id,bx:v.dx,by:v.dy,sx:e.clientX,sy:e.clientY};
     try{if(el)el.setPointerCapture(e.pointerId)}catch(x){}
   },true);
@@ -255,7 +253,7 @@ function attachDrag(){var d=fdoc();if(!d)return;
   d.addEventListener('pointercancel',end,true);
   d.addEventListener('click',function(e){if(tuneOn){e.preventDefault();e.stopPropagation()}},true);
 }
-function unselect(){var d=fdoc();var was=SEL;if(was&&d){memberIds(was).forEach(function(one){var p=d.getElementById(one);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index');if(was===KIT_ID){p.style.removeProperty('translate');p.style.removeProperty('scale');p.style.removeProperty('rotate')}}});if(D[was])applyOne(was)}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
+function unselect(){var d=fdoc();var was=SEL;if(was&&d){memberIds(was).forEach(function(one){var p=d.getElementById(one);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index');p.style.removeProperty('translate');p.style.removeProperty('scale');p.style.removeProperty('rotate')}});if(D[was])applyOne(was)}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
 function selectEl(id){var d=fdoc();if(!d)return;
   if(SEL===id){unselect();tstatus('released — direct drag active');return}
   unselect();
@@ -312,7 +310,6 @@ function clearSel(){
   if(!SEL){tstatus('nothing picked');return}
   var d=fdoc();
   memberIds(SEL).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}});
-  if(SEL in BASE)delete BASE[SEL];
   delete D[SEL];tsave();selUI();
   tstatus((SEL===KIT_ID?'FUSE KIT':SEL)+' back to canon');
 }
@@ -372,7 +369,7 @@ function pushDeltas(){
 }
 function resetDeltas(){
   var d=fdoc();
-  Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}});delete BASE[id]});
+  Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}})});
   BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
   BOOST=[];unselect();D={};tsave();tstatus('back to canon seats');
 }
@@ -389,7 +386,7 @@ function watchDemo(){
   },100);
 }
 function onDemoReady(){
-  BASE={};ZB={};SEL=null;BOOST=[];
+  ZB={};SEL=null;BOOST=[];
   injectTuneStyle();attachDrag();applyAll();
   var b=fbody();
   if(b)b.classList.toggle('tuning',tuneOn);
@@ -451,6 +448,7 @@ function refresh(){
     last=JSON.stringify(m);
     renderMenu(m);
     if(current){
+      var nd=m.demos.filter(function(x){return x.id===current.id})[0];if(nd)current=nd;
       var fr=document.getElementById('vframe');
       fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current){fr.srcdoc=applyGfx(html);watchDemo()}}).catch(function(){});
     }

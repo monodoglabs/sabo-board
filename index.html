@@ -7,27 +7,38 @@
 <style>
 @font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#14081F;min-height:100vh;font-family:'BM','Segoe Print','Comic Sans MS',cursive,sans-serif;color:#fff;padding:14px 16px 40px;padding-top:calc(14px + env(safe-area-inset-top,0px))}
-header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+body{background:#14081F;min-height:100vh;font-family:'BM','Segoe Print','Comic Sans MS',cursive,sans-serif;color:#fff;padding:14px 16px 90px;padding-top:calc(14px + env(safe-area-inset-top,0px))}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
 h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C}
 #status{font-size:12px;opacity:.75;letter-spacing:.5px}
 #refresh{margin-left:auto;background:#E8158C;color:#14081F;border:0;font-family:inherit;font-size:13px;letter-spacing:1px;padding:8px 16px;border-radius:9px;cursor:pointer;transform:rotate(-1.2deg);box-shadow:3px 3px 0 #000}
 #refresh:active{transform:rotate(-1.2deg) scale(.96)}
-#grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1500px}
-.card{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:14px;padding:10px}
-.chead{display:flex;align-items:center;gap:8px;margin:2px 2px 10px}
-.chead .nm{font-size:14px;letter-spacing:.8px}
+#menu{max-width:560px}
+.hint{font-size:11px;opacity:.55;margin-bottom:12px;letter-spacing:.5px}
+.menucard{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:14px;padding:18px;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;gap:12px;box-shadow:4px 4px 0 rgba(0,0,0,.45)}
+.menucard:active{transform:scale(.985)}
+.menucard .nm{font-size:16px;letter-spacing:.8px}
+.menucard .arrow{margin-left:auto;color:#9FE838;font-size:14px;letter-spacing:1px}
 .badge{font-size:11px;background:#00D4E8;color:#14081F;border-radius:7px;padding:3px 8px;transform:rotate(-2deg)}
-.age{margin-left:auto;font-size:10px;opacity:.55;letter-spacing:.5px}
-.phone{aspect-ratio:1080/2340;width:100%;background:#000;border-radius:24px;overflow:hidden;border:3px solid rgba(255,255,255,.14);box-shadow:0 8px 26px rgba(0,0,0,.5)}
-.phone iframe{width:100%;height:100%;border:0;background:#000}
-.fail{aspect-ratio:1080/2340;width:100%;border-radius:24px;background:#3a0d18;border:2px dashed #E8158C;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#ff9db4;padding:18px}
-.cfoot{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;opacity:.6}
-.cfoot a{color:#00D4E8;letter-spacing:.5px}
-.linkcard{display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:120px}
-.linkcard a{display:block;background:#9FE838;color:#14081F;text-decoration:none;text-align:center;font-size:15px;letter-spacing:1px;padding:16px;border-radius:10px;transform:rotate(-.6deg);box-shadow:4px 4px 0 #000}
-.linkcard p{font-size:11px;opacity:.6;text-align:center}
-footer{margin-top:20px;font-size:10px;opacity:.4;letter-spacing:.5px}
+.menucard.openlink{background:#1d0e38}
+.menucard.openlink .arrow{color:#00D4E8}
+#viewer{position:fixed;inset:0;background:#000;display:none;z-index:40}
+#viewer.on{display:block}
+#stage{position:absolute;background:#000;overflow:hidden}
+#stage iframe{position:absolute;inset:0;width:100%;height:100%;border:0;background:#000}
+#island{position:absolute;inset:0;pointer-events:none;display:none}
+#island.on{display:block}
+#island img{width:100%;height:100%;display:block}
+.iz{position:absolute;border:2px dashed rgba(255,65,161,.9);background:rgba(255,65,161,.13);border-radius:6px}
+.iz.pill{border-radius:999px;background:rgba(0,0,0,.55)}
+.iz.corner{background:transparent}
+.iz span{position:absolute;left:0;right:0;top:100%;margin-top:2px;text-align:center;font-family:'Segoe Print',cursive;font-size:9px;letter-spacing:.5px;color:#ff9db4;white-space:nowrap}
+.chip{position:fixed;z-index:60;background:rgba(20,8,31,.85);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:inherit;font-size:12px;letter-spacing:1px;padding:9px 14px;border-radius:10px;cursor:pointer;box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.chip:active{transform:scale(.95)}
+#backChip{left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));display:none}
+#islandChip{right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+#islandChip.off{opacity:.55}
+footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 </style>
 </head>
 <body>
@@ -36,49 +47,91 @@ footer{margin-top:20px;font-size:10px;opacity:.4;letter-spacing:.5px}
   <span id="status">booting…</span>
   <button id="refresh" onclick="reloadAll()">REFRESH ALL</button>
 </header>
-<div id="grid"></div>
-<footer>panels are live demos at iPhone-15 ratio (19.5:9) · board auto-polls the manifest every 60s · new builds appear without touching this window</footer>
+<div id="menu"></div>
+<div id="viewer"><div id="stage"><iframe id="vframe" title="screen"></iframe><div id="island"></div></div></div>
+<button class="chip" id="backChip" onclick="backToMenu()">◂ BOARD</button>
+<button class="chip" id="islandChip" onclick="toggleIsland()">ISLAND</button>
+<footer>tap a screen to open it fullscreen at true device scale · island overlay shows the real device no-go zones · board auto-polls the manifest every 60s</footer>
 <script>
 var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
-var last=null, timers=[];
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var last=null, current=null, overlayURL=null, islandOn=store.get('saboIsland')==='1';
+var timers=[];
 function status(t){document.getElementById('status').textContent=t}
 function clearTimers(){timers.forEach(clearInterval);timers=[]}
-function reloadAll(){if(last){status('refreshing…');render(last)}}
-function render(m){
-  clearTimers();
-  var g=document.getElementById('grid'); g.innerHTML='';
-  m.demos.forEach(function(d,i){
-    var c=document.createElement('div'); c.className='card';
-    if(d.kind==='link'){
-      c.innerHTML='<div class="linkcard"><span style="font-size:14px;letter-spacing:.8px">'+d.name+'</span><a href="'+d.url+'" target="_blank" rel="noopener">OPEN IN TAB →</a><p>every canon link lives here too</p></div>';
-      g.appendChild(c); return;
-    }
-    c.innerHTML='<div class="chead"><span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="age">loading…</span></div>'
-      +'<div class="phone"><iframe title="'+d.id+'"></iframe></div>'
-      +'<div class="cfoot"><span class="err"></span><a href="'+d.url+'" target="_blank" rel="noopener">open full-size ↗</a></div>';
-    g.appendChild(c);
-    var fr=c.querySelector('iframe'), age=c.querySelector('.age'), err=c.querySelector('.err');
-    var load=function(){
-      fetch(d.url).then(function(r){return r.text()}).then(function(html){
-        fr.srcdoc=html;
-        age.textContent='live '+new Date().toLocaleTimeString();
-        err.textContent='';
-      }).catch(function(e){
-        err.textContent='';
-        c.querySelector('.phone').innerHTML='<div class="fail">FETCH FAILED — demo unreachable:<br>'+(e&&e.message||e)+'</div>';
-        age.textContent='error';
-      });
-    };
-    load();
-    timers.push(setInterval(load,(m.refresh_seconds||60)*1000));
+function reloadAll(){if(last){status('refreshing…');renderMenu(last)}}
+function islandChip(){var c=document.getElementById('islandChip');c.textContent='ISLAND: '+(islandOn?'ON':'OFF');c.className='chip'+(islandOn?'':' off')}
+function toggleIsland(){islandOn=!islandOn;store.set('saboIsland',islandOn?'1':'0');islandChip();applyIsland()}
+function applyIsland(){var el=document.getElementById('island');el.className=islandOn?'on':''}
+function buildIsland(){
+  var el=document.getElementById('island');el.innerHTML='';
+  if(overlayURL){el.innerHTML='<img src="'+overlayURL+'" alt="island grid overlay">';return}
+  el.innerHTML=
+   '<div class="iz pill" style="left:34.1%;top:.45%;width:31.9%;height:4.4%"><span>THE ISLAND — NO INK</span></div>'
+  +'<div class="iz" style="left:9.5%;top:1.2%;width:17.5%;height:3%"><span>APPLE CLOCK</span></div>'
+  +'<div class="iz" style="left:81%;top:1.2%;width:15%;height:3%"><span>BATTERY</span></div>'
+  +'<div class="iz corner" style="left:0;top:0;width:14%;height:6.5%;border-top-color:transparent;border-left-color:transparent;border-radius:0 0 100% 0"></div>'
+  +'<div class="iz corner" style="right:0;top:0;width:14%;height:6.5%;border-top-color:transparent;border-right-color:transparent;border-radius:0 0 0 100%"></div>';
+}
+function fit(){
+  var vw=window.innerWidth,vh=window.innerHeight;
+  var s=Math.min(vw/1080,vh/2340);
+  var w=1080*s,h=2340*s;
+  var st=document.getElementById('stage');
+  st.style.width=w+'px';st.style.height=h+'px';
+  st.style.left=(vw-w)/2+'px';st.style.top=(vh-h)/2+'px';
+}
+window.addEventListener('resize',fit);
+function openViewer(d){
+  current=d;
+  var v=document.getElementById('viewer');v.className='on';
+  document.getElementById('backChip').style.display='block';
+  fit();
+  var fr=document.getElementById('vframe');
+  fr.srcdoc='<!DOCTYPE html><html><body style="background:#000;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading…</body></html>';
+  fetch(d.url).then(function(r){return r.text()}).then(function(html){
+    if(current===d)fr.srcdoc=html;
+  }).catch(function(e){
+    fr.srcdoc='<!DOCTYPE html><html><body style="background:#3a0d18;color:#ff9db4;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center;padding:20px">FETCH FAILED — screen unreachable:<br>'+(e&&e.message||e)+'</body></html>';
   });
+}
+function backToMenu(){
+  current=null;
+  document.getElementById('viewer').className='';
+  document.getElementById('backChip').style.display='none';
+}
+function renderMenu(m){
+  clearTimers();
+  overlayURL=m.overlay&&m.overlay.url||null;
+  buildIsland();islandChip();applyIsland();
+  var g=document.getElementById('menu');g.innerHTML='';
+  var hint=document.createElement('p');hint.className='hint';
+  hint.textContent='tap a screen — it opens FULLSCREEN at true device scale'+(overlayURL?' · island grid: your PNG':' · island overlay: built-in zones (your PNG can replace it)');
+  g.appendChild(hint);
+  m.demos.forEach(function(d){
+    var c=document.createElement('div');
+    if(d.kind==='link'){
+      c.className='menucard openlink';
+      c.innerHTML='<span class="nm">'+d.name+'</span><a class="arrow" style="text-decoration:none" href="'+d.url+'" target="_blank" rel="noopener">OPEN IN TAB →</a>';
+    }else{
+      c.className='menucard';
+      c.innerHTML='<span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="arrow">OPEN FULLSCREEN →</span>';
+      c.onclick=function(){openViewer(d)};
+    }
+    g.appendChild(c);
+  });
+  timers.push(setInterval(function(){
+    if(current){fetch(current.url).then(function(r){return r.text()}).then(function(html){var fr=document.getElementById('vframe');if(current&&fr.srcdoc!==html)fr.srcdoc=html}).catch(function(){})}
+  },(m.refresh_seconds||60)*1000));
 }
 function poll(){
   fetch(MAN).then(function(r){return r.json()}).then(function(m){
-    var sig=JSON.stringify(m);
-    if(sig!==last){last=sig;render(m);status('live · '+m.demos.filter(function(d){return d.kind==='demo'}).length+' panels · polls every 60s')}
+    last=JSON.stringify(m);
+    renderMenu(m);
+    status('live · '+m.demos.filter(function(d){return d.kind==='demo'}).length+' screens · island '+(islandOn?'ON':'OFF'));
   }).catch(function(){status('manifest unreachable — retrying…')});
 }
+fit();islandChip();applyIsland();buildIsland();
 poll();
 setInterval(poll,60000);
 </script>

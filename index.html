@@ -7,7 +7,7 @@
 <style>
 @font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#14081F;font-family:'BM','Segoe Print','Comic Sans MS',cursive,sans-serif;color:#fff;position:fixed;inset:0;height:100%;overflow:hidden;padding:14px 16px 90px;padding-top:calc(14px + env(safe-area-inset-top,0px))}
+body{background:#14081F;font-family:'BM','Segoe Print','Comic Sans MS',cursive,sans-serif;color:#fff;position:fixed;inset:0;height:100%;overflow:hidden;padding:14px 16px 14px;padding-top:calc(14px + env(safe-area-inset-top,0px))}
 header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:16px}
 h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C}
 #status{font-size:12px;opacity:.75;letter-spacing:.5px}
@@ -33,11 +33,34 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 .iz.pill{border-radius:999px;background:rgba(0,0,0,.55)}
 .iz.corner{background:transparent}
 .iz span{position:absolute;left:0;right:0;top:100%;margin-top:2px;text-align:center;font-family:'Segoe Print',cursive;font-size:9px;letter-spacing:.5px;color:#ff9db4;white-space:nowrap}
-.chip{position:fixed;z-index:60;background:rgba(20,8,31,.85);border:1px solid rgba(255,255,255,.28);color:#fff;font-family:inherit;font-size:12px;letter-spacing:1px;padding:9px 14px;border-radius:10px;cursor:pointer;box-shadow:2px 2px 0 rgba(0,0,0,.5)}
-.chip:active{transform:scale(.95)}
-#backChip{left:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px));display:none}
-#islandChip{right:10px;bottom:calc(10px + env(safe-area-inset-bottom,0px))}
+/* ---- control dock: OUTSIDE the stage, at the bottom ---- */
+#dock{display:none;position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(20,8,31,.97);border-top:2px solid #CCFF00;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));flex-direction:column;gap:8px}
+#viewer.on #dock{display:flex}
+.drow{display:flex;gap:8px;align-items:center}
+.dchip{flex:0 0 auto;background:#221040;border:1px solid rgba(255,255,255,.28);color:#fff;font-family:inherit;font-size:12px;letter-spacing:1px;padding:10px 14px;border-radius:10px;cursor:pointer;box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.dchip:active{transform:scale(.95)}
+#tuneChip.on{background:#ff00ff;border-color:#ff00ff;font-weight:700}
 #islandChip.off{opacity:.55}
+#tunerow{display:none}
+#tunerow.on{display:flex}
+#selrow{display:none;flex-wrap:wrap}
+#selrow.on{display:flex}
+#selrow .dchip{padding:8px 10px;font-size:11px}
+#selname{font:11px monospace;color:#00D4E8;letter-spacing:.5px;padding:2px 4px}
+#tpush{background:#CCFF00;color:#14081F;font-weight:700}
+#tstatus{flex:1;min-width:0;font:10px/1.3 monospace;color:#9FE838;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+/* ---- LIST menu: full-screen picker ---- */
+#listmenu{position:fixed;inset:0;background:#14081F;z-index:80;display:none;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px}
+#listmenu.on{display:flex}
+.lmhead{display:flex;align-items:center;gap:10px;margin-bottom:12px;max-width:560px}
+.lmhead h2{font-size:17px;letter-spacing:1px;color:#9FE838;text-shadow:1px 1px 0 #E8158C}
+#lmrows{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;max-width:560px}
+.lrow{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:3px 3px 0 rgba(0,0,0,.45)}
+.lrow:active{transform:scale(.985)}
+.lrow .did{font-size:15px;letter-spacing:.8px}
+.lrow .dd{margin-left:auto;font:11px monospace;color:#9FE838}
+.lrow.sel{background:#ff00ff;border-color:#ff00ff}
+.lrow.sel .did,.lrow.sel .dd{color:#14081F;font-weight:700}
 footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 </style>
 </head>
@@ -48,20 +71,46 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
   <button id="refresh" onclick="refresh()">REFRESH</button>
 </header>
 <div id="menu"></div>
-<div id="viewer"><div id="stage"><iframe id="vframe" title="screen"></iframe><div id="island"></div></div></div>
-<button class="chip" id="backChip" onclick="backToMenu()">◂ BOARD</button>
-<button class="chip" id="islandChip" onclick="toggleIsland()">ISLAND</button>
-<button class="chip" id="refChip" style="right:10px;bottom:calc(60px + env(safe-area-inset-bottom,0px));display:none" onclick="refresh()">↻ REFRESH</button>
-<footer>tap a screen to open it fullscreen at true device scale · island overlay shows the real device no-go zones · refresh is MANUAL — the board never reloads on its own, tap REFRESH (or ↻ in a screen) when you want the newest build</footer>
+<div id="viewer">
+  <div id="stage"><iframe id="vframe" title="screen"></iframe><div id="island"></div></div>
+  <div id="dock">
+    <div class="drow">
+      <button class="dchip" id="backChip" onclick="backToMenu()">◂ BOARD</button>
+      <button class="dchip" id="tuneChip" onclick="toggleTune()">TUNE</button>
+      <button class="dchip" id="islandChip" onclick="toggleIsland()">ISLAND</button>
+      <button class="dchip" id="refChip" onclick="refresh()">↻</button>
+    </div>
+    <div class="drow" id="tunerow">
+      <button class="dchip" id="tlistbtn" onclick="tapList()">LIST</button>
+      <button class="dchip" id="tpush" onclick="pushDeltas()">PUSH</button>
+      <button class="dchip" id="treset" onclick="resetDeltas()">RESET</button>
+      <span id="tstatus"></span>
+    </div>
+    <div class="drow" id="selrow">
+      <span id="selname"></span>
+      <button class="dchip" onclick="bumpS(-0.05)">SIZE −</button>
+      <button class="dchip" onclick="bumpS(0.05)">SIZE +</button>
+      <button class="dchip" onclick="bumpR(-5)">ROT −</button>
+      <button class="dchip" onclick="bumpR(5)">ROT +</button>
+      <button class="dchip" onclick="clearSel()">CLR</button>
+    </div>
+  </div>
+</div>
+<div id="listmenu">
+  <div class="lmhead"><h2>PICK ONE — ONLY IT MOVES</h2><button class="dchip" style="margin-left:auto" onclick="closeList()">✕ DONE</button></div>
+  <div id="lmrows"></div>
+</div>
+<footer>tap a screen — it opens at true device scale · all controls live OUTSIDE the screen in the dock · island overlay shows the real device no-go zones · refresh is MANUAL, tap REFRESH or ↻ when you want the newest build</footer>
 <script>
 var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
+var PUSH_URL='https://zevie-6b9784cf.base44.app/functions/saboSeatTuner';
 var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 var last=null, current=null, overlayURL=null, islandOn=store.get('saboIsland')==='1';
-var timers=[];
-function status(t){document.getElementById('status').textContent=t}
-function clearTimers(){timers.forEach(clearInterval);timers=[]}
 
-function islandChip(){var c=document.getElementById('islandChip');c.textContent='ISLAND: '+(islandOn?'ON':'OFF');c.className='chip'+(islandOn?'':' off')}
+function status(t){document.getElementById('status').textContent=t}
+
+/* ---------- island overlay ---------- */
+function islandChip(){var c=document.getElementById('islandChip');c.textContent='ISLAND: '+(islandOn?'ON':'OFF');c.className='dchip'+(islandOn?'':' off')}
 function toggleIsland(){islandOn=!islandOn;store.set('saboIsland',islandOn?'1':'0');islandChip();applyIsland()}
 function applyIsland(){var el=document.getElementById('island');el.className=islandOn?'on':''}
 function buildIsland(){
@@ -74,42 +123,213 @@ function buildIsland(){
   +'<div class="iz corner" style="left:0;top:0;width:14%;height:6.5%;border-top-color:transparent;border-left-color:transparent;border-radius:0 0 100% 0"></div>'
   +'<div class="iz corner" style="right:0;top:0;width:14%;height:6.5%;border-top-color:transparent;border-right-color:transparent;border-radius:0 0 0 100%"></div>';
 }
+
+/* ---------- stage fit: letterbox ABOVE the dock ---------- */
 function fit(){
   var vw=window.innerWidth,vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
-  var s=Math.min(vw/1080,vh/2340);
+  var dockH=0;
+  var dk=document.getElementById('dock');
+  var viewerOn=document.getElementById('viewer').className.indexOf('on')>=0;
+  if(viewerOn&&dk&&dk.offsetWidth)dockH=dk.offsetHeight;
+  var s=Math.min(vw/1080,Math.max(0,vh-dockH)/2340);
   var w=1080*s,h=2340*s;
   var st=document.getElementById('stage');
   st.style.width=w+'px';st.style.height=h+'px';
-  st.style.left=(vw-w)/2+'px';st.style.top=(vh-h)/2+'px';
+  st.style.left=(vw-w)/2+'px';
+  st.style.top=Math.max(0,(vh-dockH-h)/2)+'px';
 }
 window.addEventListener('resize',fit);
+
+/* ---------- tune engine (board-side, reaches INTO the srcdoc iframe — same origin) ---------- */
+var SCREENKEY={solo:'solo_choice',duo:'duo_choice',monitor:'monitor'};
+var EXCLUDE={app:1,wrap:1,bg:1,flash:1,shake:1,gate:1};
+var tuneOn=false, SEL=null, BOOST=[], D={}, BASE={}, drag=null;
+
+function fdoc(){try{return document.getElementById('vframe').contentDocument}catch(e){return null}}
+function fbody(){var d=fdoc();return d?d.body:null}
+function fapp(){var d=fdoc();return d?d.getElementById('app'):null}
+function tkey(){var k=current?current.id:'';if(SCREENKEY[k])k=SCREENKEY[k];return 'tuneseats_'+k}
+function tsave(){try{localStorage.setItem(tkey(),JSON.stringify(D))}catch(e){}}
+function tload(){try{D=JSON.parse(localStorage.getItem(tkey())||'{}')}catch(e){D={}}}
+function tscale(){var a=fapp();return (a&&a.getBoundingClientRect().width/1080)||1}
+function tstatus(t){document.getElementById('tstatus').textContent=t}
+function baseOf(el){var id=el.id;if(!(id in BASE)){var t=fdoc().defaultView.getComputedStyle(el).transform;BASE[id]=(t&&t!=='none')?t:'none'}return BASE[id]}
+function dval(id){var v=D[id];if(!v)v={};if(v.s===undefined)v.s=1;if(v.r===undefined)v.r=0;if(v.dx===undefined)v.dx=0;if(v.dy===undefined)v.dy=0;return v}
+function applyOne(id){var d=fdoc();var el=d&&d.getElementById(id);if(!el||!D[id])return;var b=baseOf(el);var v=dval(id);
+  var t=(b==='none'?'':b+' ')+'translate('+v.dx+'px,'+v.dy+'px)';
+  if(v.s!==1)t+=' scale('+v.s+')';
+  if(v.r)t+=' rotate('+v.r+'deg)';
+  el.style.setProperty('transform',t,'important');
+}
+function applyAll(){Object.keys(D).forEach(applyOne)}
+
+function injectTuneStyle(){var d=fdoc();if(!d)return;
+  var st=d.createElement('style');st.id='boardtune';
+  st.textContent='.tuning #app [id]{outline:2px dashed #CCFF00!important;outline-offset:-2px;cursor:grab!important;touch-action:none;user-select:none}'
+   +'.tuning #app [id].tsel{outline:3px solid #ff00ff!important;box-shadow:0 0 0 4px rgba(255,0,255,.35)!important}'
+   +'.tuning.selactive #app [id]:not(.tsel){outline:none!important}';
+  d.head.appendChild(st);
+}
+function attachDrag(){var d=fdoc();if(!d)return;
+  d.addEventListener('pointerdown',function(e){
+    if(!tuneOn)return;
+    var el,id;
+    if(SEL){id=SEL;el=d.getElementById(id);if(!el)return}
+    else{el=(e.target&&e.target.closest)?e.target.closest('#app [id]'):null;if(!el||EXCLUDE[el.id])return;id=el.id}
+    e.preventDefault();e.stopPropagation();
+    var v=dval(id);baseOf(el);
+    drag={el:el,id:id,bx:v.dx,by:v.dy,sx:e.clientX,sy:e.clientY};
+    try{el.setPointerCapture(e.pointerId)}catch(x){}
+  },true);
+  d.addEventListener('pointermove',function(e){
+    if(!drag)return;var s=tscale();
+    var v=dval(drag.id);
+    v.dx=Math.round(drag.bx+(e.clientX-drag.sx)/s);v.dy=Math.round(drag.by+(e.clientY-drag.sy)/s);
+    D[drag.id]=v;applyOne(drag.id);
+  },true);
+  var end=function(){if(drag){drag=null;tsave();selUI()}};
+  d.addEventListener('pointerup',end,true);
+  d.addEventListener('pointercancel',end,true);
+}
+function unselect(){var d=fdoc();if(SEL&&d){var p=d.getElementById(SEL);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index')}}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
+function selectEl(id){var d=fdoc();if(!d)return;
+  if(SEL===id){unselect();tstatus('released — direct drag active');return}
+  unselect();
+  SEL=id;var el=d.getElementById(id);
+  if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(id)}
+  var b=fbody();if(b)b.classList.add('selactive');
+  tstatus('moving ONLY '+id+' — drag anywhere · SIZE/ROT in dock');
+  selUI();
+}
+function selUI(){
+  var row=document.getElementById('selrow'),nm=document.getElementById('selname');
+  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=SEL+' · '+(v.s!==1?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+v.dx+','+v.dy}
+  else{row.className='drow';nm.textContent=''}
+  fit();
+}
+function toggleTune(){
+  tuneOn=!tuneOn;
+  var c=document.getElementById('tuneChip');c.className='dchip'+(tuneOn?' on':'');
+  document.getElementById('tunerow').className='drow'+(tuneOn?' on':'');
+  var b=fbody();if(b)b.classList.toggle('tuning',tuneOn);
+  if(!tuneOn){unselect();tstatus('')}
+  else{tstatus('drag dashed things · LIST picks hidden ones · PUSH sends to Nigella')}
+  selUI();
+}
+
+/* ---------- size + rotation steppers ---------- */
+function bumpS(v){
+  if(!SEL){tstatus('pick something from LIST first');return}
+  var d2=dval(SEL);d2.s=Math.round((d2.s+v)*1000)/1000;
+  if(d2.s<0.2)d2.s=0.2;if(d2.s>3)d2.s=3;
+  D[SEL]=d2;applyOne(SEL);tsave();selUI();
+}
+function bumpR(v){
+  if(!SEL){tstatus('pick something from LIST first');return}
+  var d2=dval(SEL);d2.r=(d2.r||0)+v;
+  D[SEL]=d2;applyOne(SEL);tsave();selUI();
+}
+function clearSel(){
+  if(!SEL){tstatus('nothing picked');return}
+  var d=fdoc();var el=d&&d.getElementById(SEL);
+  if(el){el.style.removeProperty('transform')}
+  if(SEL in BASE)delete BASE[SEL];
+  delete D[SEL];tsave();selUI();
+  tstatus(SEL+' back to canon');
+}
+
+/* ---------- LIST menu ---------- */
+function closeList(){document.getElementById('listmenu').className=''}
+function tapList(){
+  var lm=document.getElementById('listmenu');
+  if(lm.className==='on'){closeList();return}
+  var d=fdoc();var app=fapp();
+  if(!d||!app){tstatus('screen still loading…');return}
+  var seen={},ids=[];
+  app.querySelectorAll('[id]').forEach(function(el){if(!EXCLUDE[el.id]&&!seen[el.id]){seen[el.id]=1;ids.push(el.id)}});
+  var rows=document.getElementById('lmrows');rows.innerHTML='';
+  ids.forEach(function(id){
+    var r=document.createElement('div');r.className='lrow'+(SEL===id?' sel':'');
+    var v=D[id];
+    var dd=v?((v.s!==undefined&&v.s!==1)?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+((v.dx>=0?'+':'')+v.dx+','+(v.dy>=0?'+':'')+v.dy):'·';
+    r.innerHTML='<span class="did">'+id+'</span><span class="dd">'+dd+'</span>';
+    r.onclick=function(){
+      if(SEL===id){selectEl(id);tapList();return}
+      selectEl(id);closeList();
+    };
+    rows.appendChild(r);
+  });
+  lm.className='on';
+}
+
+/* ---------- PUSH / RESET ---------- */
+function pushDeltas(){
+  if(!current){tstatus('open a screen first');return}
+  var sc=SCREENKEY[current.id]||current.id;
+  var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r}})};
+  if(!payload.deltas.length){tstatus('nothing to push yet');return}
+  tstatus('sending…');
+  fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+    .then(function(r){return r.json()})
+    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL':'server said no — try again')})
+    .catch(function(){tstatus('offline — retry when back online')});
+}
+function resetDeltas(){
+  var d=fdoc();
+  Object.keys(D).forEach(function(id){var el=d&&d.getElementById(id);if(el){delete BASE[id];el.style.removeProperty('transform')}});
+  BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
+  BOOST=[];unselect();D={};tsave();tstatus('back to canon seats');
+}
+
+/* ---------- demo load + readiness ---------- */
+var loadTimer=null;
+function watchDemo(){
+  if(loadTimer)clearInterval(loadTimer);
+  var tries=0;
+  loadTimer=setInterval(function(){
+    var d=fdoc();
+    if(d&&d.readyState==='complete'&&fapp()){clearInterval(loadTimer);loadTimer=null;onDemoReady()}
+    else if(++tries>60){clearInterval(loadTimer);loadTimer=null}
+  },100);
+}
+function onDemoReady(){
+  BASE={};SEL=null;BOOST=[];
+  injectTuneStyle();attachDrag();applyAll();
+  var b=fbody();
+  if(b)b.classList.toggle('tuning',tuneOn);
+  selUI();
+  if(tuneOn)tstatus('tune live — drag dashed things');
+  else if(Object.keys(D).length)status('stored tune deltas applied · '+Object.keys(D).length+' moved');
+}
+
+/* ---------- viewer ---------- */
 function openViewer(d){
   current=d;
-  var v=document.getElementById('viewer');v.className='on';
-  document.getElementById('backChip').style.display='block';
-  document.getElementById('refChip').style.display='block';
+  tload();
+  document.getElementById('viewer').className='on';
   fit();
   var fr=document.getElementById('vframe');
   fr.srcdoc='<!DOCTYPE html><html><body style="background:#000;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading…</body></html>';
   fetch(d.url).then(function(r){return r.text()}).then(function(html){
-    if(current===d)fr.srcdoc=html;
+    if(current===d){fr.srcdoc=html;watchDemo()}
   }).catch(function(e){
     fr.srcdoc='<!DOCTYPE html><html><body style="background:#3a0d18;color:#ff9db4;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center;padding:20px">FETCH FAILED — screen unreachable:<br>'+(e&&e.message||e)+'</body></html>';
   });
 }
 function backToMenu(){
+  tsave();
   current=null;
   document.getElementById('viewer').className='';
-  document.getElementById('backChip').style.display='none';
-  document.getElementById('refChip').style.display='none';
+  closeList();
 }
+
+/* ---------- menu + manifest (MANUAL refresh only) ---------- */
 function renderMenu(m){
-  clearTimers();
   overlayURL=m.overlay&&m.overlay.url||null;
   buildIsland();islandChip();applyIsland();
   var g=document.getElementById('menu');g.innerHTML='';
   var hint=document.createElement('p');hint.className='hint';
-  hint.textContent='tap a screen — it opens FULLSCREEN at true device scale'+(overlayURL?' · island grid: your PNG':' · island overlay: built-in zones (your PNG can replace it)');
+  hint.textContent='tap a screen — controls + tune live in the dock OUTSIDE the screen'+(overlayURL?' · island grid: your PNG':' · island overlay: built-in zones');
   g.appendChild(hint);
   m.demos.forEach(function(d){
     var c=document.createElement('div');
@@ -118,7 +338,7 @@ function renderMenu(m){
       c.innerHTML='<span class="nm">'+d.name+'</span><a class="arrow" style="text-decoration:none" href="'+d.url+'" target="_blank" rel="noopener">OPEN IN TAB →</a>';
     }else{
       c.className='menucard';
-      c.innerHTML='<span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="arrow">OPEN FULLSCREEN →</span>';
+      c.innerHTML='<span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="arrow">OPEN →</span>';
       c.onclick=function(){openViewer(d)};
     }
     g.appendChild(c);
@@ -131,11 +351,15 @@ function refresh(){
     renderMenu(m);
     if(current){
       var fr=document.getElementById('vframe');
-      fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current)fr.srcdoc=html}).catch(function(){});
+      fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current){fr.srcdoc=html;watchDemo()}}).catch(function(){});
     }
     status('build v'+m.board_version+' · manual — tap REFRESH for newest');
   }).catch(function(){status('manifest unreachable — tap REFRESH')});
 }
+
+/* keep deltas alive against demo re-animating elements */
+setInterval(function(){if(current&&Object.keys(D).length)applyAll()},700);
+
 fit();islandChip();applyIsland();buildIsland();
 refresh();
 </script>

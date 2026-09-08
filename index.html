@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SABOTASK — BUILD BOARD</title>
+<style>
+@font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#14081F;min-height:100vh;font-family:'BM','Segoe Print','Comic Sans MS',cursive,sans-serif;color:#fff;padding:14px 16px 40px}
+header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C}
+#status{font-size:12px;opacity:.75;letter-spacing:.5px}
+#refresh{margin-left:auto;background:#E8158C;color:#14081F;border:0;font-family:inherit;font-size:13px;letter-spacing:1px;padding:8px 16px;border-radius:9px;cursor:pointer;transform:rotate(-1.2deg);box-shadow:3px 3px 0 #000}
+#refresh:active{transform:rotate(-1.2deg) scale(.96)}
+#grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;max-width:1500px}
+.card{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:14px;padding:10px}
+.chead{display:flex;align-items:center;gap:8px;margin:2px 2px 10px}
+.chead .nm{font-size:14px;letter-spacing:.8px}
+.badge{font-size:11px;background:#00D4E8;color:#14081F;border-radius:7px;padding:3px 8px;transform:rotate(-2deg)}
+.age{margin-left:auto;font-size:10px;opacity:.55;letter-spacing:.5px}
+.phone{aspect-ratio:1080/2340;width:100%;background:#000;border-radius:24px;overflow:hidden;border:3px solid rgba(255,255,255,.14);box-shadow:0 8px 26px rgba(0,0,0,.5)}
+.phone iframe{width:100%;height:100%;border:0;background:#000}
+.fail{aspect-ratio:1080/2340;width:100%;border-radius:24px;background:#3a0d18;border:2px dashed #E8158C;display:flex;align-items:center;justify-content:center;text-align:center;font-size:13px;color:#ff9db4;padding:18px}
+.cfoot{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;opacity:.6}
+.cfoot a{color:#00D4E8;letter-spacing:.5px}
+.linkcard{display:flex;flex-direction:column;justify-content:center;gap:10px;min-height:120px}
+.linkcard a{display:block;background:#9FE838;color:#14081F;text-decoration:none;text-align:center;font-size:15px;letter-spacing:1px;padding:16px;border-radius:10px;transform:rotate(-.6deg);box-shadow:4px 4px 0 #000}
+.linkcard p{font-size:11px;opacity:.6;text-align:center}
+footer{margin-top:20px;font-size:10px;opacity:.4;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<header>
+  <h1>SABOTASK BUILD BOARD</h1>
+  <span id="status">booting…</span>
+  <button id="refresh" onclick="reloadAll()">REFRESH ALL</button>
+</header>
+<div id="grid"></div>
+<footer>panels are live demos at iPhone-15 ratio (19.5:9) · board auto-polls the manifest every 60s · new builds appear without touching this window</footer>
+<script>
+var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
+var last=null, timers=[];
+function status(t){document.getElementById('status').textContent=t}
+function clearTimers(){timers.forEach(clearInterval);timers=[]}
+function reloadAll(){if(last){status('refreshing…');render(last)}}
+function render(m){
+  clearTimers();
+  var g=document.getElementById('grid'); g.innerHTML='';
+  m.demos.forEach(function(d,i){
+    var c=document.createElement('div'); c.className='card';
+    if(d.kind==='link'){
+      c.innerHTML='<div class="linkcard"><span style="font-size:14px;letter-spacing:.8px">'+d.name+'</span><a href="'+d.url+'" target="_blank" rel="noopener">OPEN IN TAB →</a><p>every canon link lives here too</p></div>';
+      g.appendChild(c); return;
+    }
+    c.innerHTML='<div class="chead"><span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="age">loading…</span></div>'
+      +'<div class="phone"><iframe title="'+d.id+'"></iframe></div>'
+      +'<div class="cfoot"><span class="err"></span><a href="'+d.url+'" target="_blank" rel="noopener">open full-size ↗</a></div>';
+    g.appendChild(c);
+    var fr=c.querySelector('iframe'), age=c.querySelector('.age'), err=c.querySelector('.err');
+    var load=function(){
+      fetch(d.url).then(function(r){return r.text()}).then(function(html){
+        fr.srcdoc=html;
+        age.textContent='live '+new Date().toLocaleTimeString();
+        err.textContent='';
+      }).catch(function(e){
+        err.textContent='';
+        c.querySelector('.phone').innerHTML='<div class="fail">FETCH FAILED — demo unreachable:<br>'+(e&&e.message||e)+'</div>';
+        age.textContent='error';
+      });
+    };
+    load();
+    timers.push(setInterval(load,(m.refresh_seconds||60)*1000));
+  });
+}
+function poll(){
+  fetch(MAN).then(function(r){return r.json()}).then(function(m){
+    var sig=JSON.stringify(m);
+    if(sig!==last){last=sig;render(m);status('live · '+m.demos.filter(function(d){return d.kind==='demo'}).length+' panels · polls every 60s')}
+  }).catch(function(){status('manifest unreachable — retrying…')});
+}
+poll();
+setInterval(poll,60000);
+</script>
+</body>
+</html>

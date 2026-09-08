@@ -501,12 +501,40 @@ function delLib(i){var a=lload();a.splice(i,1);lsave(a);drawGfx();sheetClose()}
 function pickAdd(){gmode={type:'lib'};document.getElementById('gfile').click()}
 document.getElementById('gfile').addEventListener('change',function(){
  var f=this.files[0];this.value='';if(!f||!gmode)return;
- var r=new FileReader();
  var mode=gmode;gmode=null;
+ var r=new FileReader();
  r.onload=function(){
   var d=String(r.result);
-  if(mode.type==='slot'){var a=AST[mode.i];var o=gload();o[a.file]=d;store.set('saboGfx',JSON.stringify(o));drawGfx();openSlot(mode.i);gstat('swapped — open the screen (or tap ↻) to see it live')}
-  else{var arr=lload();arr.push({id:Date.now(),name:f.name.slice(0,24),data:d,to:null});lsave(arr);drawGfx();sheetClose();gstat('added to staging')}
+  var im=new Image();
+  im.onload=function(){
+   var t=(f.type||'').toLowerCase();
+   var safe=(t.indexOf('png')>=0||t.indexOf('jpeg')>=0||t.indexOf('gif')>=0||t.indexOf('webp')>=0||d.slice(0,30).match(/data:image\/(png|jpeg|gif|webp)/));
+   if(safe){land(d,'')}
+   else{ /* weird format (HEIC etc) — try canvas re-encode to PNG */
+    try{
+     var mx=3000,sc=Math.min(1,mx/Math.max(im.width,im.height));
+     var cv=document.createElement('canvas');
+     cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);
+     cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+     var cvd=cv.toDataURL('image/png');
+     if(cvd&&cvd.length>100){land(cvd,' — converted to PNG')}else{bad()}
+    }catch(e){bad()}
+   }
+  };
+  im.onerror=function(){bad()};
+  im.src=d;
+  function bad(){gstat("CAN'T SHOW THAT FILE — export as PNG or JPG and pick again");if(mode.type==='slot')openSlot(mode.i)}
+  function land(d2,note){
+   if(mode.type==='slot'){
+    var a=AST[mode.i];var o=gload();o[a.file]=d2;
+    try{store.set('saboGfx',JSON.stringify(o))}catch(e){gstat('PHONE STORAGE FULL — revert a slot or SHIP + clear');return}
+    drawGfx();openSlot(mode.i);gstat('swapped'+note+' — open the screen (or tap ↻) to see it live')
+   }else{
+    var arr=lload();arr.push({id:Date.now(),name:f.name.slice(0,24),data:d2,to:null});
+    try{lsave(arr)}catch(e){gstat('PHONE STORAGE FULL — delete a staging item first');return}
+    drawGfx();sheetClose();gstat('added to staging'+note)
+   }
+  }
  };
  r.readAsDataURL(f);
 });

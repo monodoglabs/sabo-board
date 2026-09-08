@@ -115,6 +115,7 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
       <button class="dchip" id="tlistbtn" onclick="tapList()">LIST</button>
       <button class="dchip" id="tpush" onclick="pushDeltas()">PUSH</button>
       <button class="dchip" id="treset" onclick="resetDeltas()">RESET</button>
+      <button class="dchip" id="tundo" onclick="undoDeltas()">UNDO</button>
       <span id="tstatus"></span>
     </div>
     <div class="drow" id="selrow">
@@ -368,10 +369,21 @@ function pushDeltas(){
     .catch(function(){tstatus('offline — payload copied, paste it to Nigella in chat')});
 }
 function resetDeltas(){
+  var n=Object.keys(D).length;
+  if(current&&n){try{localStorage.setItem(tkey().replace('tuneseats_','tuneseats_bak_'),JSON.stringify(D))}catch(x){}}
   var d=fdoc();
   Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}})});
   BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
-  BOOST=[];unselect();D={};tsave();tstatus('back to canon seats');
+  BOOST=[];unselect();D={};tsave();
+  tstatus(n?('wiped '+n+' seat(s) — UNDO brings them back'):'nothing stored — already canon');
+}
+function undoDeltas(){
+  if(!current){tstatus('open a screen first');return}
+  var k=tkey().replace('tuneseats_','tuneseats_bak_');
+  var bak=null;try{bak=JSON.parse(localStorage.getItem(k)||'null')}catch(x){}
+  if(!bak||!Object.keys(bak).length){tstatus('nothing to undo');return}
+  D=bak;try{localStorage.removeItem(k)}catch(x){};tsave();applyAll();
+  tstatus('restored '+Object.keys(D).length+' seat(s)');
 }
 
 /* ---------- demo load + readiness ---------- */

@@ -361,21 +361,25 @@ function pushDeltas(){
   var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r,z:v.z}})};
   if(!payload.deltas.length){tstatus('nothing to push yet');return}
   var txt=JSON.stringify(payload);
+  try{localStorage.setItem(tkey().replace('tuneseats_','tuneseats_push_'),JSON.stringify(D))}catch(x){}
   try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt)}catch(x){}
   tstatus('sending…');
   fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:txt})
     .then(function(r){return r.json()})
-    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL':'server hiccup — payload copied, paste it to Nigella in chat')})
+    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL · RESET now returns here':'server hiccup — payload copied, paste it to Nigella in chat')})
     .catch(function(){tstatus('offline — payload copied, paste it to Nigella in chat')});
 }
 function resetDeltas(){
   var n=Object.keys(D).length;
+  var snap=null;
+  if(current){try{snap=JSON.parse(localStorage.getItem(tkey().replace('tuneseats_','tuneseats_push_'))||'null')}catch(x){}}
   if(current&&n){try{localStorage.setItem(tkey().replace('tuneseats_','tuneseats_bak_'),JSON.stringify(D))}catch(x){}}
   var d=fdoc();
   Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}})});
   BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
-  BOOST=[];unselect();D={};tsave();
-  tstatus(n?('wiped '+n+' seat(s) — UNDO brings them back'):'nothing stored — already canon');
+  BOOST=[];unselect();
+  if(snap&&Object.keys(snap).length){D=snap;tsave();applyAll();tstatus('back to your last PUSH · '+Object.keys(D).length+' seat(s) — UNDO restores what you had')}
+  else{D={};tsave();tstatus(n?('wiped '+n+' seat(s) — no PUSH on record for this screen — UNDO brings them back'):'nothing stored — already canon')}
 }
 function undoDeltas(){
   if(!current){tstatus('open a screen first');return}

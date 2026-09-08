@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SABOTASK — BUILD BOARD</title>
 <style>
 @font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
@@ -13,7 +13,7 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 #status{font-size:12px;opacity:.75;letter-spacing:.5px}
 #refresh{margin-left:auto;background:#E8158C;color:#14081F;border:0;font-family:inherit;font-size:13px;letter-spacing:1px;padding:8px 16px;border-radius:9px;cursor:pointer;transform:rotate(-1.2deg);box-shadow:3px 3px 0 #000}
 #refresh:active{transform:rotate(-1.2deg) scale(.96)}
-#menu{max-width:560px}
+#menu{max-width:560px;height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .hint{font-size:11px;opacity:.55;margin-bottom:12px;letter-spacing:.5px}
 .menucard{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:14px;padding:18px;margin-bottom:14px;cursor:pointer;display:flex;align-items:center;gap:12px;box-shadow:4px 4px 0 rgba(0,0,0,.45)}
 .menucard:active{transform:scale(.985)}
@@ -74,7 +74,7 @@ function buildIsland(){
   +'<div class="iz corner" style="right:0;top:0;width:14%;height:6.5%;border-top-color:transparent;border-right-color:transparent;border-radius:0 0 0 100%"></div>';
 }
 function fit(){
-  var vw=window.innerWidth,vh=window.innerHeight;
+  var vw=window.innerWidth,vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
   var s=Math.min(vw/1080,vh/2340);
   var w=1080*s,h=2340*s;
   var st=document.getElementById('stage');

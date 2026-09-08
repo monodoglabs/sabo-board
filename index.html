@@ -96,8 +96,8 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
       <span id="selname"></span>
       <button class="dchip" onclick="bumpS(-0.05)">SIZE −</button>
       <button class="dchip" onclick="bumpS(0.05)">SIZE +</button>
-      <button class="dchip" onclick="bumpR(-5)">ROT −</button>
-      <button class="dchip" onclick="bumpR(5)">ROT +</button>
+      <button class="dchip" onclick="bumpR(-1)">ROT −</button>
+      <button class="dchip" onclick="bumpR(1)">ROT +</button>
       <button class="dchip" onclick="bumpZ(1)">▲ FWD</button>
       <button class="dchip" onclick="bumpZ(-1)">▼ BACK</button>
       <button class="dchip" onclick="clearSel()">CLR</button>
@@ -212,6 +212,7 @@ function attachDrag(){var d=fdoc();if(!d)return;
   var end=function(){if(drag){drag=null;tsave();selUI()}};
   d.addEventListener('pointerup',end,true);
   d.addEventListener('pointercancel',end,true);
+  d.addEventListener('click',function(e){if(tuneOn){e.preventDefault();e.stopPropagation()}},true);
 }
 function unselect(){var d=fdoc();var was=SEL;if(was&&d){memberIds(was).forEach(function(one){var p=d.getElementById(one);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index');if(was===KIT_ID){p.style.removeProperty('translate');p.style.removeProperty('scale');p.style.removeProperty('rotate')}}});if(D[was])applyOne(was)}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
 function selectEl(id){var d=fdoc();if(!d)return;

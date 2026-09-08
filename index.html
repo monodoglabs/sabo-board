@@ -67,6 +67,31 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 .lrow.kit.sel{background:#ff00ff;border-color:#ff00ff}
 .lrow.kit.sel .did{color:#14081F}
 .lrow.part{opacity:.55}
+/* ---------- graphics manager ---------- */
+#gfx{display:none;position:fixed;inset:0;background:#14081F;z-index:60;flex-direction:column;padding:10px 12px 14px}
+#gfx.on{display:flex}
+.gtop{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex:0 0 auto}
+.gtop h2{font-size:14px;letter-spacing:.5px;color:#9FE838;text-shadow:1px 1px 0 #E8158C;margin:0}
+#gstat{font:10px monospace;color:#9FE838;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40%}
+#gscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.gsec{font-size:11px;letter-spacing:1px;color:#00D4E8;margin:10px 0 6px}
+.ggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.gcell{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:10px;padding:6px;cursor:pointer;position:relative;box-shadow:2px 2px 0 rgba(0,0,0,.45)}
+.gcell:active{transform:scale(.95)}
+.gcell img{width:100%;height:74px;object-fit:contain;display:block;background:rgba(0,0,0,.25);border-radius:6px}
+.gcell .gl{font-size:10px;letter-spacing:.5px;margin-top:5px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcell .gu{font-size:9px;color:#8f8fa3;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gcell .dot{position:absolute;top:5px;right:5px;width:10px;height:10px;border-radius:50%;background:#E8158C;box-shadow:0 0 0 2px #14081F}
+.gcell.lib{border-color:#00D4E8}
+.gcell.lib .gl{color:#00D4E8}
+.gadd{display:block;width:100%;margin:10px 0 4px;background:#123c4a;border:2px dashed #00D4E8;color:#00D4E8;font-family:inherit;font-size:12px;letter-spacing:1px;padding:12px;border-radius:10px;cursor:pointer}
+#gsheet{display:none;position:fixed;left:0;right:0;bottom:0;max-height:80%;background:#221040;border-top:3px solid #E8158C;border-radius:16px 16px 0 0;z-index:70;padding:14px;flex-direction:column;gap:10px}
+#gsheet.on{display:flex;overflow-y:auto}
+#gsheet img.big{max-height:32vh;max-width:100%;object-fit:contain;display:block;margin:0 auto;background:rgba(0,0,0,.3);border-radius:8px}
+#gsheet .gname{font-size:14px;letter-spacing:.5px;text-align:center;color:#9FE838}
+#gsheet .gsub{font-size:10px;color:#8f8fa3;text-align:center}
+#gsheet .grow2{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+#gsheet #lmrows{width:100%}
 footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 </style>
 </head>
@@ -108,6 +133,18 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
   <div class="lmhead"><h2>PICK ONE</h2><button class="dchip" style="margin-left:auto" onclick="closeList()">✕ DONE</button></div>
   <div id="lmrows"></div>
 </div>
+<div id="gfx">
+ <div class="gtop"><button class="dchip" onclick="hideGfx()">◂ BOARD</button><h2>GRAPHICS</h2><span id="gstat"></span><button class="dchip" onclick="shipGfx()">SHIP</button></div>
+ <div id="gscroll">
+  <div class="gsec">WIRED SLOTS — tap a card to swap its art</div>
+  <div class="ggrid" id="ggrid"></div>
+  <div class="gsec">MY STAGING — new art, not wired yet</div>
+  <div class="ggrid" id="glib"></div>
+  <button class="gadd" onclick="pickAdd()">＋ ADD NEW ART</button>
+ </div>
+</div>
+<div id="gsheet"></div>
+<input type="file" id="gfile" accept="image/*" style="display:none">
 <footer>tap a screen — it opens at true device scale · all controls live OUTSIDE the screen in the dock · island overlay shows the real device no-go zones · refresh is MANUAL, tap REFRESH or ↻ when you want the newest build</footer>
 <script>
 var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
@@ -359,7 +396,7 @@ function openViewer(d){
   var fr=document.getElementById('vframe');
   fr.srcdoc='<!DOCTYPE html><html><body style="background:#000;color:#fff;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0">loading…</body></html>';
   fetch(d.url).then(function(r){return r.text()}).then(function(html){
-    if(current===d){fr.srcdoc=html;watchDemo()}
+    if(current===d){fr.srcdoc=applyGfx(html);watchDemo()}
   }).catch(function(e){
     fr.srcdoc='<!DOCTYPE html><html><body style="background:#3a0d18;color:#ff9db4;font-family:sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;text-align:center;padding:20px">FETCH FAILED — screen unreachable:<br>'+(e&&e.message||e)+'</body></html>';
   });
@@ -391,6 +428,11 @@ function renderMenu(m){
     }
     g.appendChild(c);
   });
+  if(m.assets){AST=m.assets;
+    var gc=document.createElement('div');gc.className='menucard';
+    gc.innerHTML='<span class="nm">GRAPHICS MANAGER</span><span class="badge">'+m.assets.length+' SLOTS</span><span class="arrow">OPEN →</span>';
+    gc.onclick=showGfx;g.appendChild(gc);
+  }
 }
 function refresh(){
   status('refreshing…');
@@ -399,11 +441,94 @@ function refresh(){
     renderMenu(m);
     if(current){
       var fr=document.getElementById('vframe');
-      fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current){fr.srcdoc=html;watchDemo()}}).catch(function(){});
+      fetch(current.url).then(function(r){return r.text()}).then(function(html){if(current){fr.srcdoc=applyGfx(html);watchDemo()}}).catch(function(){});
     }
     status('build v'+m.board_version+' · manual — tap REFRESH for newest');
   }).catch(function(){status('manifest unreachable — tap REFRESH')});
 }
+
+/* ---------- graphics manager ---------- */
+var GFX_URL='https://zevie-6b9784cf.base44.app/functions/saboAssetDrop';
+var AST=null, GFXOV=null, gmode=null;
+function gload(){var o={};try{o=JSON.parse(store.get('saboGfx')||'{}')}catch(e){} if(GFXOV)for(var k in GFXOV)o[k]=GFXOV[k]; return o}
+function lload(){try{return JSON.parse(store.get('saboGfxLib')||'[]')}catch(e){return[]}}
+function gsave(o){store.set('saboGfx',JSON.stringify(o));try{if(JSON.parse(store.get('saboGfx')||'{}').length===undefined&&store.get('saboGfx')!==JSON.stringify(o)){gstat('STORAGE FULL — revert a slot or SHIP + clear')}}catch(e){}}
+function lsave(a){store.set('saboGfxLib',JSON.stringify(a))}
+function gstat(t){var e=document.getElementById('gstat');if(e)e.textContent=t;status(t)}
+function applyGfx(html){var ov=gload();for(var k in ov){if(ov[k])html=html.split(k).join(ov[k])}return html}
+function showGfx(){document.getElementById('gfx').className='on';drawGfx()}
+function hideGfx(){document.getElementById('gsheet').className='';document.getElementById('gfx').className=''}
+function slotLabel(file){for(var i=0;i<(AST||[]).length;i++){if(AST[i].file===file)return AST[i].label}return file}
+function drawGfx(){
+ var ov=gload();
+ var gr=document.getElementById('ggrid');gr.innerHTML='';
+ (AST||[]).forEach(function(a,i){
+  var c=document.createElement('div');c.className='gcell';
+  c.innerHTML='<img src="'+(ov[a.file]||a.url)+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>'+(ov[a.file]?'<div class="dot"></div>':'');
+  c.onclick=function(){openSlot(i)};gr.appendChild(c);
+ });
+ var lb=document.getElementById('glib');lb.innerHTML='';
+ lload().forEach(function(it,i){
+  var c=document.createElement('div');c.className='gcell lib';
+  c.innerHTML='<img src="'+it.data+'" alt=""><div class="gl">'+(it.name||'art')+'</div><div class="gu">'+(it.to?('→ '+slotLabel(it.to)):'unassigned')+'</div>';
+  c.onclick=function(){openLib(i)};lb.appendChild(c);
+ });
+}
+function sheetClose(){document.getElementById('gsheet').className=''}
+function openSlot(i){var a=AST[i];var ov=gload()[a.file];
+ var sh=document.getElementById('gsheet');
+ sh.innerHTML='<img class="big" src="'+(ov||a.url)+'" alt=""><div class="gname">'+a.label+'</div><div class="gsub">'+a.use+' · '+(ov?'OVERRIDE LIVE — screens show YOUR art':'canon art')+'</div>'
+ +'<div class="grow2"><button class="dchip" onclick="gmode={type:\'slot\',i:'+i+'};document.getElementById(\'gfile\').click()">REPLACE</button>'
+ +(ov?'<button class="dchip" onclick="revertSlot('+i+')">REVERT</button>':'')
+ +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ sh.className='on';
+}
+function revertSlot(i){var a=AST[i];var o=gload();delete o[a.file];store.set('saboGfx',JSON.stringify(o));drawGfx();openSlot(i);gstat('reverted to canon')}
+function openLib(i){var it=lload()[i];
+ var sh=document.getElementById('gsheet');
+ sh.innerHTML='<img class="big" src="'+it.data+'" alt=""><div class="gname">'+(it.name||'art')+'</div><div class="gsub">'+(it.to?('assigned → '+slotLabel(it.to)):'not assigned to a slot yet — ASSIGN tells Nigella where it goes')+'</div>'
+ +'<div class="grow2"><button class="dchip" onclick="assignLib('+i+')">ASSIGN TO SLOT</button><button class="dchip" onclick="delLib('+i+')">DELETE</button><button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ sh.className='on';
+}
+function assignLib(i){
+ var sh=document.getElementById('gsheet');
+ var rows=(AST||[]).map(function(a,j){return '<div class="lrow" onclick="doAssign('+i+','+j+')"><span class="did">'+a.label+'</span><span class="dd">'+a.use+'</span></div>'}).join('');
+ sh.innerHTML='<div class="lmhead"><h2>ASSIGN TO SLOT</h2><button class="dchip" style="margin-left:auto" onclick="openLib('+i+')">✕ BACK</button></div><div id="lmrows">'+rows+'</div>';
+ sh.className='on';
+}
+function doAssign(i,j){var a=lload();a[i].to=AST[j].file;lsave(a);drawGfx();openLib(i);gstat('assigned to '+AST[j].label)}
+function delLib(i){var a=lload();a.splice(i,1);lsave(a);drawGfx();sheetClose()}
+function pickAdd(){gmode={type:'lib'};document.getElementById('gfile').click()}
+document.getElementById('gfile').addEventListener('change',function(){
+ var f=this.files[0];this.value='';if(!f||!gmode)return;
+ var r=new FileReader();
+ var mode=gmode;gmode=null;
+ r.onload=function(){
+  var d=String(r.result);
+  if(mode.type==='slot'){var a=AST[mode.i];var o=gload();o[a.file]=d;store.set('saboGfx',JSON.stringify(o));drawGfx();openSlot(mode.i);gstat('swapped — open the screen (or tap ↻) to see it live')}
+  else{var arr=lload();arr.push({id:Date.now(),name:f.name.slice(0,24),data:d,to:null});lsave(arr);drawGfx();sheetClose();gstat('added to staging')}
+ };
+ r.readAsDataURL(f);
+});
+function shipGfx(){
+ var ov=gload(),lb=lload(),jobs=[];
+ Object.keys(ov).forEach(function(k){jobs.push({kind:'slot',file:k,data:ov[k]})});
+ lb.forEach(function(it){jobs.push({kind:'lib',name:it.name,to:it.to,data:it.data})});
+ if(!jobs.length){gstat('nothing to ship — swap or add art first');return}
+ gstat('shipping '+jobs.length+' asset(s)…');
+ var i=0,ok=0,fail=0;
+ function step(){
+  if(i>=jobs.length){gstat(fail?('SENT '+ok+'/'+jobs.length+' — '+fail+' failed, try again'):'SENT '+ok+' — tell Nigella to PULL');return}
+  var j=jobs[i];i++;
+  fetch(GFX_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(j)})
+   .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
+   .then(function(){ok++;step()})
+   .catch(function(){fail++;step()});
+ }
+ step();
+}
+/* qa hook: ?testov=1 makes the bomb a transparent 1px to prove the swap engine */
+if(location.search.indexOf('testov=1')>=0){GFXOV={'cf220ab0f_sabotask_fuse_bomb_v2.png':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='}}
 
 /* keep deltas alive against demo re-animating elements */
 setInterval(function(){if(current&&Object.keys(D).length)applyAll()},700);

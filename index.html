@@ -455,7 +455,20 @@ function lload(){try{return JSON.parse(store.get('saboGfxLib')||'[]')}catch(e){r
 function gsave(o){store.set('saboGfx',JSON.stringify(o));try{if(JSON.parse(store.get('saboGfx')||'{}').length===undefined&&store.get('saboGfx')!==JSON.stringify(o)){gstat('STORAGE FULL — revert a slot or SHIP + clear')}}catch(e){}}
 function lsave(a){store.set('saboGfxLib',JSON.stringify(a))}
 function gstat(t){var e=document.getElementById('gstat');if(e)e.textContent=t;status(t)}
-function applyGfx(html){var ov=gload();for(var k in ov){if(ov[k])html=html.split(k).join(ov[k])}return html}
+function escRe(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function applyGfx(html){
+ var ov=gload();
+ for(var k in ov){if(ov[k])html=html.replace(new RegExp('https?:\\/\\/[^"' + String.fromCharCode(39) + '\\s]*'+escRe(k),'g'),ov[k])}
+ if(html.indexOf('P+plateURLs[i]')>=0){
+  var po={};for(var k in ov){if(ov[k]&&html.indexOf(String.fromCharCode(39)+k+String.fromCharCode(39))>=0)po[k]=ov[k]}
+  if(Object.keys(po).length){
+   html=html.split('P+u').join('(SABO_OVR[u]||P+u)');
+   html=html.split('P+plateURLs[i]').join('(SABO_OVR[plateURLs[i]]||P+plateURLs[i])');
+   html=html.replace(/<script>/,'<script>var SABO_OVR='+JSON.stringify(po)+';');
+  }
+ }
+ return html
+}
 function showGfx(){document.getElementById('gfx').className='on';drawGfx()}
 function hideGfx(){document.getElementById('gsheet').className='';document.getElementById('gfx').className=''}
 function slotLabel(file){for(var i=0;i<(AST||[]).length;i++){if(AST[i].file===file)return AST[i].label}return file}
@@ -556,7 +569,7 @@ function shipGfx(){
  step();
 }
 /* qa hook: ?testov=1 makes the bomb a transparent 1px to prove the swap engine */
-if(location.search.indexOf('testov=1')>=0){GFXOV={'cf220ab0f_sabotask_fuse_bomb_v2.png':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg=='}}
+if(location.search.indexOf('testov=1')>=0){GFXOV={'cf220ab0f_sabotask_fuse_bomb_v2.png':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z/AfAAQAAf8iCjrwAAAAAElFTkSuQmCC'}}
 
 /* keep deltas alive against demo re-animating elements */
 setInterval(function(){if(current&&Object.keys(D).length)applyAll()},700);

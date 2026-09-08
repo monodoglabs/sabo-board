@@ -119,6 +119,10 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
     </div>
     <div class="drow" id="selrow">
       <span id="selname"></span>
+      <button class="dchip" onclick="bumpD(-5,0)">←</button>
+      <button class="dchip" onclick="bumpD(5,0)">→</button>
+      <button class="dchip" onclick="bumpD(0,-5)">↑</button>
+      <button class="dchip" onclick="bumpD(0,5)">↓</button>
       <button class="dchip" onclick="bumpS(-0.05)">SIZE −</button>
       <button class="dchip" onclick="bumpS(0.05)">SIZE +</button>
       <button class="dchip" onclick="bumpR(-1)">ROT −</button>
@@ -258,7 +262,7 @@ function selectEl(id){var d=fdoc();if(!d)return;
   SEL=id;
   memberIds(id).forEach(function(one){var el=d.getElementById(one);if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(one)}});
   var b=fbody();if(b)b.classList.add('selactive');
-  tstatus(id===KIT_ID?'FUSE KIT — flame + both lines move as one':'moving ONLY '+id+' — drag anywhere · SIZE/ROT/LAYER in dock');
+  tstatus(id===KIT_ID?'FUSE KIT — flame + both lines move as one':'moving ONLY '+id+' — drag anywhere · nudge ← → ↑ ↓ · SIZE/ROT/LAYER in dock');
   selUI();
 }
 function selUI(){
@@ -277,6 +281,13 @@ function toggleTune(){
   selUI();
 }
 
+/* ---------- 5px nudge ---------- */
+function bumpD(x,y){
+  if(!SEL){tstatus('pick something from LIST first');return}
+  var d2=dval(SEL);d2.dx+=x;d2.dy+=y;
+  D[SEL]=d2;applyOne(SEL);tsave();selUI();
+  tstatus((SEL===KIT_ID?'FUSE KIT':SEL)+' nudged — now at '+d2.dx+','+d2.dy);
+}
 /* ---------- size + rotation steppers ---------- */
 function bumpS(v){
   if(!SEL){tstatus('pick something from LIST first');return}

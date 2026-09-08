@@ -50,17 +50,23 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 #tpush{background:#CCFF00;color:#14081F;font-weight:700}
 #tstatus{flex:1;min-width:0;font:10px/1.3 monospace;color:#9FE838;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 /* ---- LIST menu: full-screen picker ---- */
-#listmenu{position:fixed;inset:0;background:#14081F;z-index:80;display:none;flex-direction:column;padding:calc(12px + env(safe-area-inset-top,0px)) 14px 12px}
+#listmenu{position:fixed;top:calc(8px + env(safe-area-inset-top,0px));right:8px;width:min(52vw,320px);background:rgba(20,8,31,.92);border:2px solid #ff00ff;border-radius:14px;z-index:80;display:none;flex-direction:column;padding:10px;box-shadow:3px 3px 0 rgba(0,0,0,.5)}
 #listmenu.on{display:flex}
-.lmhead{display:flex;align-items:center;gap:10px;margin-bottom:12px;max-width:560px}
-.lmhead h2{font-size:17px;letter-spacing:1px;color:#9FE838;text-shadow:1px 1px 0 #E8158C}
-#lmrows{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;max-width:560px}
-.lrow{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;gap:10px;box-shadow:3px 3px 0 rgba(0,0,0,.45)}
-.lrow:active{transform:scale(.985)}
-.lrow .did{font-size:15px;letter-spacing:.8px}
-.lrow .dd{margin-left:auto;font:11px monospace;color:#9FE838}
+.lmhead{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.lmhead h2{font-size:13px;letter-spacing:.5px;color:#9FE838;text-shadow:1px 1px 0 #E8158C}
+.lmhead .dchip{margin-left:auto;font-size:11px;padding:7px 10px}
+#lmrows{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.lrow{background:#221040;border:2px solid rgba(255,255,255,.09);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:2px 2px 0 rgba(0,0,0,.45)}
+.lrow:active{transform:scale(.97)}
+.lrow .did{font-size:13px;letter-spacing:.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex:1;min-width:0}
+.lrow .dd{font:10px monospace;color:#9FE838;flex-shrink:0}
 .lrow.sel{background:#ff00ff;border-color:#ff00ff}
 .lrow.sel .did,.lrow.sel .dd{color:#14081F;font-weight:700}
+.lrow.kit{border-color:#00D4E8;background:#123c4a}
+.lrow.kit .did{color:#00D4E8}
+.lrow.kit.sel{background:#ff00ff;border-color:#ff00ff}
+.lrow.kit.sel .did{color:#14081F}
+.lrow.part{opacity:.55}
 footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 </style>
 </head>
@@ -92,12 +98,14 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
       <button class="dchip" onclick="bumpS(0.05)">SIZE +</button>
       <button class="dchip" onclick="bumpR(-5)">ROT −</button>
       <button class="dchip" onclick="bumpR(5)">ROT +</button>
+      <button class="dchip" onclick="bumpZ(1)">▲ FWD</button>
+      <button class="dchip" onclick="bumpZ(-1)">▼ BACK</button>
       <button class="dchip" onclick="clearSel()">CLR</button>
     </div>
   </div>
 </div>
 <div id="listmenu">
-  <div class="lmhead"><h2>PICK ONE — ONLY IT MOVES</h2><button class="dchip" style="margin-left:auto" onclick="closeList()">✕ DONE</button></div>
+  <div class="lmhead"><h2>PICK ONE</h2><button class="dchip" style="margin-left:auto" onclick="closeList()">✕ DONE</button></div>
   <div id="lmrows"></div>
 </div>
 <footer>tap a screen — it opens at true device scale · all controls live OUTSIDE the screen in the dock · island overlay shows the real device no-go zones · refresh is MANUAL, tap REFRESH or ↻ when you want the newest build</footer>
@@ -143,7 +151,11 @@ window.addEventListener('resize',fit);
 /* ---------- tune engine (board-side, reaches INTO the srcdoc iframe — same origin) ---------- */
 var SCREENKEY={solo:'solo_choice',duo:'duo_choice',monitor:'monitor'};
 var EXCLUDE={app:1,wrap:1,bg:1,flash:1,shake:1,gate:1};
-var tuneOn=false, SEL=null, BOOST=[], D={}, BASE={}, drag=null;
+var KIT_ID='fusekit';
+var KIT_MEMBERS=['flamewrap','line','trail'];
+var KIT={flamewrap:1,line:1,trail:1,bob:1,flame:1};
+function memberIds(id){return id===KIT_ID?KIT_MEMBERS:[id]}
+var tuneOn=false, SEL=null, BOOST=[], D={}, BASE={}, ZB={}, drag=null;
 
 function fdoc(){try{return document.getElementById('vframe').contentDocument}catch(e){return null}}
 function fbody(){var d=fdoc();return d?d.body:null}
@@ -154,12 +166,21 @@ function tload(){try{D=JSON.parse(localStorage.getItem(tkey())||'{}')}catch(e){D
 function tscale(){var a=fapp();return (a&&a.getBoundingClientRect().width/1080)||1}
 function tstatus(t){document.getElementById('tstatus').textContent=t}
 function baseOf(el){var id=el.id;if(!(id in BASE)){var t=fdoc().defaultView.getComputedStyle(el).transform;BASE[id]=(t&&t!=='none')?t:'none'}return BASE[id]}
-function dval(id){var v=D[id];if(!v)v={};if(v.s===undefined)v.s=1;if(v.r===undefined)v.r=0;if(v.dx===undefined)v.dx=0;if(v.dy===undefined)v.dy=0;return v}
-function applyOne(id){var d=fdoc();var el=d&&d.getElementById(id);if(!el||!D[id])return;var b=baseOf(el);var v=dval(id);
+function dval(id){var v=D[id];if(!v)v={};if(v.s===undefined)v.s=1;if(v.r===undefined)v.r=0;if(v.z===undefined)v.z=0;if(v.dx===undefined)v.dx=0;if(v.dy===undefined)v.dy=0;return v}
+function zbaseOf(el){var id=el.id;if(!(id in ZB)){var z=parseInt(fdoc().defaultView.getComputedStyle(el).zIndex,10);ZB[id]=isNaN(z)?0:z}return ZB[id]}
+function kitApply(v){var d=fdoc();KIT_MEMBERS.forEach(function(one){var el=d&&d.getElementById(one);if(!el)return;
+  el.style.setProperty('translate',v.dx+'px '+v.dy+'px','important');
+  if(v.s!==1)el.style.setProperty('scale',String(v.s),'important');
+  if(v.r)el.style.setProperty('rotate',v.r+'deg','important');
+  if(v.z)el.style.setProperty('z-index',String((KIT_ID===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
+})}
+function applyOne(id){var d=fdoc();if(id===KIT_ID){if(D[id])kitApply(dval(id));return}
+  var el=d&&d.getElementById(id);if(!el||!D[id])return;var b=baseOf(el);var v=dval(id);
   var t=(b==='none'?'':b+' ')+'translate('+v.dx+'px,'+v.dy+'px)';
   if(v.s!==1)t+=' scale('+v.s+')';
   if(v.r)t+=' rotate('+v.r+'deg)';
   el.style.setProperty('transform',t,'important');
+  if(v.z)el.style.setProperty('z-index',String((id===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
 }
 function applyAll(){Object.keys(D).forEach(applyOne)}
 
@@ -174,12 +195,13 @@ function attachDrag(){var d=fdoc();if(!d)return;
   d.addEventListener('pointerdown',function(e){
     if(!tuneOn)return;
     var el,id;
-    if(SEL){id=SEL;el=d.getElementById(id);if(!el)return}
-    else{el=(e.target&&e.target.closest)?e.target.closest('#app [id]'):null;if(!el||EXCLUDE[el.id])return;id=el.id}
+    if(SEL){id=SEL;el=d.getElementById(id);if(!el&&id!==KIT_ID)return}
+    else{el=(e.target&&e.target.closest)?e.target.closest('#app [id]'):null;if(!el||EXCLUDE[el.id])return;id=el.id;
+      if(KIT[el.id]){id=KIT_ID;el=null}}
     e.preventDefault();e.stopPropagation();
-    var v=dval(id);baseOf(el);
+    var v=dval(id);if(el)baseOf(el);
     drag={el:el,id:id,bx:v.dx,by:v.dy,sx:e.clientX,sy:e.clientY};
-    try{el.setPointerCapture(e.pointerId)}catch(x){}
+    try{if(el)el.setPointerCapture(e.pointerId)}catch(x){}
   },true);
   d.addEventListener('pointermove',function(e){
     if(!drag)return;var s=tscale();
@@ -191,19 +213,19 @@ function attachDrag(){var d=fdoc();if(!d)return;
   d.addEventListener('pointerup',end,true);
   d.addEventListener('pointercancel',end,true);
 }
-function unselect(){var d=fdoc();if(SEL&&d){var p=d.getElementById(SEL);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index')}}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
+function unselect(){var d=fdoc();var was=SEL;if(was&&d){memberIds(was).forEach(function(one){var p=d.getElementById(one);if(p){p.classList.remove('tsel');p.style.removeProperty('opacity');p.style.removeProperty('z-index');if(was===KIT_ID){p.style.removeProperty('translate');p.style.removeProperty('scale');p.style.removeProperty('rotate')}}});if(D[was])applyOne(was)}SEL=null;var b=fbody();if(b)b.classList.remove('selactive');selUI()}
 function selectEl(id){var d=fdoc();if(!d)return;
   if(SEL===id){unselect();tstatus('released — direct drag active');return}
   unselect();
-  SEL=id;var el=d.getElementById(id);
-  if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(id)}
+  SEL=id;
+  memberIds(id).forEach(function(one){var el=d.getElementById(one);if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(one)}});
   var b=fbody();if(b)b.classList.add('selactive');
-  tstatus('moving ONLY '+id+' — drag anywhere · SIZE/ROT in dock');
+  tstatus(id===KIT_ID?'FUSE KIT — flame + both lines move as one':'moving ONLY '+id+' — drag anywhere · SIZE/ROT/LAYER in dock');
   selUI();
 }
 function selUI(){
   var row=document.getElementById('selrow'),nm=document.getElementById('selname');
-  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=SEL+' · '+(v.s!==1?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+v.dx+','+v.dy}
+  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?'FUSE KIT':SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
   else{row.className='drow';nm.textContent=''}
   fit();
 }
@@ -213,70 +235,95 @@ function toggleTune(){
   document.getElementById('tunerow').className='drow'+(tuneOn?' on':'');
   var b=fbody();if(b)b.classList.toggle('tuning',tuneOn);
   if(!tuneOn){unselect();tstatus('')}
-  else{tstatus('drag dashed things · LIST picks hidden ones · PUSH sends to Nigella')}
+  else{tstatus('drag dashed things · grab the fuse — KIT moves as one · PUSH sends to Nigella')}
   selUI();
 }
 
 /* ---------- size + rotation steppers ---------- */
 function bumpS(v){
   if(!SEL){tstatus('pick something from LIST first');return}
+  if(SEL===KIT_ID){tstatus('FUSE KIT moves as one — resize is a canon change, tell Nigella');return}
   var d2=dval(SEL);d2.s=Math.round((d2.s+v)*1000)/1000;
   if(d2.s<0.2)d2.s=0.2;if(d2.s>3)d2.s=3;
   D[SEL]=d2;applyOne(SEL);tsave();selUI();
 }
 function bumpR(v){
   if(!SEL){tstatus('pick something from LIST first');return}
+  if(SEL===KIT_ID){tstatus('FUSE KIT moves as one — rotation is a canon change, tell Nigella');return}
   var d2=dval(SEL);d2.r=(d2.r||0)+v;
   D[SEL]=d2;applyOne(SEL);tsave();selUI();
 }
+function bumpZ(v){
+  if(!SEL){tstatus('pick something from LIST first');return}
+  var d2=dval(SEL);d2.z=(d2.z||0)+v;
+  D[SEL]=d2;applyOne(SEL);tsave();selUI();
+  tstatus('layer '+(d2.z>0?'+':'')+d2.z+' — tap its row again to see it land in the stack');
+}
 function clearSel(){
   if(!SEL){tstatus('nothing picked');return}
-  var d=fdoc();var el=d&&d.getElementById(SEL);
-  if(el){el.style.removeProperty('transform')}
+  var d=fdoc();
+  memberIds(SEL).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}});
   if(SEL in BASE)delete BASE[SEL];
   delete D[SEL];tsave();selUI();
-  tstatus(SEL+' back to canon');
+  tstatus((SEL===KIT_ID?'FUSE KIT':SEL)+' back to canon');
 }
 
 /* ---------- LIST menu ---------- */
 function closeList(){document.getElementById('listmenu').className=''}
-function tapList(){
-  var lm=document.getElementById('listmenu');
-  if(lm.className==='on'){closeList();return}
+function renderList(){
   var d=fdoc();var app=fapp();
-  if(!d||!app){tstatus('screen still loading…');return}
+  if(!d||!app)return false;
   var seen={},ids=[];
   app.querySelectorAll('[id]').forEach(function(el){if(!EXCLUDE[el.id]&&!seen[el.id]){seen[el.id]=1;ids.push(el.id)}});
   var rows=document.getElementById('lmrows');rows.innerHTML='';
+  var kv=D[KIT_ID];
+  var kdd=kv?((kv.z?'L'+(kv.z>0?'+':'')+kv.z+' ':'')+((kv.dx>=0?'+':'')+kv.dx+','+(kv.dy>=0?'+':'')+kv.dy)):'·';
+  var kr=document.createElement('div');kr.className='lrow kit'+(SEL===KIT_ID?' sel':'');
+  kr.innerHTML='<span class="did">FUSE KIT — flame + both lines</span><span class="dd">'+kdd+'</span>';
+  kr.onclick=function(){selectEl(KIT_ID);renderList()};
+  rows.appendChild(kr);
   ids.forEach(function(id){
-    var r=document.createElement('div');r.className='lrow'+(SEL===id?' sel':'');
     var v=D[id];
-    var dd=v?((v.s!==undefined&&v.s!==1)?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+((v.dx>=0?'+':'')+v.dx+','+(v.dy>=0?'+':'')+v.dy):'·';
+    if(KIT[id]){var pr=document.createElement('div');pr.className='lrow part';
+      pr.innerHTML='<span class="did">'+id+'</span><span class="dd">→ KIT</span>';
+      pr.onclick=function(){selectEl(KIT_ID);renderList();tstatus('part of the FUSE KIT — the trio moves as one')};
+      rows.appendChild(pr);return}
+    var r=document.createElement('div');r.className='lrow'+(SEL===id?' sel':'');
+    var dd=v?((v.s!==undefined&&v.s!==1)?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+((v.dx>=0?'+':'')+v.dx+','+(v.dy>=0?'+':'')+v.dy):'·';
     r.innerHTML='<span class="did">'+id+'</span><span class="dd">'+dd+'</span>';
-    r.onclick=function(){
-      if(SEL===id){selectEl(id);tapList();return}
-      selectEl(id);closeList();
-    };
+    r.onclick=function(){selectEl(id);renderList()};
     rows.appendChild(r);
   });
+  return true;
+}
+function tapList(){
+  var lm=document.getElementById('listmenu');
+  if(lm.className==='on'){closeList();return}
+  if(!renderList()){tstatus('screen still loading…');return}
+  var dk=document.getElementById('dock');
+  var vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
+  lm.style.maxHeight=Math.max(200,vh-(dk?dk.offsetHeight:0)-24)+'px';
   lm.className='on';
+  tstatus('screen stays live — pick away, ✕ when done');
 }
 
 /* ---------- PUSH / RESET ---------- */
 function pushDeltas(){
   if(!current){tstatus('open a screen first');return}
   var sc=SCREENKEY[current.id]||current.id;
-  var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r}})};
+  var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r,z:v.z}})};
   if(!payload.deltas.length){tstatus('nothing to push yet');return}
+  var txt=JSON.stringify(payload);
+  try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt)}catch(x){}
   tstatus('sending…');
-  fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+  fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:txt})
     .then(function(r){return r.json()})
-    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL':'server said no — try again')})
-    .catch(function(){tstatus('offline — retry when back online')});
+    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL':'server hiccup — payload copied, paste it to Nigella in chat')})
+    .catch(function(){tstatus('offline — payload copied, paste it to Nigella in chat')});
 }
 function resetDeltas(){
   var d=fdoc();
-  Object.keys(D).forEach(function(id){var el=d&&d.getElementById(id);if(el){delete BASE[id];el.style.removeProperty('transform')}});
+  Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}});delete BASE[id]});
   BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
   BOOST=[];unselect();D={};tsave();tstatus('back to canon seats');
 }
@@ -293,7 +340,7 @@ function watchDemo(){
   },100);
 }
 function onDemoReady(){
-  BASE={};SEL=null;BOOST=[];
+  BASE={};ZB={};SEL=null;BOOST=[];
   injectTuneStyle();attachDrag();applyAll();
   var b=fbody();
   if(b)b.classList.toggle('tuning',tuneOn);

@@ -1,5 +1,5 @@
 {
-  "board_version": 32,
+  "board_version": 33,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,8 +21,8 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v15 · BANNER SKULLS BAKED (2.25 set, 9 singles)",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/606802b3b_rest_screen_v15.html",
+      "sub": "v16 · BANNER SKULLS BAKED TRUE (measured, not hand-mapped)",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/c74803562_rest_screen_v16.html",
       "kind": "demo",
       "cat": "screen"
     },

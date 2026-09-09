@@ -284,9 +284,9 @@ function selectEl(id){var d=fdoc();if(!d)return;
   if(SEL===id){unselect();tstatus('released — direct drag active');return}
   unselect();
   SEL=id;
-  memberIds(id).forEach(function(one){var el=d.getElementById(one);if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(one)}});
+  memberIds(id).forEach(function(one){var el=d.getElementById(one);if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');if(id!=='bg')el.style.setProperty('z-index','2147483000','important');BOOST.push(one)}});
   var b=fbody();if(b)b.classList.add('selactive');
-  tstatus(id===KIT_ID?klabel()+' — '+kitdef().desc+' move as one':'moving ONLY '+id+' — drag anywhere · nudge ← → ↑ ↓ · SIZE/ROT/LAYER in dock');
+  tstatus(id==='bg'?'bg — the paper · ART chip swaps its artwork · drag/nudge peels it off the stage edge':(id===KIT_ID?klabel()+' — '+kitdef().desc+' move as one':'moving ONLY '+id+' — drag anywhere · nudge ← → ↑ ↓ · SIZE/ROT/LAYER in dock'));
   selUI();
 }
 function selUI(){
@@ -357,6 +357,15 @@ function renderList(){
     kr.onclick=function(){selectEl(KIT_ID);renderList()};
     rows.appendChild(kr);
   }
+  var bgel=app.querySelector('img#bg');
+  if(bgel){
+    var bv=D['bg'];
+    var bdd=bv?((bv.s!==undefined&&bv.s!==1)?Math.round(bv.s*100)+'% ':'')+(bv.r?bv.r+'° ':'')+(bv.z?'L'+(bv.z>0?'+':'')+bv.z+' ':'')+((bv.dx>=0?'+':'')+bv.dx+','+(bv.dy>=0?'+':'')+bv.dy):'·';
+    var br=document.createElement('div');br.className='lrow'+(SEL==='bg'?' sel':'');
+    br.innerHTML='<span class="did">bg — PAPER (bottom layer)</span><span class="dd">'+bdd+'</span>';
+    br.onclick=function(){selectEl('bg');renderList()};
+    rows.appendChild(br);
+  }
   ids.forEach(function(id){
     var v=D[id];
     if(KIT[id]){var pr=document.createElement('div');pr.className='lrow part';
@@ -386,9 +395,10 @@ function tapList(){
 function pushDeltas(){
   if(!current){tstatus('open a screen first');return}
   var sc=SCREENKEY[current.id]||current.id;
-  var sw=swload();
+  var sw=swload();var nst=0;
   var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r,z:v.z}})};
-  if(Object.keys(sw).length)payload.swaps=sw;
+  var swc={};for(var k in sw){if((sw[k].url||'').indexOf('data:')===0){swc[k]={label:sw[k].label,staged:1,url:''};nst++}else swc[k]=sw[k]}
+  if(Object.keys(swc).length)payload.swaps=swc;
   if(!payload.deltas.length&&!payload.swaps){tstatus('nothing to push yet');return}
   var txt=JSON.stringify(payload);
   try{localStorage.setItem(tkey().replace('tuneseats_','tuneseats_push_'),JSON.stringify(D))}catch(x){}
@@ -397,7 +407,7 @@ function pushDeltas(){
   tstatus('sending…');
   fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:txt})
     .then(function(r){return r.json()})
-    .then(function(j){tstatus(j&&j.ok?'SENT — tell Nigella to PULL · RESET now returns here':'server hiccup — payload copied, paste it to Nigella in chat')})
+    .then(function(j){tstatus(j&&j.ok?('SENT — tell Nigella to PULL · RESET now returns here'+(nst?' · '+nst+' STAGED swap(s) noted — SHIP that art in GRAPHICS too':'')):'server hiccup — payload copied, paste it to Nigella in chat')})
     .catch(function(){tstatus('offline — payload copied, paste it to Nigella in chat')});
 }
 function resetDeltas(){
@@ -537,6 +547,22 @@ function openArtpick(){
   var c=document.createElement('div');c.className='gcell';
   c.innerHTML='<img src="'+a.url+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>';
   c.onclick=function(){swapArt(a)};gr.appendChild(c);});
+ var staging=lload();
+ var wrap=document.getElementById('apscroll');
+ var oldst=wrap.querySelector('#apstage');if(oldst)oldst.remove();
+ if(staging.length){
+  var holder=document.createElement('div');holder.id='apstage';
+  var sec=document.createElement('div');sec.className='gsec';
+  sec.textContent='MY STAGING — preview only · SHIP it in GRAPHICS to make it canon';
+  holder.appendChild(sec);
+  var sg=document.createElement('div');sg.className='ggrid';
+  staging.forEach(function(it){
+   var c=document.createElement('div');c.className='gcell lib';
+   c.innerHTML='<img src="'+it.data+'" alt=""><div class="gl">'+(it.name||'art')+'</div><div class="gu">staged · preview only</div>';
+   c.onclick=function(){swapArt({url:it.data,label:(it.name||'staged art')+' (staged)'})};
+   sg.appendChild(c);});
+  holder.appendChild(sg);wrap.appendChild(holder);
+ }
  document.getElementById('apfor').textContent=SEL;
  document.getElementById('aprevert').style.display=sw[SEL]?'inline-block':'none';
  document.getElementById('artpick').className='on';

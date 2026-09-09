@@ -1,5 +1,5 @@
 {
-  "board_version": 47,
+  "board_version": 48,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,8 +21,8 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v14 · TAPE v3 + METER BG v5 LIVE",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d0cc36df1_rest_screen_v13_mbgv5wire.html",
+      "sub": "v20 · SURVIVAL BANNER v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f96e056f6_rest_screen_v20.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -120,10 +120,10 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER (v3)",
+      "label": "SURVIVAL BANNER",
       "file": "2d7edaed5_sabotask_survival_banner_v3_trim.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6c2ec7738_sabotask_survival_banner_v2_trim.png",
-      "use": "REST"
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/38a1c6d00_sabotask_survival_banner_v3_trim.png",
+      "use": "REST + SURVIVAL MONITOR"
     },
     {
       "id": "mskull",

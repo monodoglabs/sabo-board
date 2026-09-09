@@ -1,5 +1,5 @@
 {
-  "board_version": 37,
+  "board_version": 38,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,7 +21,7 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v18 · SKULL BACKGROUND v2",
+      "sub": "v17 · SURVIVAL BANNER v3 + skulls baked true",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fc1952ac1_rest_screen_v18.html",
       "kind": "demo",
       "cat": "screen"
@@ -121,8 +121,8 @@
     {
       "id": "surbanner",
       "label": "SURVIVAL BANNER",
-      "file": "e1c4e450f_sabotask_survival_banner_v2_trim.png",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/e1c4e450f_sabotask_survival_banner_v2_trim.png",
+      "file": "9fed56dc6_sabotask_survival_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9fed56dc6_sabotask_survival_banner_v3_trim.png",
       "use": "REST"
     },
     {

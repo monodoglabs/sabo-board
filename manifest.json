@@ -1,5 +1,5 @@
 {
- "board_version": 65,
+ "board_version": 66,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -37,8 +37,8 @@
   {
    "id": "select",
    "name": "THE DRAW",
-   "sub": "v5 \u00b7 FLIPBOOK REEL (animates on-device)",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8f82f51e3_the_draw_v5.html",
+   "sub": "v6 \u00b7 HER 6 TWEAKS IN",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f1a6e6d7b_the_draw_v6.html",
    "kind": "demo",
    "cat": "screen"
   },

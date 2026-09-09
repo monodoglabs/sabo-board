@@ -121,9 +121,9 @@
     {
       "id": "surbanner",
       "label": "SURVIVAL BANNER",
-      "file": "2d7edaed5_sabotask_survival_banner_v2_trim.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bcf8ab7d2_2d7edaed5_sabotask_survival_banner_v2_trim.png",
-      "use": "REST + SURVIVAL MONITOR"
+      "file": "9fed56dc6_sabotask_survival_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9fed56dc6_sabotask_survival_banner_v3_trim.png",
+      "use": "REST"
     },
     {
       "id": "mskull",
@@ -134,9 +134,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v5)",
-      "file": "5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
+      "label": "METER BG (v3)",
+      "file": "1564df83c_sabotask_breakscreen_skull_background_v3.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8693a66dd_1564df83c_sabotask_breakscreen_skull_background_v3.png",
       "use": "REST METERS + LAB"
     },
     {

@@ -1,5 +1,5 @@
 {
-  "board_version": 28,
+  "board_version": 29,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -77,6 +77,18 @@
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/edb34d84b_sabo_preview_hub.html",
       "kind": "link",
       "cat": "screen"
+    },
+    {
+      "id": "bannerlab",
+      "name": "BANNER LAB",
+      "sub": "v1 · SURVIVAL BANNER AT WORKING SIZE",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/e7e4d6056_banner_lab_v1.html",
+      "kind": "demo",
+      "cat": "lab",
+      "stage": [
+        1120,
+        600
+      ]
     }
   ],
   "assets": [

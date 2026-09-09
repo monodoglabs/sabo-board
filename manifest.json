@@ -1,5 +1,5 @@
 {
- "board_version": 60,
+ "board_version": 61,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -37,8 +37,8 @@
   {
    "id": "select",
    "name": "THE DRAW",
-   "sub": "v1 \u00b7 REST \u2192 CHOICE \u00b7 BAG SHUFFLE",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5ab4e9a33_the_draw_v1.html",
+   "sub": "v2 \u00b7 ALL PLATES CONVERGE AT THE SEAT",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/833c613d1_the_draw_v2.html",
    "kind": "demo",
    "cat": "screen"
   },

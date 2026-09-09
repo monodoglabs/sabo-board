@@ -1,5 +1,5 @@
 {
-  "board_version": 38,
+  "board_version": 39,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,16 +21,16 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v17 · SURVIVAL BANNER v3 + skulls baked true",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fc1952ac1_rest_screen_v18.html",
+      "sub": "v18 · METER BACKGROUND v5",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5e7901a10_rest_screen_v18.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v10 · SKULL BACKGROUND v2",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/80bc9bec1_meter_lab_v10.html",
+      "sub": "v10 · METER BACKGROUND v5",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/73b0c08a0_meter_lab_v10.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -134,9 +134,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v2)",
-      "file": "c9d7f1cce_ec9b7dd0b_sabotask_breakscreen_skull_background_v2.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c9d7f1cce_ec9b7dd0b_sabotask_breakscreen_skull_background_v2.png",
+      "label": "METER BG (v5)",
+      "file": "5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
       "use": "REST METERS + LAB"
     },
     {

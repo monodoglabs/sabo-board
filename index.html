@@ -76,6 +76,9 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 /* ---------- graphics manager ---------- */
 #gfx{display:none;position:fixed;inset:0;background:#14081F;z-index:60;flex-direction:column;padding:10px 12px 14px}
 #gfx.on{display:flex}
+#artpick{display:none;position:fixed;inset:0;background:#14081F;z-index:70;flex-direction:column;padding:10px 12px 14px}
+#artpick.on{display:flex}
+#apscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .gtop{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex:0 0 auto}
 .gtop h2{font-size:14px;letter-spacing:.5px;color:#9FE838;text-shadow:1px 1px 0 #E8158C;margin:0}
 #gstat{font:10px monospace;color:#9FE838;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40%}
@@ -137,6 +140,7 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
       <button class="dchip" onclick="bumpZ(1)">▲ FWD</button>
       <button class="dchip" onclick="bumpZ(-1)">▼ BACK</button>
       <button class="dchip" onclick="clearSel()">CLR</button>
+      <button class="dchip" id="artchip" onclick="openArtpick()">ART</button>
     </div>
   </div>
 </div>
@@ -152,6 +156,13 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
   <div class="gsec">MY STAGING — new art, not wired yet</div>
   <div class="ggrid" id="glib"></div>
   <button class="gadd" onclick="pickAdd()">＋ ADD NEW ART</button>
+ </div>
+</div>
+<div id="artpick">
+ <div class="gtop"><button class="dchip" onclick="hideArtpick()">◂ TUNE</button><h2>ART FOR <span id="apfor" style="color:#ff00af"></span></h2><span id="apstat"></span><button class="dchip" id="aprevert" onclick="unswapArt()">REVERT</button><button class="dchip" onclick="hideArtpick()">✕ DONE</button></div>
+ <div id="apscroll">
+  <div class="gsec">WIRED SLOTS — tap art to swap it into this element (device preview)</div>
+  <div class="ggrid" id="apgrid"></div>
  </div>
 </div>
 <div id="gsheet"></div>
@@ -235,7 +246,7 @@ function applyOne(id){var d=fdoc();if(KIT_ID&&id===KIT_ID){if(D[id])kitApply(dva
   if(v.r)el.style.setProperty('rotate',v.r+'deg','important');
   if(v.z)el.style.setProperty('z-index',String((id===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
 }
-function applyAll(){Object.keys(D).forEach(applyOne)}
+function applyAll(){Object.keys(D).forEach(applyOne);swApply()}
 
 function injectTuneStyle(){var d=fdoc();if(!d)return;
   var st=d.createElement('style');st.id='boardtune';
@@ -282,6 +293,7 @@ function selUI(){
   var row=document.getElementById('selrow'),out=document.getElementById('selout'),nm=document.getElementById('selname');
   if(tuneOn&&SEL){row.className='drow on';out.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?klabel():SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
   else{row.className='drow';out.className='drow';nm.textContent=''}
+  var ac=document.getElementById('artchip');ac.textContent=(tuneOn&&SEL&&swload()[SEL])?'ART ●':'ART';
   fit();
 }
 function toggleTune(){
@@ -374,10 +386,13 @@ function tapList(){
 function pushDeltas(){
   if(!current){tstatus('open a screen first');return}
   var sc=SCREENKEY[current.id]||current.id;
+  var sw=swload();
   var payload={screen:sc,deltas:Object.keys(D).map(function(k){var v=dval(k);return{id:k,dx:v.dx,dy:v.dy,s:v.s,r:v.r,z:v.z}})};
-  if(!payload.deltas.length){tstatus('nothing to push yet');return}
+  if(Object.keys(sw).length)payload.swaps=sw;
+  if(!payload.deltas.length&&!payload.swaps){tstatus('nothing to push yet');return}
   var txt=JSON.stringify(payload);
   try{localStorage.setItem(tkey().replace('tuneseats_','tuneseats_push_'),JSON.stringify(D))}catch(x){}
+  try{store.set(skey().replace('saboswap_','saboswap_push_'),JSON.stringify(sw))}catch(x){}
   try{if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt)}catch(x){}
   tstatus('sending…');
   fetch(PUSH_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:txt})
@@ -394,6 +409,10 @@ function resetDeltas(){
   Object.keys(D).forEach(function(id){memberIds(id).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}})});
   BOOST.forEach(function(id){var el=d&&d.getElementById(id);if(el){el.classList.remove('tsel');el.style.removeProperty('opacity');el.style.removeProperty('z-index')}});
   BOOST=[];unselect();
+  var swsnap=null;try{swsnap=JSON.parse(store.get(skey().replace('saboswap_','saboswap_push_'))||'null')}catch(x){}
+  swRestoreAll();
+  store.set(skey(),(swsnap&&Object.keys(swsnap).length)?JSON.stringify(swsnap):'{}');
+  swApply();
   if(snap&&Object.keys(snap).length){D=snap;tsave();applyAll();tstatus('back to your last PUSH · '+Object.keys(D).length+' seat(s) — UNDO restores what you had')}
   else{D={};tsave();tstatus(n?('wiped '+n+' seat(s) — no PUSH on record for this screen — UNDO brings them back'):'nothing stored — already canon')}
 }
@@ -501,6 +520,44 @@ function refresh(){
     status('build v'+m.board_version+' · manual — tap REFRESH for newest');
   }).catch(function(){status('manifest unreachable — tap REFRESH')});
 }
+
+/* ---------- art swap (per-element art picker — device-local preview, rides PUSH) ---------- */
+function skey(){return 'saboswap_'+(current?current.id:'')}
+function swload(){try{return JSON.parse(store.get(skey())||'{}')}catch(e){return{}}}
+function swsave(o){try{store.set(skey(),JSON.stringify(o))}catch(x){}}
+function swImgOf(el){if(!el)return null;if(el.tagName==='IMG')return el;
+ var ims=el.querySelectorAll(':scope > img');return ims.length===1?ims[0]:null}
+function swTarget(){var d=fdoc();if(!SEL||!d)return null;return swImgOf(d.getElementById(SEL))}
+function openArtpick(){
+ if(!SEL){tstatus('pick something from LIST first');return}
+ if(!swTarget()){tstatus(SEL+' holds no single art img — swap needs exactly one');return}
+ closeList();
+ var sw=swload();var gr=document.getElementById('apgrid');gr.innerHTML='';
+ (AST||[]).forEach(function(a){
+  var c=document.createElement('div');c.className='gcell';
+  c.innerHTML='<img src="'+a.url+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>';
+  c.onclick=function(){swapArt(a)};gr.appendChild(c);});
+ document.getElementById('apfor').textContent=SEL;
+ document.getElementById('aprevert').style.display=sw[SEL]?'inline-block':'none';
+ document.getElementById('artpick').className='on';
+}
+function hideArtpick(){document.getElementById('artpick').className=''}
+function swapArt(a){var im=swTarget();if(!im)return;var sw=swload();
+ if(!sw[SEL])sw[SEL]={orig:im.src};
+ sw[SEL].url=a.url;sw[SEL].label=a.label;swsave(sw);
+ im.src=a.url;hideArtpick();selUI();
+ tstatus(SEL+' art → '+a.label+' · PUSH sends it with your seats')}
+function unswapArt(){var sw=swload();if(!sw[SEL]){hideArtpick();return}
+ var im=swTarget();if(im&&sw[SEL].orig)im.src=sw[SEL].orig;
+ delete sw[SEL];swsave(sw);hideArtpick();selUI();
+ tstatus(SEL+' art back to canon')}
+function swApply(){var sw=swload();var d=fdoc();if(!d)return;
+ for(var id in sw){var el=d.getElementById(id);if(!el)continue;
+  var im=swImgOf(el);if(!im)continue;
+  if(im.src!==sw[id].url)im.src=sw[id].url}}
+function swRestoreAll(){var sw=swload();var d=fdoc();if(!d)return;
+ for(var id in sw){var el=d.getElementById(id);if(!el)continue;
+  var im=swImgOf(el);if(im&&sw[id].orig)im.src=sw[id].orig}}
 
 /* ---------- graphics manager ---------- */
 var GFX_URL='https://zevie-6b9784cf.base44.app/functions/saboAssetDrop';
@@ -629,7 +686,7 @@ try{if(!localStorage.getItem('saboLabV8')&&localStorage.getItem('tuneseats_lab')
 if(location.search.indexOf('testov=1')>=0){GFXOV={'cf220ab0f_sabotask_fuse_bomb_v2.png':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z/AfAAQAAf8iCjrwAAAAAElFTkSuQmCC'}}
 
 /* keep deltas alive against demo re-animating elements */
-setInterval(function(){if(current&&Object.keys(D).length)applyAll()},700);
+setInterval(function(){if(current&&(Object.keys(D).length||Object.keys(swload()).length))applyAll()},700);
 
 fit();islandChip();applyIsland();buildIsland();
 refresh();

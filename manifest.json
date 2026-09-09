@@ -1,5 +1,5 @@
 {
- "board_version": 54,
+ "board_version": 55,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -105,8 +105,8 @@
   {
    "id": "ghostlab",
    "name": "GHOST LAB",
-   "sub": "v3 \u00b7 OVERLAY ART \u00b7 NO DIM",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5425c2644_ghost_lab_v3.html",
+   "sub": "v4 \u00b7 OVERLAY BEHIND TAG \u00b7 NO DIM",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b95416fe6_ghost_lab_v4.html",
    "kind": "demo",
    "cat": "lab",
    "stage": [
@@ -332,13 +332,6 @@
    "file": "d2308ae0a_sabotask_nameplate_12.png",
    "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d2308ae0a_sabotask_nameplate_12.png",
    "use": "MONITOR ROSTER + REST"
-  },
-  {
-   "id": "ghosted",
-   "label": "GHOSTED OVERLAY",
-   "file": "3c4c8f8c0_sabotask_ghosted_overlay_v2.png",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3c4c8f8c0_sabotask_ghosted_overlay_v2.png",
-   "use": "SURVIVAL MONITOR + REST"
   },
   {
    "id": "ghostedOverlay",

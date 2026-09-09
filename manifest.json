@@ -1,5 +1,5 @@
 {
-  "board_version": 31,
+  "board_version": 32,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,16 +21,16 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v14 · TAPE v4 + MONITOR SKULLS",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/ba970ac80_rest_screen_v14.html",
+      "sub": "v15 · BREAKSCREEN SKULL BG v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4e96f66f9_rest_screen_v15.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v9 · TAPE AT WORKING SIZE",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/63fc37e1b_meter_lab_v9.html",
+      "sub": "v10 · BREAKSCREEN SKULL BG v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d70882c21_meter_lab_v10.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -320,6 +320,13 @@
       "file": "d2308ae0a_sabotask_nameplate_12.png",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d2308ae0a_sabotask_nameplate_12.png",
       "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "mbg3",
+      "label": "METER BG (v3 — NEW DROP)",
+      "file": "09a5f9720_sabotask_breakscreen_skull_background_v3.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/09a5f9720_sabotask_breakscreen_skull_background_v3.png",
+      "use": "REST METERS + METER LAB (CURRENT)"
     }
   ]
 }

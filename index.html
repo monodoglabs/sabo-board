@@ -45,8 +45,14 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 #tunerow.on{display:flex}
 #selrow{display:none;flex-wrap:wrap}
 #selrow.on{display:flex}
+#selout{display:none;flex-wrap:wrap;align-items:center;min-height:20px}
+#selout.on{display:flex}
+#selname{font:12px monospace;color:#00D4E8;letter-spacing:.5px;padding:2px 4px;flex:1;min-width:0}
+.mtabs{display:flex;gap:8px;margin:0 0 10px 0}
+.mtab{cursor:pointer;padding:8px 16px;border-radius:8px;background:#1c0b26;border:1px solid #3a1550;color:#ff9db4;font:12px monospace;letter-spacing:2px}
+.mtab.on{background:#00D4E8;border-color:#00D4E8;color:#14081F}
+.menucard.lab{border-color:#7fe81e}
 #selrow .dchip{padding:8px 10px;font-size:11px}
-#selname{font:11px monospace;color:#00D4E8;letter-spacing:.5px;padding:2px 4px}
 #tpush{background:#CCFF00;color:#14081F;font-weight:700}
 #tstatus{flex:1;min-width:0;font:10px/1.3 monospace;color:#9FE838;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
 /* ---- LIST menu: full-screen picker ---- */
@@ -118,8 +124,8 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
       <button class="dchip" id="tundo" onclick="undoDeltas()">UNDO</button>
       <span id="tstatus"></span>
     </div>
+    <div class="drow" id="selout"><span id="selname"></span></div>
     <div class="drow" id="selrow">
-      <span id="selname"></span>
       <button class="dchip" onclick="bumpD(-5,0)">←</button>
       <button class="dchip" onclick="bumpD(5,0)">→</button>
       <button class="dchip" onclick="bumpD(0,-5)">↑</button>
@@ -162,7 +168,7 @@ function status(t){document.getElementById('status').textContent=t}
 /* ---------- island overlay ---------- */
 function islandChip(){var c=document.getElementById('islandChip');c.textContent='ISLAND: '+(islandOn?'ON':'OFF');c.className='dchip'+(islandOn?'':' off')}
 function toggleIsland(){islandOn=!islandOn;store.set('saboIsland',islandOn?'1':'0');islandChip();applyIsland()}
-function applyIsland(){var el=document.getElementById('island');el.className=islandOn?'on':''}
+function applyIsland(){var el=document.getElementById('island');el.className=(islandOn&&!(current&&current.cat==='lab'))?'on':''}
 function buildIsland(){
   var el=document.getElementById('island');el.innerHTML='';
   if(overlayURL){el.innerHTML='<img src="'+overlayURL+'" alt="island grid overlay">';return}
@@ -175,14 +181,16 @@ function buildIsland(){
 }
 
 /* ---------- stage fit: letterbox ABOVE the dock ---------- */
+function stgW(){return (current&&current.stage&&current.stage[0])||1080}
+function stgH(){return (current&&current.stage&&current.stage[1])||2340}
 function fit(){
   var vw=window.innerWidth,vh=(window.visualViewport?window.visualViewport.height:window.innerHeight);
   var dockH=0;
   var dk=document.getElementById('dock');
   var viewerOn=document.getElementById('viewer').className.indexOf('on')>=0;
   if(viewerOn&&dk&&dk.offsetWidth)dockH=dk.offsetHeight;
-  var s=Math.min(vw/1080,Math.max(0,vh-dockH)/2340);
-  var w=1080*s,h=2340*s;
+  var s=Math.min(vw/stgW(),Math.max(0,vh-dockH)/stgH());
+  var w=stgW()*s,h=stgH()*s;
   var st=document.getElementById('stage');
   st.style.width=w+'px';st.style.height=h+'px';
   st.style.left=(vw-w)/2+'px';
@@ -210,7 +218,7 @@ function fapp(){var d=fdoc();return d?d.getElementById('app'):null}
 function tkey(){var k=current?current.id:'';if(SCREENKEY[k])k=SCREENKEY[k];return 'tuneseats_'+k}
 function tsave(){try{localStorage.setItem(tkey(),JSON.stringify(D))}catch(e){}}
 function tload(){try{D=JSON.parse(localStorage.getItem(tkey())||'{}')}catch(e){D={}}}
-function tscale(){var a=fapp();return (a&&a.getBoundingClientRect().width/1080)||1}
+function tscale(){var a=fapp();return (a&&a.getBoundingClientRect().width/stgW())||1}
 function tstatus(t){document.getElementById('tstatus').textContent=t}
 function dval(id){var v=D[id];if(!v)v={};if(v.s===undefined)v.s=1;if(v.r===undefined)v.r=0;if(v.z===undefined)v.z=0;if(v.dx===undefined)v.dx=0;if(v.dy===undefined)v.dy=0;return v}
 function zbaseOf(el){var id=el.id;if(!(id in ZB)){var z=parseInt(fdoc().defaultView.getComputedStyle(el).zIndex,10);ZB[id]=isNaN(z)?0:z}return ZB[id]}
@@ -271,9 +279,9 @@ function selectEl(id){var d=fdoc();if(!d)return;
   selUI();
 }
 function selUI(){
-  var row=document.getElementById('selrow'),nm=document.getElementById('selname');
-  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?klabel():SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
-  else{row.className='drow';nm.textContent=''}
+  var row=document.getElementById('selrow'),out=document.getElementById('selout'),nm=document.getElementById('selname');
+  if(tuneOn&&SEL){row.className='drow on';out.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?klabel():SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
+  else{row.className='drow';out.className='drow';nm.textContent=''}
   fit();
 }
 function toggleTune(){
@@ -443,20 +451,32 @@ function backToMenu(){
 }
 
 /* ---------- menu + manifest (MANUAL refresh only) ---------- */
+var MENUTAB='screens';
+try{MENUTAB=store.get('saboTab')||'screens'}catch(e){}
+function setTab(t){MENUTAB=t;try{store.set('saboTab',t)}catch(e){};if(MDATA)renderMenu(MDATA)}
+var MDATA=null;
 function renderMenu(m){
+  MDATA=m;
   overlayURL=m.overlay&&m.overlay.url||null;
   buildIsland();islandChip();applyIsland();
   var g=document.getElementById('menu');g.innerHTML='';
+  var tb=document.createElement('div');tb.className='mtabs';
+  tb.innerHTML='<span class="mtab'+(MENUTAB==='screens'?' on':'')+'" id="mtabS">SCREENS</span><span class="mtab'+(MENUTAB==='labs'?' on':'')+'" id="mtabL">LABS</span>';
+  g.appendChild(tb);
+  document.getElementById('mtabS').onclick=function(){setTab('screens')};
+  document.getElementById('mtabL').onclick=function(){setTab('labs')};
   var hint=document.createElement('p');hint.className='hint';
-  hint.textContent='tap a screen — controls + tune live in the dock OUTSIDE the screen'+(overlayURL?' · island grid: your PNG':' · island overlay: built-in zones');
+  hint.textContent=(MENUTAB==='labs'
+    ?'element labs — compact tune surfaces at working size · deltas PUSH to Nigella for baking'
+    :'tap a screen — controls + tune live in the dock OUTSIDE the screen'+(overlayURL?' · island grid: your PNG':' · island overlay: built-in zones'));
   g.appendChild(hint);
-  m.demos.forEach(function(d){
+  m.demos.filter(function(d){return MENUTAB==='labs'?d.cat==='lab':d.cat!=='lab'}).forEach(function(d){
     var c=document.createElement('div');
     if(d.kind==='link'){
       c.className='menucard openlink';
       c.innerHTML='<span class="nm">'+d.name+'</span><a class="arrow" style="text-decoration:none" href="'+d.url+'" target="_blank" rel="noopener">OPEN IN TAB →</a>';
     }else{
-      c.className='menucard';
+      c.className='menucard'+(d.cat==='lab'?' lab':'');
       c.innerHTML='<span class="nm">'+d.name+'</span><span class="badge">'+d.sub+'</span><span class="arrow">OPEN →</span>';
       c.onclick=function(){openViewer(d)};
     }
@@ -603,6 +623,8 @@ function shipGfx(){
  }
  step();
 }
+/* one-time migration: lab v8 base already contains the baked push — clear stale local lab seats */
+try{if(!localStorage.getItem('saboLabV8')&&localStorage.getItem('tuneseats_lab')!==null){localStorage.removeItem('tuneseats_lab');localStorage.removeItem('tuneseats_push_lab');localStorage.setItem('saboLabV8','1')}}catch(e){}
 /* qa hook: ?testov=1 makes the bomb a transparent 1px to prove the swap engine */
 if(location.search.indexOf('testov=1')>=0){GFXOV={'cf220ab0f_sabotask_fuse_bomb_v2.png':'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGP4z/AfAAQAAf8iCjrwAAAAAElFTkSuQmCC'}}
 

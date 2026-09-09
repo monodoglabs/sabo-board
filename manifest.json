@@ -1,5 +1,5 @@
 {
-  "board_version": 47,
+  "board_version": 48,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,8 +21,8 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v20 · SURVIVAL BANNER v3",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f96e056f6_rest_screen_v20.html",
+      "sub": "v18 · SURVIVAL BANNER v2",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/96fb7f761_rest_screen_v18.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -81,8 +81,8 @@
     {
       "id": "bannerlab",
       "name": "BANNER LAB",
-      "sub": "v4 · SURVIVAL BANNER v2",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/666698cd2_banner_lab_v4_survival_banner_v2.html",
+      "sub": "v4 · SURVIVAL BANNER v2 + 9-skull set",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/815ec2791_banner_lab_v4.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -120,10 +120,10 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER",
-      "file": "2d7edaed5_sabotask_survival_banner_v3_trim.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/38a1c6d00_sabotask_survival_banner_v3_trim.png",
-      "use": "REST + SURVIVAL MONITOR"
+      "label": "SURVIVAL BANNER (v4)",
+      "file": "8d36387d4_sabotask_survival_banner_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8d36387d4_sabotask_survival_banner_v2.png",
+      "use": "SURVIVAL MONITOR + REST + BANNER LAB"
     },
     {
       "id": "mskull",

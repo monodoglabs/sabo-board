@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SABOTASK — BUILD BOARD</title>
-<!-- v15 marker: gfx writes verified + oversized art auto-compressed (bg swap fix) -->
+<!-- v15 marker: gfx writes verified + oversized art auto-compressed (bg swap fix) | v16: ART flyout shows local GFX swaps too -->
 <style>
 @font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -535,7 +535,7 @@ function refresh(){
 /* ---------- art swap (per-element art picker — device-local preview, rides PUSH) ---------- */
 function skey(){return 'saboswap_'+(current?current.id:'')}
 function swload(){try{return JSON.parse(store.get(skey())||'{}')}catch(e){return{}}}
-function swsave(o){try{store.set(skey(),JSON.stringify(o))}catch(x){}}
+function swsave(o){if(!store.set(skey(),JSON.stringify(o))){gstat('PHONE STORAGE FULL — REVERT an art swap or a GFX slot, then try again');return false}return true}
 function swImgOf(el){if(!el)return null;if(el.tagName==='IMG')return el;
  var ims=el.querySelectorAll(':scope > img');return ims.length===1?ims[0]:null}
 function swTarget(){var d=fdoc();if(!SEL||!d)return null;return swImgOf(d.getElementById(SEL))}
@@ -543,11 +543,12 @@ function openArtpick(){
  if(!SEL){tstatus('pick something from LIST first');return}
  if(!swTarget()){tstatus(SEL+' holds no single art img — swap needs exactly one');return}
  closeList();
- var sw=swload();var gr=document.getElementById('apgrid');gr.innerHTML='';
+ var sw=swload();var ov=gload();var gr=document.getElementById('apgrid');gr.innerHTML='';
  (AST||[]).forEach(function(a){
+  var art=ov[a.file]||a.url;
   var c=document.createElement('div');c.className='gcell';
-  c.innerHTML='<img src="'+a.url+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>';
-  c.onclick=function(){swapArt(a)};gr.appendChild(c);});
+  c.innerHTML='<img src="'+art+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+(ov[a.file]?'your local swap':a.use)+'</div>';
+  c.onclick=function(){swapArt({url:art,label:a.label})};gr.appendChild(c);});
  var staging=lload();
  var wrap=document.getElementById('apscroll');
  var oldst=wrap.querySelector('#apstage');if(oldst)oldst.remove();
@@ -571,9 +572,9 @@ function openArtpick(){
 function hideArtpick(){document.getElementById('artpick').className=''}
 function swapArt(a){var im=swTarget();if(!im)return;var sw=swload();
  if(!sw[SEL])sw[SEL]={orig:im.src};
- sw[SEL].url=a.url;sw[SEL].label=a.label;swsave(sw);
- im.src=a.url;hideArtpick();selUI();
- tstatus(SEL+' art → '+a.label+' · PUSH sends it with your seats')}
+ sw[SEL].url=a.url;sw[SEL].label=a.label;
+ if(swsave(sw)!==false){im.src=a.url;hideArtpick();selUI();
+ tstatus(SEL+' art → '+a.label+' · PUSH sends it with your seats')}}
 function unswapArt(){var sw=swload();if(!sw[SEL]){hideArtpick();return}
  var im=swTarget();if(im&&sw[SEL].orig)im.src=sw[SEL].orig;
  delete sw[SEL];swsave(sw);hideArtpick();selUI();

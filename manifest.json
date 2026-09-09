@@ -1,5 +1,5 @@
 {
-  "board_version": 44,
+  "board_version": 45,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,16 +21,16 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v19 · GHOSTED OVERLAY v2",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cb0ec5f71_rest_screen_v19.html",
+      "sub": "v13 · TAPE v3 + METER BG v4 LIVE",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0cb5d31db_rest_screen_v12_v9wire.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v10 · METER BACKGROUND v5",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/73b0c08a0_meter_lab_v10.html",
+      "sub": "v9 · COMPACT — METER BG v4",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8cb2f6f63_meter_lab_v8_v9wire.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -134,9 +134,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v5)",
-      "file": "5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5b6d023f3_89135f88a_sabotask_breakscreen_skull_background_v5.png",
+      "label": "METER BG (v4)",
+      "file": "8d61396b6_sabotask_breakscreen_skull_background_v4.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8d61396b6_sabotask_breakscreen_skull_background_v4.png",
       "use": "REST METERS + LAB"
     },
     {

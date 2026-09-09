@@ -1,5 +1,5 @@
 {
- "board_version": 55,
+ "board_version": 56,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -105,13 +105,13 @@
   {
    "id": "ghostlab",
    "name": "GHOST LAB",
-   "sub": "v4 \u00b7 OVERLAY BEHIND TAG \u00b7 NO DIM",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b95416fe6_ghost_lab_v4.html",
+   "sub": "v5 \u00b7 GHOSTED = OVERLAY ONLY",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/65425f9cc_ghost_lab_v5.html",
    "kind": "demo",
    "cat": "lab",
    "stage": [
     600,
-    600
+    470
    ]
   }
  ],

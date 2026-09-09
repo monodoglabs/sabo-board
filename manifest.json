@@ -1,5 +1,5 @@
 {
- "board_version": 66,
+ "board_version": 67,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -37,8 +37,8 @@
   {
    "id": "select",
    "name": "THE DRAW",
-   "sub": "v6 \u00b7 HER 6 TWEAKS IN",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f1a6e6d7b_the_draw_v6.html",
+   "sub": "v7 \u00b7 MINIS CUT ON THE SPIN\u2019S REAL LANDING",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0f6c0d0c9_the_draw_v7.html",
    "kind": "demo",
    "cat": "screen"
   },

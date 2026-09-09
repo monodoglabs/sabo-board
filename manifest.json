@@ -1,5 +1,5 @@
 {
- "board_version": 57,
+ "board_version": 59,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -21,8 +21,16 @@
   {
    "id": "rest",
    "name": "REST SCREEN",
-   "sub": "v24 \u00b7 SURVIVAL BANNER v3",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d41301a39_rest_v22_survivalv3.html",
+   "sub": "v26 \u00b7 TIGHTER PLATE GRID",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/382a2b40d_rest_v26_tightgrid.html",
+   "kind": "demo",
+   "cat": "screen"
+  },
+  {
+   "id": "restghost",
+   "name": "REST \u2014 GHOSTED PREVIEW",
+   "sub": "v26 \u00b7 TIGHT GRID \u00b7 GHOSTED \u00d73",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/335374536_rest_v26_ghost_preview_tight.html",
    "kind": "demo",
    "cat": "screen"
   },
@@ -37,14 +45,6 @@
     600,
     340
    ]
-  },
-  {
-   "id": "restghost",
-   "name": "REST \u2014 GHOSTED PREVIEW",
-   "sub": "v25 \u00b7 OVERLAY ON 3 PLATES \u00b7 NO DIM",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6a51a2b15_rest_v25_ghost_preview.html",
-   "kind": "demo",
-   "cat": "screen"
   },
   {
    "id": "duo",

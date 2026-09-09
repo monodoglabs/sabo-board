@@ -1,19 +1,19 @@
 {
-  "board_version": 52,
+  "board_version": 53,
   "refresh_seconds": 60,
   "demos": [
     {
       "id": "monitor",
       "name": "SURVIVAL MONITOR",
-      "sub": "BUILD 4 \u00b7 GHOSTED OVERLAY v2",
+      "sub": "BUILD 4 · GHOSTED OVERLAY v2",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/70fd722d5_survival_monitor_build4.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "solo",
-      "name": "THE CHOICE \u2014 SOLO",
-      "sub": "v33 \u00b7 PAPERS v2",
+      "name": "THE CHOICE — SOLO",
+      "sub": "v33 · PAPERS v2",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/770fc5de4_choice_demo_v29.html",
       "kind": "demo",
       "cat": "screen"
@@ -21,7 +21,7 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v23 \u00b7 BREAKSCREEN BG v4",
+      "sub": "v23 · BREAKSCREEN BG v4",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9b15718ce_rest_screen_v21.html",
       "kind": "demo",
       "cat": "screen"
@@ -29,7 +29,7 @@
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v11 \u00b7 BREAKSCREEN BG v4",
+      "sub": "v11 · BREAKSCREEN BG v4",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/dd35cd974_meter_lab_v11.html",
       "kind": "demo",
       "cat": "lab",
@@ -40,8 +40,8 @@
     },
     {
       "id": "duo",
-      "name": "THE CHOICE \u2014 DUO",
-      "sub": "v15 \u00b7 PAPERS v2",
+      "name": "THE CHOICE — DUO",
+      "sub": "v15 · PAPERS v2",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/ac594ad7e_choice_demo_duo_v11.html",
       "kind": "demo",
       "cat": "screen"
@@ -49,7 +49,7 @@
     {
       "id": "join",
       "name": "JOIN THE SHOW",
-      "sub": "v5 \u00b7 TAG + REAL NAME + SELFIE",
+      "sub": "v5 · TAG + REAL NAME + SELFIE",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/bb84c8d70_sabo_demo_join_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -57,7 +57,7 @@
     {
       "id": "landing",
       "name": "LANDING",
-      "sub": "v1 \u00b7 BUY + JOIN (NEW VISITOR)",
+      "sub": "v1 · BUY + JOIN (NEW VISITOR)",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8c6c7cf44_sabo_demo_landing_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -65,7 +65,7 @@
     {
       "id": "flyout",
       "name": "CHITLOAD FLYOUT",
-      "sub": "v1 \u00b7 SIX CHITS + THE KEY",
+      "sub": "v1 · SIX CHITS + THE KEY",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8b87f7180_sabo_demo_flyout_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -81,8 +81,8 @@
     {
       "id": "bannerlab",
       "name": "BANNER LAB",
-      "sub": "v6 \u00b7 SURVIVAL BANNER v2 REPLACEMENT",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9beff35af_banner_lab_v5.html",
+      "sub": "v6 · SURVIVAL BANNER v3 REPLACEMENT",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fb39f43e1_banner_lab_v6.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -93,7 +93,7 @@
     {
       "id": "flylab",
       "name": "FLYOUT LAB",
-      "sub": "v2 \u00b7 FULL SCREEN \u2014 dock + sheet at true stage size",
+      "sub": "v2 · FULL SCREEN — dock + sheet at true stage size",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/b8d12f8b4_flyout_lab_v2.html",
       "kind": "demo",
       "cat": "lab",

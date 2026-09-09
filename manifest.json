@@ -1,5 +1,5 @@
 {
- "board_version": 59,
+ "board_version": 60,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -31,6 +31,14 @@
    "name": "REST \u2014 GHOSTED PREVIEW",
    "sub": "v26 \u00b7 TIGHT GRID \u00b7 GHOSTED \u00d73",
    "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/335374536_rest_v26_ghost_preview_tight.html",
+   "kind": "demo",
+   "cat": "screen"
+  },
+  {
+   "id": "select",
+   "name": "THE DRAW",
+   "sub": "v1 \u00b7 REST \u2192 CHOICE \u00b7 BAG SHUFFLE",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5ab4e9a33_the_draw_v1.html",
    "kind": "demo",
    "cat": "screen"
   },

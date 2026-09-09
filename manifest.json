@@ -1,5 +1,5 @@
 {
-  "board_version": 33,
+  "board_version": 34,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -93,13 +93,13 @@
     {
       "id": "flylab",
       "name": "FLYOUT LAB",
-      "sub": "v1 · CHITLOAD DOCK + SHEET AT WORKING SIZE",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/f98d8328b_flyout_lab_v1.html",
+      "sub": "v2 · FULL SCREEN — dock + sheet at true stage size",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/b8d12f8b4_flyout_lab_v2.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
-        1120,
-        1700
+        1080,
+        2340
       ]
     }
   ],

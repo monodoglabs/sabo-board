@@ -193,9 +193,14 @@ window.addEventListener('resize',fit);
 /* ---------- tune engine (board-side, reaches INTO the srcdoc iframe — same origin) ---------- */
 var SCREENKEY={solo:'solo_choice',duo:'duo_choice',monitor:'monitor'};
 var EXCLUDE={app:1,wrap:1,bg:1,flash:1,shake:1,gate:1};
-var KIT_ID='fusekit';
-var KIT_MEMBERS=['flamewrap','line','trail'];
-var KIT={flamewrap:1,line:1,trail:1,bob:1,flame:1};
+var KITDEFS=[
+  {id:'fusekit',lbl:'FUSE KIT',desc:'flame + both lines',members:['flamewrap','line','trail'],rets:['flamewrap','line','trail','bob','flame'],screens:['solo','duo']},
+  {id:'meterkit',lbl:'METER KIT',desc:'all 12 skull meters',members:['meter01','meter02','meter03','meter04','meter05','meter06','meter07','meter08','meter09','meter10','meter11','meter12'],rets:['meter01','meter02','meter03','meter04','meter05','meter06','meter07','meter08','meter09','meter10','meter11','meter12'],screens:['rest']}
+];
+var KIT_ID=null,KIT_MEMBERS=[],KIT={};
+function kitdef(){for(var i=0;i<KITDEFS.length;i++){if(KITDEFS[i].id===KIT_ID)return KITDEFS[i]}return null}
+function klabel(){var k=kitdef();return k?k.lbl:'KIT'}
+function setKit(){var k=null,sc=current?current.id:'';KITDEFS.forEach(function(c){if(c.screens.indexOf(sc)>=0)k=c});KIT_ID=k?k.id:null;KIT_MEMBERS=k?k.members.slice():[];KIT={};if(k)k.rets.forEach(function(m){KIT[m]=1})}
 function memberIds(id){return id===KIT_ID?KIT_MEMBERS:[id]}
 var tuneOn=false, SEL=null, BOOST=[], D={}, ZB={}, drag=null;
 
@@ -215,7 +220,7 @@ function kitApply(v){var d=fdoc();KIT_MEMBERS.forEach(function(one){var el=d&&d.
   if(v.r)el.style.setProperty('rotate',v.r+'deg','important');
   if(v.z)el.style.setProperty('z-index',String((KIT_ID===SEL&&tuneOn?2147483000:zbaseOf(el))+v.z),'important');
 })}
-function applyOne(id){var d=fdoc();if(id===KIT_ID){if(D[id])kitApply(dval(id));return}
+function applyOne(id){var d=fdoc();if(KIT_ID&&id===KIT_ID){if(D[id])kitApply(dval(id));return}
   var el=d&&d.getElementById(id);if(!el||!D[id])return;var v=dval(id);
   el.style.setProperty('translate',v.dx+'px '+v.dy+'px','important');
   if(v.s!==1)el.style.setProperty('scale',String(v.s),'important');
@@ -236,6 +241,7 @@ function attachDrag(){var d=fdoc();if(!d)return;
     if(!tuneOn)return;
     var el,id;
     if(SEL){id=SEL;el=d.getElementById(id);if(!el&&id!==KIT_ID)return}
+    if(SEL&&SEL===KIT_ID&&KIT_ID){el=null}
     else{el=(e.target&&e.target.closest)?e.target.closest('#app [id]'):null;if(!el||EXCLUDE[el.id])return;id=el.id;
       if(KIT[el.id]){id=KIT_ID;el=null}}
     e.preventDefault();e.stopPropagation();
@@ -261,12 +267,12 @@ function selectEl(id){var d=fdoc();if(!d)return;
   SEL=id;
   memberIds(id).forEach(function(one){var el=d.getElementById(one);if(el){el.classList.add('tsel');el.style.setProperty('opacity','1','important');el.style.setProperty('z-index','2147483000','important');BOOST.push(one)}});
   var b=fbody();if(b)b.classList.add('selactive');
-  tstatus(id===KIT_ID?'FUSE KIT — flame + both lines move as one':'moving ONLY '+id+' — drag anywhere · nudge ← → ↑ ↓ · SIZE/ROT/LAYER in dock');
+  tstatus(id===KIT_ID?klabel()+' — '+kitdef().desc+' move as one':'moving ONLY '+id+' — drag anywhere · nudge ← → ↑ ↓ · SIZE/ROT/LAYER in dock');
   selUI();
 }
 function selUI(){
   var row=document.getElementById('selrow'),nm=document.getElementById('selname');
-  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?'FUSE KIT':SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
+  if(tuneOn&&SEL){row.className='drow on';var v=dval(SEL);nm.textContent=(SEL===KIT_ID?klabel():SEL)+' · '+(SEL!==KIT_ID&&v.s!==1?Math.round(v.s*100)+'% ':'')+(SEL!==KIT_ID&&v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+v.dx+','+v.dy}
   else{row.className='drow';nm.textContent=''}
   fit();
 }
@@ -276,7 +282,7 @@ function toggleTune(){
   document.getElementById('tunerow').className='drow'+(tuneOn?' on':'');
   var b=fbody();if(b)b.classList.toggle('tuning',tuneOn);
   if(!tuneOn){unselect();tstatus('')}
-  else{tstatus('drag dashed things · grab the fuse — KIT moves as one · PUSH sends to Nigella')}
+  else{tstatus('drag dashed things'+(KIT_ID?' · grab a '+klabel()+' part — they move as one':'')+' · PUSH sends to Nigella')}
   selUI();
 }
 
@@ -285,19 +291,19 @@ function bumpD(x,y){
   if(!SEL){tstatus('pick something from LIST first');return}
   var d2=dval(SEL);d2.dx+=x;d2.dy+=y;
   D[SEL]=d2;applyOne(SEL);tsave();selUI();
-  tstatus((SEL===KIT_ID?'FUSE KIT':SEL)+' nudged — now at '+d2.dx+','+d2.dy);
+  tstatus((SEL===KIT_ID?klabel():SEL)+' nudged — now at '+d2.dx+','+d2.dy);
 }
 /* ---------- size + rotation steppers ---------- */
 function bumpS(v){
   if(!SEL){tstatus('pick something from LIST first');return}
-  if(SEL===KIT_ID){tstatus('FUSE KIT moves as one — resize is a canon change, tell Nigella');return}
+  if(SEL===KIT_ID){tstatus(klabel()+' moves as one — resize is a canon change, tell Nigella');return}
   var d2=dval(SEL);d2.s=Math.round((d2.s+v)*1000)/1000;
   if(d2.s<0.2)d2.s=0.2;if(d2.s>3)d2.s=3;
   D[SEL]=d2;applyOne(SEL);tsave();selUI();
 }
 function bumpR(v){
   if(!SEL){tstatus('pick something from LIST first');return}
-  if(SEL===KIT_ID){tstatus('FUSE KIT moves as one — rotation is a canon change, tell Nigella');return}
+  if(SEL===KIT_ID){tstatus(klabel()+' moves as one — rotation is a canon change, tell Nigella');return}
   var d2=dval(SEL);d2.r=(d2.r||0)+v;
   D[SEL]=d2;applyOne(SEL);tsave();selUI();
 }
@@ -312,7 +318,7 @@ function clearSel(){
   var d=fdoc();
   memberIds(SEL).forEach(function(one){var el=d&&d.getElementById(one);if(el){el.style.removeProperty('transform');el.style.removeProperty('translate');el.style.removeProperty('scale');el.style.removeProperty('rotate');el.style.removeProperty('z-index')}});
   delete D[SEL];tsave();selUI();
-  tstatus((SEL===KIT_ID?'FUSE KIT':SEL)+' back to canon');
+  tstatus((SEL===KIT_ID?klabel():SEL)+' back to canon');
 }
 
 /* ---------- LIST menu ---------- */
@@ -323,17 +329,19 @@ function renderList(){
   var seen={},ids=[];
   app.querySelectorAll('[id]').forEach(function(el){if(!EXCLUDE[el.id]&&!seen[el.id]){seen[el.id]=1;ids.push(el.id)}});
   var rows=document.getElementById('lmrows');rows.innerHTML='';
-  var kv=D[KIT_ID];
-  var kdd=kv?((kv.z?'L'+(kv.z>0?'+':'')+kv.z+' ':'')+((kv.dx>=0?'+':'')+kv.dx+','+(kv.dy>=0?'+':'')+kv.dy)):'·';
-  var kr=document.createElement('div');kr.className='lrow kit'+(SEL===KIT_ID?' sel':'');
-  kr.innerHTML='<span class="did">FUSE KIT — flame + both lines</span><span class="dd">'+kdd+'</span>';
-  kr.onclick=function(){selectEl(KIT_ID);renderList()};
-  rows.appendChild(kr);
+  if(KIT_ID){
+    var kv=D[KIT_ID];
+    var kdd=kv?((kv.z?'L'+(kv.z>0?'+':'')+kv.z+' ':'')+((kv.dx>=0?'+':'')+kv.dx+','+(kv.dy>=0?'+':'')+kv.dy)):'·';
+    var kr=document.createElement('div');kr.className='lrow kit'+(SEL===KIT_ID?' sel':'');
+    kr.innerHTML='<span class="did">'+klabel()+' — '+kitdef().desc+'</span><span class="dd">'+kdd+'</span>';
+    kr.onclick=function(){selectEl(KIT_ID);renderList()};
+    rows.appendChild(kr);
+  }
   ids.forEach(function(id){
     var v=D[id];
     if(KIT[id]){var pr=document.createElement('div');pr.className='lrow part';
       pr.innerHTML='<span class="did">'+id+'</span><span class="dd">→ KIT</span>';
-      pr.onclick=function(){selectEl(KIT_ID);renderList();tstatus('part of the FUSE KIT — the trio moves as one')};
+      pr.onclick=function(){selectEl(KIT_ID);renderList();tstatus('part of the '+klabel()+' — they move as one')};
       rows.appendChild(pr);return}
     var r=document.createElement('div');r.className='lrow'+(SEL===id?' sel':'');
     var dd=v?((v.s!==undefined&&v.s!==1)?Math.round(v.s*100)+'% ':'')+(v.r?v.r+'° ':'')+(v.z?'L'+(v.z>0?'+':'')+v.z+' ':'')+((v.dx>=0?'+':'')+v.dx+','+(v.dy>=0?'+':'')+v.dy):'·';
@@ -402,6 +410,7 @@ function watchDemo(){
   },100);
 }
 function onDemoReady(){
+  setKit();
   ZB={};SEL=null;BOOST=[];
   injectTuneStyle();attachDrag();applyAll();
   var b=fbody();
@@ -414,6 +423,7 @@ function onDemoReady(){
 /* ---------- viewer ---------- */
 function openViewer(d){
   current=d;
+  setKit();
   tload();
   document.getElementById('viewer').className='on';
   fit();

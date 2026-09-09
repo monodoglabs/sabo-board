@@ -1,12 +1,12 @@
 {
-  "board_version": 36,
+  "board_version": 37,
   "refresh_seconds": 60,
   "demos": [
     {
       "id": "monitor",
       "name": "SURVIVAL MONITOR",
-      "sub": "BUILD 3 · TUNE VIA BOARD",
-      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/b912b2cd1_survival_monitor_build3.html",
+      "sub": "BUILD 4 · GHOSTED OVERLAY v2",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bd660b155_survival_monitor_build4.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -320,6 +320,13 @@
       "file": "d2308ae0a_sabotask_nameplate_12.png",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d2308ae0a_sabotask_nameplate_12.png",
       "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "ghosted",
+      "label": "GHOSTED OVERLAY",
+      "file": "278ab4790_sabotask_ghosted_overlay_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/278ab4790_sabotask_ghosted_overlay_v2.png",
+      "use": "SURVIVAL MONITOR"
     }
   ]
 }

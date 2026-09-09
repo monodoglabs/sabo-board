@@ -5,8 +5,8 @@
     {
       "id": "monitor",
       "name": "SURVIVAL MONITOR",
-      "sub": "BUILD 5 \u00b7 GHOSTED OVERLAY v2",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/db8ae2a28_survival_monitor_build5.html",
+      "sub": "BUILD 4 \u00b7 GHOSTED OVERLAY v2",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/70fd722d5_survival_monitor_build4.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -22,7 +22,7 @@
       "id": "rest",
       "name": "REST SCREEN",
       "sub": "v19 \u00b7 GHOSTED OVERLAY v2",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/102a710d4_rest_screen_v19.html",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cb0ec5f71_rest_screen_v19.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -326,6 +326,13 @@
       "label": "GHOSTED OVERLAY",
       "file": "3c4c8f8c0_sabotask_ghosted_overlay_v2.png",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3c4c8f8c0_sabotask_ghosted_overlay_v2.png",
+      "use": "SURVIVAL MONITOR + REST"
+    },
+    {
+      "id": "ghostedOverlay",
+      "label": "GHOSTED OVERLAY",
+      "file": "bd3357c46_sabotask_ghosted_overlay_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bd3357c46_sabotask_ghosted_overlay_v2.png",
       "use": "SURVIVAL MONITOR + REST"
     }
   ]

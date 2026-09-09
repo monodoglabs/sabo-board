@@ -1,5 +1,5 @@
 {
-  "board_version": 29,
+  "board_version": 30,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -88,6 +88,18 @@
       "stage": [
         1120,
         600
+      ]
+    },
+    {
+      "id": "flylab",
+      "name": "FLYOUT LAB",
+      "sub": "v1 · CHITLOAD DOCK + SHEET AT WORKING SIZE",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/f98d8328b_flyout_lab_v1.html",
+      "kind": "demo",
+      "cat": "lab",
+      "stage": [
+        1120,
+        1700
       ]
     }
   ],

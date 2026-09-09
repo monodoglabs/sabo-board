@@ -1,5 +1,5 @@
 {
-  "board_version": 53,
+  "board_version": 54,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,8 +21,8 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v23 · BREAKSCREEN BG v4",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9b15718ce_rest_screen_v21.html",
+      "sub": "v20 · SURVIVAL BANNER v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/81413d6cf_rest_screen_v20_survival_banner_v3.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -81,8 +81,8 @@
     {
       "id": "bannerlab",
       "name": "BANNER LAB",
-      "sub": "v6 · SURVIVAL BANNER v3 REPLACEMENT",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fb39f43e1_banner_lab_v6.html",
+      "sub": "v6 · SURVIVAL BANNER v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5bd38c3a1_banner_lab_v6_survival_banner_v3.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -120,9 +120,9 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER (v2)",
-      "file": "2d7edaed5_sabotask_survival_banner_v2_trim.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7652c54af_2d7edaed5_sabotask_survival_banner_v2_trim.png",
+      "label": "SURVIVAL BANNER (v3)",
+      "file": "2d7edaed5_sabotask_survival_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/203d62992_2d7edaed5_sabotask_survival_banner_v3_trim.png",
       "use": "REST + BANNER LAB"
     },
     {

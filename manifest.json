@@ -1,5 +1,5 @@
 {
- "board_version": 64,
+ "board_version": 65,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -37,8 +37,8 @@
   {
    "id": "select",
    "name": "THE DRAW",
-   "sub": "v4 \u00b7 NEXT UP SCROLL ART WIRED",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2cc3abc2a_the_draw_v4.html",
+   "sub": "v5 \u00b7 FLIPBOOK REEL (animates on-device)",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8f82f51e3_the_draw_v5.html",
    "kind": "demo",
    "cat": "screen"
   },

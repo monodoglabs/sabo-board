@@ -21,16 +21,16 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v13 · TAPE v3 + METER BG v4 LIVE",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0cb5d31db_rest_screen_v12_v9wire.html",
+      "sub": "v19 · GHOSTED OVERLAY v2",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cb0ec5f71_rest_screen_v19.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v9 · COMPACT — METER BG v4",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8cb2f6f63_meter_lab_v8_v9wire.html",
+      "sub": "v11 · METER BACKGROUND v6",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8d6ea268a_meter_lab_v11.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -120,10 +120,10 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER (v2)",
-      "file": "dca2c8903_2d7edaed5_sabotask_survival_banner_v2_trim.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/dca2c8903_2d7edaed5_sabotask_survival_banner_v2_trim.png",
-      "use": "REST"
+      "label": "SURVIVAL BANNER",
+      "file": "2d7edaed5_sabotask_survival_banner_v2_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bcf8ab7d2_2d7edaed5_sabotask_survival_banner_v2_trim.png",
+      "use": "REST + SURVIVAL MONITOR"
     },
     {
       "id": "mskull",
@@ -134,9 +134,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v4)",
-      "file": "8d61396b6_sabotask_breakscreen_skull_background_v4.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8d61396b6_sabotask_breakscreen_skull_background_v4.png",
+      "label": "METER BG (v6)",
+      "file": "1564df83c_sabotask_breakscreen_skull_background_v3.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f54afd753_shipped_1564df83c_sabotask_breakscreen_skull_background_v3.png",
       "use": "REST METERS + LAB"
     },
     {

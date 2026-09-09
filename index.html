@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>SABOTASK — BUILD BOARD</title>
+<!-- v15 marker: gfx writes verified + oversized art auto-compressed (bg swap fix) -->
 <style>
 @font-face{font-family:'BM';src:url('https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff') format('woff');font-display:swap}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -171,7 +172,7 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 <script>
 var MAN='https://zevie-6b9784cf.base44.app/functions/saboBoardManifest';
 var PUSH_URL='https://zevie-6b9784cf.base44.app/functions/saboSeatTuner';
-var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+var store={get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},set:function(k,v){try{localStorage.setItem(k,v);return localStorage.getItem(k)===v}catch(e){return false}}};
 var last=null, current=null, overlayURL=null, islandOn=store.get('saboIsland')==='1';
 
 function status(t){document.getElementById('status').textContent=t}
@@ -675,15 +676,37 @@ document.getElementById('gfile').addEventListener('change',function(){
   im.onerror=function(){bad()};
   im.src=d;
   function bad(){gstat("CAN'T SHOW THAT FILE — export as PNG or JPG and pick again");if(mode.type==='slot')openSlot(mode.i)}
-  function land(d2,note){
+  function squeeze(art,cb,failcb){
+   var im=new Image();
+   im.onload=function(){
+    var tries=[[1600,'image/png',null],[1080,'image/jpeg',0.85],[840,'image/jpeg',0.8]],k=0;
+    function next(){
+     if(k>=tries.length){failcb();return}
+     var t=tries[k++];
+     try{
+      var mx=t[0],sc=Math.min(1,mx/Math.max(im.width,im.height));
+      var cv=document.createElement('canvas');cv.width=Math.round(im.width*sc);cv.height=Math.round(im.height*sc);
+      cv.getContext('2d').drawImage(im,0,0,cv.width,cv.height);
+      var out=cv.toDataURL(t[1],t[2]||undefined);
+      if(out&&out.length>100&&out.length<2600000&&out.length<art.length){cb(out,(t[1]==='image/jpeg'?' — SAVED COMPRESSED to fit phone storage (Drive-send the full file for max-quality canon)':' — auto-resized to fit phone storage'));return}
+     }catch(e){}
+     next();
+    }
+    next();
+   };
+   im.onerror=function(){failcb()};im.src=art;
+  }
+  function land(d2,note,ret){
    if(mode.type==='slot'){
     var a=AST[mode.i];var o=gload();o[a.file]=d2;
-    try{store.set('saboGfx',JSON.stringify(o))}catch(e){gstat('PHONE STORAGE FULL — revert a slot or SHIP + clear');return}
-    drawGfx();openSlot(mode.i);gstat('swapped'+note+' — open the screen (or tap ↻) to see it live')
+    if(store.set('saboGfx',JSON.stringify(o))){drawGfx();openSlot(mode.i);gstat('swapped'+note+' — open the screen (or tap ↻) to see it live')}
+    else if(!ret){squeeze(d2,function(a2,m2){land(a2,m2,true)},function(){gstat('PHONE STORAGE FULL — that art is too big. REVERT a slot or SHIP + clear, then pick again');openSlot(mode.i)})}
+    else{gstat('PHONE STORAGE FULL — REVERT a slot or SHIP + clear, then pick again');openSlot(mode.i)}
    }else{
     var arr=lload();arr.push({id:Date.now(),name:f.name.slice(0,24),data:d2,to:null});
-    try{lsave(arr)}catch(e){gstat('PHONE STORAGE FULL — delete a staging item first');return}
-    drawGfx();sheetClose();gstat('added to staging'+note)
+    if(store.set('saboGfxLib',JSON.stringify(arr))){drawGfx();sheetClose();gstat('added to staging'+note)}
+    else if(!ret){squeeze(d2,function(a2,m2){land(a2,m2,true)},function(){gstat('PHONE STORAGE FULL — delete a staging item first, then pick again')})}
+    else{gstat('PHONE STORAGE FULL — delete a staging item first, then pick again')}
    }
   }
  };

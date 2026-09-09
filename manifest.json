@@ -1,5 +1,5 @@
 {
- "board_version": 56,
+ "board_version": 57,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -37,6 +37,14 @@
     600,
     340
    ]
+  },
+  {
+   "id": "restghost",
+   "name": "REST \u2014 GHOSTED PREVIEW",
+   "sub": "v25 \u00b7 OVERLAY ON 3 PLATES \u00b7 NO DIM",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6a51a2b15_rest_v25_ghost_preview.html",
+   "kind": "demo",
+   "cat": "screen"
   },
   {
    "id": "duo",
@@ -338,7 +346,7 @@
    "label": "GHOSTED OVERLAY",
    "file": "bd3357c46_sabotask_ghosted_overlay_v2.png",
    "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bd3357c46_sabotask_ghosted_overlay_v2.png",
-   "use": "SURVIVAL MONITOR + REST"
+   "use": "SURVIVAL MONITOR + REST + GHOST LAB"
   }
  ]
 }

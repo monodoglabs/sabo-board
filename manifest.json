@@ -1,12 +1,12 @@
 {
-  "board_version": 42,
+  "board_version": 40,
   "refresh_seconds": 60,
   "demos": [
     {
       "id": "monitor",
       "name": "SURVIVAL MONITOR",
-      "sub": "BUILD 4 · GHOSTED OVERLAY",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/07f7c82e8_survival_monitor_build4.html",
+      "sub": "BUILD 4 · GHOSTED OVERLAY V2",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3b0e166dd_monitor.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -21,8 +21,8 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v18 · GHOSTED OVERLAY",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4f11a33a4_rest_screen_v18.html",
+      "sub": "v18 · METER BACKGROUND v5",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5e7901a10_rest_screen_v18.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -324,9 +324,9 @@
     {
       "id": "ghosted",
       "label": "GHOSTED OVERLAY",
-      "file": "07b89a095_sabotask_ghosted_overlay_v1.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/07b89a095_sabotask_ghosted_overlay_v1.png",
-      "use": "SURVIVAL MONITOR + REST"
+      "file": "818479477_sabotask_ghosted_overlay_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/818479477_sabotask_ghosted_overlay_v2.png",
+      "use": "MONITOR — GHOSTED PLAYER"
     }
   ]
 }

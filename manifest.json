@@ -1,0 +1,301 @@
+{
+  "board_version": 27,
+  "refresh_seconds": 60,
+  "demos": [
+    {
+      "id": "monitor",
+      "name": "SURVIVAL MONITOR",
+      "sub": "BUILD 3 · TUNE VIA BOARD",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/b912b2cd1_survival_monitor_build3.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "solo",
+      "name": "THE CHOICE — SOLO",
+      "sub": "v33 · PAPERS v2",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/770fc5de4_choice_demo_v29.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "rest",
+      "name": "REST SCREEN",
+      "sub": "v12 · TAPE v3 LIVE",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/933f96beb_rest_screen_v12.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "lab",
+      "name": "METER LAB",
+      "sub": "v8 · COMPACT — TAPE AT WORKING SIZE",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/642a10a4a_meter_lab_v8.html",
+      "kind": "demo",
+      "cat": "lab",
+      "stage": [
+        600,
+        340
+      ]
+    },
+    {
+      "id": "duo",
+      "name": "THE CHOICE — DUO",
+      "sub": "v15 · PAPERS v2",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/ac594ad7e_choice_demo_duo_v11.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "join",
+      "name": "JOIN THE SHOW",
+      "sub": "v5 · TAG + REAL NAME + SELFIE",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/bb84c8d70_sabo_demo_join_v1.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "landing",
+      "name": "LANDING",
+      "sub": "v1 · BUY + JOIN (NEW VISITOR)",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8c6c7cf44_sabo_demo_landing_v1.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "flyout",
+      "name": "CHITLOAD FLYOUT",
+      "sub": "v1 · SIX CHITS + THE KEY",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8b87f7180_sabo_demo_flyout_v1.html",
+      "kind": "demo",
+      "cat": "screen"
+    },
+    {
+      "id": "hub",
+      "name": "PREVIEW HUB",
+      "sub": "full links",
+      "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/edb34d84b_sabo_preview_hub.html",
+      "kind": "link",
+      "cat": "screen"
+    }
+  ],
+  "assets": [
+    {
+      "id": "bg",
+      "label": "PURPLE PAPER BG",
+      "file": "6bc9c6dfa_sabotask_task_background_v5.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6bc9c6dfa_sabotask_task_background_v5.png",
+      "use": "ALL SCREENS"
+    },
+    {
+      "id": "banner",
+      "label": "FUSE BANNER",
+      "file": "9bdde696d_sabotask_fuse_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9bdde696d_sabotask_fuse_banner_v3_trim.png",
+      "use": "CHOICE + REVEAL"
+    },
+    {
+      "id": "surbanner",
+      "label": "SURVIVAL BANNER",
+      "file": "2d7edaed5_sabotask_survival_banner_v1_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2d7edaed5_sabotask_survival_banner_v1_trim.png",
+      "use": "REST"
+    },
+    {
+      "id": "mskull",
+      "label": "MINI METER SKULL",
+      "file": "f187a7368_sabotask_meter_skull_mini.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f187a7368_sabotask_meter_skull_mini.png",
+      "use": "REST METERS + LAB"
+    },
+    {
+      "id": "mbg",
+      "label": "METER BG (v3)",
+      "file": "1564df83c_sabotask_breakscreen_skull_background_v3.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1564df83c_sabotask_breakscreen_skull_background_v3.png",
+      "use": "REST METERS + LAB"
+    },
+    {
+      "id": "bskull",
+      "label": "METER SKULL (big)",
+      "file": "51742a215_sabotask_meter_skull.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/51742a215_sabotask_meter_skull.png",
+      "use": "SPARE (monitor-scale)"
+    },
+    {
+      "id": "line",
+      "label": "FUSE LINE (clean+burnt)",
+      "file": "f445c39a1_fuse_line_v1_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f445c39a1_fuse_line_v1_trim.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "bomb",
+      "label": "BOMB",
+      "file": "cf220ab0f_sabotask_fuse_bomb_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cf220ab0f_sabotask_fuse_bomb_v2.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "blast1",
+      "label": "BLAST FRAME 1",
+      "file": "07d3d85d0_bomb_blast_01.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/07d3d85d0_bomb_blast_01.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "blast2",
+      "label": "BLAST FRAME 2",
+      "file": "c8412b522_bomb_blast_02.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c8412b522_bomb_blast_02.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "flame",
+      "label": "FLAME LOOP",
+      "file": "a6b9dcf00_fuse_flame_loop_breathe_v1.webp",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a6b9dcf00_fuse_flame_loop_breathe_v1.webp",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "plate01",
+      "label": "PLATE 01 (performer)",
+      "file": "02e523819_sabotask_nameplate_01.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/02e523819_sabotask_nameplate_01.png",
+      "use": "SOLO+DUO+MONITOR+REST"
+    },
+    {
+      "id": "selfie",
+      "label": "SELFIE PHOTO",
+      "file": "6bcc629a7_selfie_tight_v3.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6bcc629a7_selfie_tight_v3.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "frame",
+      "label": "POLAROID FRAME",
+      "file": "f6db9dc91_sabotask_polaroid_frame.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f6db9dc91_sabotask_polaroid_frame.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "doit",
+      "label": "DO IT BUTTON",
+      "file": "a7a0771dc_sabotask_button_do_it.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a7a0771dc_sabotask_button_do_it.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "ohchit",
+      "label": "OH CHIT BUTTON",
+      "file": "8ac534e0d_sabotask_button_oh_chit.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8ac534e0d_sabotask_button_oh_chit.png",
+      "use": "SOLO+DUO"
+    },
+    {
+      "id": "plate02",
+      "label": "PLATE 02 (accomplice)",
+      "file": "66d03b8fb_sabotask_nameplate_02.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/66d03b8fb_sabotask_nameplate_02.png",
+      "use": "DUO+MONITOR+REST"
+    },
+    {
+      "id": "reveal",
+      "label": "REVEAL BUTTON",
+      "file": "2704cbda8_sabotask_button_reveal_victim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2704cbda8_sabotask_button_reveal_victim.png",
+      "use": "DUO"
+    },
+    {
+      "id": "dummy",
+      "label": "DUMMY SELFIE",
+      "file": "9533b6191_sabotask_polaroid_dummyselfie_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9533b6191_sabotask_polaroid_dummyselfie_v2.png",
+      "use": "DUO"
+    },
+    {
+      "id": "plate03",
+      "label": "PLATE 03",
+      "file": "ad631d213_sabotask_nameplate_03.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ad631d213_sabotask_nameplate_03.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate04",
+      "label": "PLATE 04",
+      "file": "4b83d979b_sabotask_nameplate_04.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4b83d979b_sabotask_nameplate_04.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate05",
+      "label": "PLATE 05",
+      "file": "e31ef9a4d_sabotask_nameplate_05.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e31ef9a4d_sabotask_nameplate_05.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate06",
+      "label": "PLATE 06",
+      "file": "7f47d4233_sabotask_nameplate_06.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7f47d4233_sabotask_nameplate_06.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate07",
+      "label": "PLATE 07",
+      "file": "354ab18ca_sabotask_nameplate_07.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/354ab18ca_sabotask_nameplate_07.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate08",
+      "label": "PLATE 08",
+      "file": "9f74c25ea_sabotask_nameplate_08.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9f74c25ea_sabotask_nameplate_08.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate09",
+      "label": "PLATE 09",
+      "file": "7d6c57448_sabotask_nameplate_09.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7d6c57448_sabotask_nameplate_09.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate10",
+      "label": "PLATE 10",
+      "file": "cc7396951_sabotask_nameplate_10.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cc7396951_sabotask_nameplate_10.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "plate11",
+      "label": "PLATE 11",
+      "file": "c41576286_sabotask_nameplate_11.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c41576286_sabotask_nameplate_11.png",
+      "use": "MONITOR ROSTER + REST"
+    },
+    {
+      "id": "logo",
+      "label": "LOGO",
+      "file": "a8b30b19d_sabotask_logo_new.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a8b30b19d_sabotask_logo_new.png",
+      "use": "LANDING"
+    },
+    {
+      "id": "arrow",
+      "label": "FLYOUT ARROW",
+      "file": "b8b3b94e7_sabotask_flyout_arrow.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b8b3b94e7_sabotask_flyout_arrow.png",
+      "use": "FLYOUT + REST"
+    },
+    {
+      "id": "plate12",
+      "label": "PLATE 12",
+      "file": "d2308ae0a_sabotask_nameplate_12.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d2308ae0a_sabotask_nameplate_12.png",
+      "use": "MONITOR ROSTER + REST"
+    }
+  ]
+}

@@ -1,19 +1,19 @@
 {
-  "board_version": 46,
+  "board_version": 47,
   "refresh_seconds": 60,
   "demos": [
     {
       "id": "monitor",
       "name": "SURVIVAL MONITOR",
-      "sub": "BUILD 4 \u00b7 GHOSTED OVERLAY v2",
+      "sub": "BUILD 4 · GHOSTED OVERLAY v2",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/70fd722d5_survival_monitor_build4.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "solo",
-      "name": "THE CHOICE \u2014 SOLO",
-      "sub": "v33 \u00b7 PAPERS v2",
+      "name": "THE CHOICE — SOLO",
+      "sub": "v33 · PAPERS v2",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/770fc5de4_choice_demo_v29.html",
       "kind": "demo",
       "cat": "screen"
@@ -21,15 +21,15 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v14 \u00b7 SURVIVAL BANNER v2 LIVE",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/38e64b20d_rest_screen_v14_survival_banner_v2.html",
+      "sub": "v20 · SURVIVAL BANNER v3",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f96e056f6_rest_screen_v20.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v9 \u00b7 COMPACT \u2014 METER BG v4",
+      "sub": "v9 · COMPACT — METER BG v4",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8cb2f6f63_meter_lab_v8_v9wire.html",
       "kind": "demo",
       "cat": "lab",
@@ -40,8 +40,8 @@
     },
     {
       "id": "duo",
-      "name": "THE CHOICE \u2014 DUO",
-      "sub": "v15 \u00b7 PAPERS v2",
+      "name": "THE CHOICE — DUO",
+      "sub": "v15 · PAPERS v2",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/ac594ad7e_choice_demo_duo_v11.html",
       "kind": "demo",
       "cat": "screen"
@@ -49,7 +49,7 @@
     {
       "id": "join",
       "name": "JOIN THE SHOW",
-      "sub": "v5 \u00b7 TAG + REAL NAME + SELFIE",
+      "sub": "v5 · TAG + REAL NAME + SELFIE",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/bb84c8d70_sabo_demo_join_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -57,7 +57,7 @@
     {
       "id": "landing",
       "name": "LANDING",
-      "sub": "v1 \u00b7 BUY + JOIN (NEW VISITOR)",
+      "sub": "v1 · BUY + JOIN (NEW VISITOR)",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8c6c7cf44_sabo_demo_landing_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -65,7 +65,7 @@
     {
       "id": "flyout",
       "name": "CHITLOAD FLYOUT",
-      "sub": "v1 \u00b7 SIX CHITS + THE KEY",
+      "sub": "v1 · SIX CHITS + THE KEY",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/8b87f7180_sabo_demo_flyout_v1.html",
       "kind": "demo",
       "cat": "screen"
@@ -81,7 +81,7 @@
     {
       "id": "bannerlab",
       "name": "BANNER LAB",
-      "sub": "v4 \u00b7 SURVIVAL BANNER v2",
+      "sub": "v4 · SURVIVAL BANNER v2",
       "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/666698cd2_banner_lab_v4_survival_banner_v2.html",
       "kind": "demo",
       "cat": "lab",
@@ -93,7 +93,7 @@
     {
       "id": "flylab",
       "name": "FLYOUT LAB",
-      "sub": "v2 \u00b7 FULL SCREEN \u2014 dock + sheet at true stage size",
+      "sub": "v2 · FULL SCREEN — dock + sheet at true stage size",
       "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/b8d12f8b4_flyout_lab_v2.html",
       "kind": "demo",
       "cat": "lab",
@@ -120,10 +120,10 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER (v2)",
-      "file": "2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6b9772a09_2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "use": "REST + BANNER LAB"
+      "label": "SURVIVAL BANNER",
+      "file": "2d7edaed5_sabotask_survival_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/38a1c6d00_sabotask_survival_banner_v3_trim.png",
+      "use": "REST + SURVIVAL MONITOR"
     },
     {
       "id": "mskull",

@@ -648,7 +648,7 @@ function drawGfx(){
    c.innerHTML='<img src="'+(b.kind==='slot'?b.url:b.data)+'" alt=""><div class="gl">'+(b.label||b.name||'art')+'</div><div class="gu">'+(b.kind==='slot'?'wired slot — leaves the registry on PULL':'staging item')+'</div><button class="rest" onclick="restoreBin('+i+')">↩ RESTORE</button>';
    bt.appendChild(c);
   });
- }else{bs.style.display='none';bt.style.display='none';eb.style.display='none'}
+ }else{bs.style.display='none';bt.style.display='none';eb.style.display='none';bt.innerHTML=''}
 }
 function sheetClose(){document.getElementById('gsheet').className=''}
 function openSlot(i){var a=AST[i];var ov=gload()[a.file];var bn=binned(a.file);

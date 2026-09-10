@@ -1,5 +1,5 @@
 {
- "board_version": 71,
+ "board_version": 72,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -133,13 +133,13 @@
   {
    "id": "choicelab",
    "name": "CHOICE LAB",
-   "sub": "v1 \u00b7 DUO FUSE STACK, canon seats",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/57532f201_choice_lab_v1.html",
+   "sub": "v2 \u00b7 FUSE STACK ONLY, banner-sized stage",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1956c119f_choice_lab_v2.html",
    "kind": "demo",
    "cat": "lab",
    "stage": [
     1080,
-    600
+    300
    ]
   }
  ],

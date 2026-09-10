@@ -1,5 +1,5 @@
 {
- "board_version": 67,
+ "board_version": 68,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -13,8 +13,8 @@
   {
    "id": "solo",
    "name": "THE CHOICE \u2014 SOLO",
-   "sub": "v33 \u00b7 PAPERS v2",
-   "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/770fc5de4_choice_demo_v29.html",
+   "sub": "v30 \u00b7 DUO LAYOUT TWIN (no victim plate)",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d6befbc0e_choice_demo_v30.html",
    "kind": "demo",
    "cat": "screen"
   },

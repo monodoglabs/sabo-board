@@ -1,5 +1,5 @@
 {
-  "board_version": 78,
+  "board_version": 75,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -13,24 +13,24 @@
     {
       "id": "solo",
       "name": "THE CHOICE — SOLO",
-      "sub": "v33 · BOMB v3",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a55c9ee60_choice_demo_v33.html",
+      "sub": "v32 · OH CHIT v2 (press state wired)",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/316ee4a7b_choice_demo_v32.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v30 · METER BG v6",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/da10b07d7_rest_v30_mbgv6.html",
+      "sub": "v27 · BREAKSCREEN BG v6",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fc0dbe977_rest_v27_mbgv6.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "restghost",
       "name": "REST — GHOSTED PREVIEW",
-      "sub": "v26 · TIGHT GRID · GHOSTED ×3",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/335374536_rest_v26_ghost_preview_tight.html",
+      "sub": "v27 · BREAKSCREEN BG v6",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4576549e8_restghost_v27_mbgv6.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -45,8 +45,8 @@
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v15 · BREAKSCREEN BG v6",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f8299e1a1_lab_v15_mbgv6.html",
+      "sub": "v15 · BREAKSCREEN BG v7",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9b34e59e0_lab_v15.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -57,8 +57,8 @@
     {
       "id": "duo",
       "name": "THE CHOICE — DUO",
-      "sub": "v13 · BOMB v3",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0ced32d50_choice_demo_duo_v13.html",
+      "sub": "v12 · OH CHIT v2 (press state wired)",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2c09d0feb_choice_demo_duo_v12.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -133,8 +133,8 @@
     {
       "id": "choicelab",
       "name": "CHOICE LAB",
-      "sub": "v3 · BOMB v3",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6b47f999f_choice_lab_v3.html",
+      "sub": "v2 · FUSE STACK ONLY, banner-sized stage",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1956c119f_choice_lab_v2.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -186,9 +186,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v6)",
-      "file": "1564df83c_sabotask_breakscreen_skull_background_v6.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6f1f4713a_1564df83c_sabotask_breakscreen_skull_background_v6.png",
+      "label": "METER BG (v7)",
+      "file": "1564df83c_sabotask_breakscreen_skull_background_v5.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c05a0f76e_1564df83c_sabotask_breakscreen_skull_background_v5.png",
       "use": "REST METERS + LAB"
     },
     {
@@ -207,10 +207,10 @@
     },
     {
       "id": "bomb",
-      "label": "BOMB (v3)",
-      "file": "cf220ab0f_sabotask_fuse_bomb_v3.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e755a28f1_cf220ab0f_sabotask_fuse_bomb_v3.png",
-      "use": "SOLO+DUO+CHOICE LAB"
+      "label": "BOMB",
+      "file": "cf220ab0f_sabotask_fuse_bomb_v2.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cf220ab0f_sabotask_fuse_bomb_v2.png",
+      "use": "SOLO+DUO"
     },
     {
       "id": "blast1",

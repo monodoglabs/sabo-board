@@ -81,6 +81,10 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 #artpick.on{display:flex}
 #apscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .gtop{display:flex;align-items:center;gap:6px;margin-bottom:8px;flex:0 0 auto}
+#gtabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 8px;flex:0 0 auto}
+.gtab{background:#221040;border:1px solid rgba(255,255,255,.28);color:#cbbfe5;font-family:inherit;font-size:11px;letter-spacing:1px;padding:8px 11px;border-radius:9px;cursor:pointer;box-shadow:2px 2px 0 rgba(0,0,0,.5)}
+.gtab.on{border-color:#e6ff4d;color:#e6ff4d;background:rgba(230,255,77,.07)}
+.gcell.loopcard{border-color:rgba(230,255,77,.5)}
 .gtop h2{font-size:14px;letter-spacing:.5px;color:#9FE838;text-shadow:1px 1px 0 #E8158C;margin:0}
 #gstat{font:10px monospace;color:#9FE838;margin-left:auto;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:40%}
 #gscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
@@ -156,8 +160,9 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
 </div>
 <div id="gfx">
  <div class="gtop"><button class="dchip" onclick="hideGfx()">◂ BOARD</button><h2>GRAPHICS</h2><span id="gstat"></span><button class="dchip" onclick="shipGfx()">SHIP</button></div>
+ <div id="gtabs"></div>
  <div id="gscroll">
-  <div class="gsec">WIRED SLOTS — tap a card to swap its art</div>
+  <div class="gsec" id="gwiresec">WIRED SLOTS — tap a card to swap its art</div>
   <div class="ggrid" id="ggrid"></div>
   <div class="gsec">MY STAGING — new art, not wired yet</div>
   <div class="ggrid" id="glib"></div>
@@ -623,15 +628,37 @@ function applyGfx(html){
 function showGfx(){document.getElementById('gfx').className='on';drawGfx()}
 function hideGfx(){document.getElementById('gsheet').className='';document.getElementById('gfx').className=''}
 function slotLabel(file){for(var i=0;i<(AST||[]).length;i++){if(AST[i].file===file)return AST[i].label}return file}
+var GTABS=[["all","ALL"],["button","BUTTONS"],["background","BACKGROUNDS"],["anim","ANIMATIONS"],["misc","EVERYTHING ELSE"]];
+var GTAB=store.get('saboGfxTab');if(!GTABS.some(function(t){return t[0]===GTAB}))GTAB='all';
+function setGTab(t){GTAB=t;store.set('saboGfxTab',t);drawGfx()}
+function catOf(a){return a.cat||'misc'}
+function loopDefs(){return (MDATA&&MDATA.loops)||[]}
+function drawGtabs(){var tb=document.getElementById('gtabs');if(!tb)return;tb.innerHTML='';GTABS.forEach(function(t){var b=document.createElement('button');b.className='gtab'+(GTAB===t[0]?' on':'');b.textContent=t[1];b.onclick=function(){setGTab(t[0])};tb.appendChild(b)})}
+function openLoop(id){var L=loopDefs().filter(function(x){return x.id===id})[0];if(!L)return;var fs=L.frames.map(function(f){for(var i=0;i<(AST||[]).length;i++)if(AST[i].file===f)return AST[i];return null}).filter(Boolean);if(!fs.length)return;
+ var sh=document.getElementById('gsheet');
+ sh.innerHTML='<img class="big" src="'+fs[0].url+'" alt=""><div class="gname">'+L.label+' LOOP</div><div class="gsub">'+fs.length+' frame files — replace a single frame in EVERYTHING ELSE · trashing here bins the whole loop</div>'
+ +'<div class="grow2"><button class="dchip" style="border-color:#c33;color:#e77" onclick="trashLoop(\''+id+'\')">🗑 TRASH WHOLE LOOP</button>'
+ +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ sh.className='on';}
+function trashLoop(id){var L=loopDefs().filter(function(x){return x.id===id})[0];if(!L)return;var b=bload();var n=0;L.frames.forEach(function(f){for(var i=0;i<AST.length;i++){if(AST[i].file===f){var a=AST[i];if(!b.some(function(x){return x.kind==='slot'&&x.file===a.file})){b.push({kind:'slot',file:a.file,label:a.label,url:a.url,name:a.id});n++}}}});bsave(b);var o=gload();L.frames.forEach(function(f){delete o[f]});store.set('saboGfx',JSON.stringify(o));drawGfx();sheetClose();gstat('whole loop in the TRASH BIN — '+n+' frame(s) marked')}
 function drawGfx(){
  var ov=gload(),bin=bload();
+ drawGtabs();
+ var ws=document.getElementById('gwiresec');if(ws)ws.textContent='WIRED SLOTS — '+(GTABS.filter(function(t){return t[0]===GTAB})[0]||['','ALL'])[1]+' · tap a card to swap its art';
  var gr=document.getElementById('ggrid');gr.innerHTML='';
  (AST||[]).forEach(function(a,i){
+  var c=catOf(a);var tabOk=GTAB==='all'||(GTAB==='anim'?c==='loop':(GTAB==='misc'?(c!=='button'&&c!=='background'&&c!=='loop'):c===GTAB));
+  if(!tabOk)return;
   var bn=bin.some(function(b){return b.kind==='slot'&&b.file===a.file});
   var c=document.createElement('div');c.className='gcell'+(bn?' binned':'');
   c.innerHTML='<img src="'+(ov[a.file]||a.url)+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>'+(bn?'<div class="bin-dot">🗑</div>':(ov[a.file]?'<div class="dot"></div>':''));
   c.onclick=function(){openSlot(i)};gr.appendChild(c);
  });
+ if(GTAB==='anim'){loopDefs().forEach(function(L){
+  var first=null;for(var q=0;q<(AST||[]).length;q++){if(AST[q].file===L.frames[0]){first=AST[q];break}}if(!first)return;
+  var lc=document.createElement('div');lc.className='gcell loopcard';
+  lc.innerHTML='<img src="'+first.url+'" alt=""><div class="gl">'+L.label+'</div><div class="gu">LOOP · '+L.frames.length+' frames</div>';
+  lc.onclick=function(){openLoop(L.id)};gr.appendChild(lc);});}
  var lb=document.getElementById('glib');lb.innerHTML='';
  lload().forEach(function(it,i){
   var c=document.createElement('div');c.className='gcell lib';

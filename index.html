@@ -95,6 +95,11 @@ h1{font-size:21px;letter-spacing:1px;color:#9FE838;text-shadow:2px 2px 0 #E8158C
 .gcell.lib{border-color:#00D4E8}
 .gcell.lib .gl{color:#00D4E8}
 .gadd{display:block;width:100%;margin:10px 0 4px;background:#123c4a;border:2px dashed #00D4E8;color:#00D4E8;font-family:inherit;font-size:12px;letter-spacing:1px;padding:12px;border-radius:10px;cursor:pointer}
+.gcell.binned{opacity:.5;border-color:rgba(228,60,60,.55)}
+.gcell.binned .gl{color:#e88}
+.gcell .bin-dot{position:absolute;top:4px;right:6px;font-size:12px;line-height:1;filter:drop-shadow(1px 1px 0 rgba(0,0,0,.6))}
+.gtrashcard .rest{width:100%;margin-top:5px;background:#123c4a;border:2px solid #00D4E8;color:#00D4E8;font-family:inherit;font-size:10px;letter-spacing:.5px;padding:6px;border-radius:8px;cursor:pointer}
+.gkill{display:block;width:100%;margin:10px 0 4px;background:#4a1020;border:2px dashed #e44;color:#f99;font-family:inherit;font-size:12px;letter-spacing:1px;padding:12px;border-radius:10px;cursor:pointer}
 #gsheet{display:none;position:fixed;left:0;right:0;bottom:0;max-height:80%;background:#221040;border-top:3px solid #E8158C;border-radius:16px 16px 0 0;z-index:70;padding:14px;flex-direction:column;gap:10px}
 #gsheet.on{display:flex;overflow-y:auto}
 #gsheet img.big{max-height:32vh;max-width:100%;object-fit:contain;display:block;margin:0 auto;background:rgba(0,0,0,.3);border-radius:8px}
@@ -157,6 +162,9 @@ footer{margin-top:22px;font-size:10px;opacity:.4;letter-spacing:.5px}
   <div class="gsec">MY STAGING — new art, not wired yet</div>
   <div class="ggrid" id="glib"></div>
   <button class="gadd" onclick="pickAdd()">＋ ADD NEW ART</button>
+  <div class="gsec" id="binsec" style="display:none">TRASH BIN — review, then kill in one move</div>
+  <div class="ggrid" id="gtrash" style="display:none"></div>
+  <button class="gkill" id="emptybtn" style="display:none" onclick="emptyBin()">🗑 EMPTY BIN</button>
  </div>
 </div>
 <div id="artpick">
@@ -594,6 +602,9 @@ function gload(){var o={};try{o=JSON.parse(store.get('saboGfx')||'{}')}catch(e){
 function lload(){try{return JSON.parse(store.get('saboGfxLib')||'[]')}catch(e){return[]}}
 function gsave(o){store.set('saboGfx',JSON.stringify(o));try{if(JSON.parse(store.get('saboGfx')||'{}').length===undefined&&store.get('saboGfx')!==JSON.stringify(o)){gstat('STORAGE FULL — revert a slot or SHIP + clear')}}catch(e){}}
 function lsave(a){store.set('saboGfxLib',JSON.stringify(a))}
+function bload(){try{return JSON.parse(store.get('saboGfxBin')||'[]')}catch(e){return[]}}
+function bsave(a){store.set('saboGfxBin',JSON.stringify(a))}
+function binned(file){var f=String(file);return bload().some(function(b){return b.kind==='slot'&&b.file===f})}
 function gstat(t){var e=document.getElementById('gstat');if(e)e.textContent=t;status(t)}
 function escRe(t){return t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
 function applyGfx(html){
@@ -613,11 +624,12 @@ function showGfx(){document.getElementById('gfx').className='on';drawGfx()}
 function hideGfx(){document.getElementById('gsheet').className='';document.getElementById('gfx').className=''}
 function slotLabel(file){for(var i=0;i<(AST||[]).length;i++){if(AST[i].file===file)return AST[i].label}return file}
 function drawGfx(){
- var ov=gload();
+ var ov=gload(),bin=bload();
  var gr=document.getElementById('ggrid');gr.innerHTML='';
  (AST||[]).forEach(function(a,i){
-  var c=document.createElement('div');c.className='gcell';
-  c.innerHTML='<img src="'+(ov[a.file]||a.url)+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>'+(ov[a.file]?'<div class="dot"></div>':'');
+  var bn=bin.some(function(b){return b.kind==='slot'&&b.file===a.file});
+  var c=document.createElement('div');c.className='gcell'+(bn?' binned':'');
+  c.innerHTML='<img src="'+(ov[a.file]||a.url)+'" alt=""><div class="gl">'+a.label+'</div><div class="gu">'+a.use+'</div>'+(bn?'<div class="bin-dot">🗑</div>':(ov[a.file]?'<div class="dot"></div>':''));
   c.onclick=function(){openSlot(i)};gr.appendChild(c);
  });
  var lb=document.getElementById('glib');lb.innerHTML='';
@@ -626,26 +638,71 @@ function drawGfx(){
   c.innerHTML='<img src="'+it.data+'" alt=""><div class="gl">'+(it.name||'art')+'</div><div class="gu">'+(it.to?('→ '+slotLabel(it.to)):'unassigned')+'</div>';
   c.onclick=function(){openLib(i)};lb.appendChild(c);
  });
+ var bs=document.getElementById('binsec'),bt=document.getElementById('gtrash'),eb=document.getElementById('emptybtn');
+ if(bin.length){
+  bs.style.display='block';bt.style.display='grid';eb.style.display='block';
+  eb.textContent='🗑 EMPTY BIN — KILL ALL '+bin.length;
+  bt.innerHTML='';
+  bin.forEach(function(b,i){
+   var c=document.createElement('div');c.className='gcell gtrashcard'+(b.kind==='lib'?' lib':'');
+   c.innerHTML='<img src="'+(b.kind==='slot'?b.url:b.data)+'" alt=""><div class="gl">'+(b.label||b.name||'art')+'</div><div class="gu">'+(b.kind==='slot'?'wired slot — leaves the registry on PULL':'staging item')+'</div><button class="rest" onclick="restoreBin('+i+')">↩ RESTORE</button>';
+   bt.appendChild(c);
+  });
+ }else{bs.style.display='none';bt.style.display='none';eb.style.display='none'}
 }
 function sheetClose(){document.getElementById('gsheet').className=''}
-function openSlot(i){var a=AST[i];var ov=gload()[a.file];
+function openSlot(i){var a=AST[i];var ov=gload()[a.file];var bn=binned(a.file);
  var sh=document.getElementById('gsheet');
- sh.innerHTML='<img class="big" src="'+(ov||a.url)+'" alt=""><div class="gname">'+a.label+'</div><div class="gsub">'+a.use+' · '+(ov?'OVERRIDE LIVE — screens show YOUR art':'canon art')+'</div>'
- +'<div class="grow2"><button class="dchip" onclick="gmode={type:\'slot\',i:'+i+'};document.getElementById(\'gfile\').click()">REPLACE</button>'
- +(ov?'<button class="dchip" onclick="revertSlot('+i+')">REVERT</button>':'')
- +'<button class="dchip" style="border-color:#c33;color:#e77" onclick="if(confirm(\'Kill this slot from the registry? Nigella pulls it on PULL.\'))killslot('+i+')">KILL</button>'
- +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ if(bn){
+  sh.innerHTML='<img class="big" src="'+(ov||a.url)+'" alt=""><div class="gname">'+a.label+'</div><div class="gsub">IN THE TRASH BIN — nothing dies until you EMPTY BIN · a wired slot leaves the registry for good on my PULL</div>'
+  +'<div class="grow2"><button class="dchip" onclick="restoreBin(bload().map(function(x){return x.file}).indexOf(\''+a.file+'\'))">↩ RESTORE</button>'
+  +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ }else{
+  sh.innerHTML='<img class="big" src="'+(ov||a.url)+'" alt=""><div class="gname">'+a.label+'</div><div class="gsub">'+a.use+' · '+(ov?'OVERRIDE LIVE — screens show YOUR art':'canon art')+'</div>'
+  +'<div class="grow2"><button class="dchip" onclick="gmode={type:\'slot\',i:'+i+'};document.getElementById(\'gfile\').click()">REPLACE</button>'
+  +(ov?'<button class="dchip" onclick="revertSlot('+i+')">REVERT</button>':'')
+  +'<button class="dchip" style="border-color:#c33;color:#e77" onclick="trashSlot('+i+')">🗑 TRASH</button>'
+  +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ }
  sh.className='on';
 }
-/* kill: registry-level delete — drop flows to Nigella like SHIP, she pulls + pushes the manifest without the slot */
-function killslot(i){var a=AST[i];fetch(GFX_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'kill',file:a.file,name:a.id})}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(){gstat('KILL SENT — '+a.label+' — tell Nigella to PULL');sheetClose()}).catch(function(){gstat('KILL FAILED — check connection, try again')})}
+/* trash bin (her 10 Sep ruling): TRASH = reversible mark, device-local; EMPTY BIN = the one permanent delete — wired slots ship kill jobs, staging items die locally; I pull kills and cut the slots from the registry */
+function trashSlot(i){var a=AST[i];var b=bload();
+ if(b.some(function(x){return x.kind==='slot'&&x.file===a.file})){sheetClose();gstat('already in the bin');return}
+ b.push({kind:'slot',file:a.file,label:a.label,url:a.url,name:a.id});bsave(b);
+ var o=gload();delete o[a.file];store.set('saboGfx',JSON.stringify(o));
+ drawGfx();sheetClose();gstat('in the TRASH BIN — review below, EMPTY BIN kills for good')}
+function trashLib(i){var arr=lload(),it=arr[i];if(!it)return;arr.splice(i,1);lsave(arr);
+ var b=bload();b.push({kind:'lib',id:it.id,name:it.name,data:it.data,to:it.to});bsave(b);
+ drawGfx();sheetClose();gstat('in the TRASH BIN — review below')}
+function restoreBin(i){var b=bload(),it=b[i];if(!it)return;b.splice(i,1);bsave(b);
+ if(it.kind==='lib'){var arr=lload();arr.push({id:it.id,name:it.name,data:it.data,to:it.to});lsave(arr)}
+ drawGfx();gstat((it.label||it.name||'art')+' restored')}
+function emptyBin(){var b=bload();if(!b.length)return;
+ if(!confirm('EMPTY THE BIN — permanently kill '+b.length+' item(s)? Wired slots leave the registry for good.'))return;
+ var jobs=[];var libn=0;
+ b.forEach(function(x){if(x.kind==='slot')jobs.push(x);else libn++});
+ gstat('emptying bin…');
+ var i=0,okf=[],fail=0;
+ function fin(){
+  var nb=bload().filter(function(x){return !(x.kind==='lib'||(x.kind==='slot'&&okf.indexOf(x.file)>=0))});
+  bsave(nb);drawGfx();
+  if(fail)gstat('BIN PARTLY EMPTIED — '+okf.length+' killed, '+fail+' failed (still binned) — tell Nigella to PULL the kills');
+  else gstat('BIN EMPTIED — '+okf.length+' kill(s)'+(libn?(' + '+libn+' staging item(s)'):'')+' sent — tell Nigella to PULL')}
+ function step(){if(i>=jobs.length){fin();return}
+  var j=jobs[i];i++;
+  fetch(GFX_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'kill',file:j.file,name:j.name,label:j.label})})
+   .then(function(r){return r.ok?r.json():Promise.reject(r.status)})
+   .then(function(){okf.push(j.file);step()})
+   .catch(function(){fail++;step()})}
+ if(jobs.length)step();else fin()}
 /* one-time wipe: CHOICE LAB seats reset to canon — she sets final positions herself */
 try{if(!localStorage.getItem('saboChoiceLabWipeV1')){['tuneseats_choicelab','tuneseats_push_choicelab','tuneseats_bak_choicelab'].forEach(function(k){try{if(localStorage.getItem(k)!==null)localStorage.removeItem(k)}catch(x){}});localStorage.setItem('saboChoiceLabWipeV1','1')}}catch(e){}
 function revertSlot(i){var a=AST[i];var o=gload();delete o[a.file];store.set('saboGfx',JSON.stringify(o));drawGfx();openSlot(i);gstat('reverted to canon')}
 function openLib(i){var it=lload()[i];
  var sh=document.getElementById('gsheet');
  sh.innerHTML='<img class="big" src="'+it.data+'" alt=""><div class="gname">'+(it.name||'art')+'</div><div class="gsub">'+(it.to?('assigned → '+slotLabel(it.to)):'not assigned to a slot yet — ASSIGN tells Nigella where it goes')+'</div>'
- +'<div class="grow2"><button class="dchip" onclick="assignLib('+i+')">ASSIGN TO SLOT</button><button class="dchip" onclick="delLib('+i+')">DELETE</button><button class="dchip" onclick="sheetClose()">DONE</button></div>';
+ +'<div class="grow2"><button class="dchip" onclick="assignLib('+i+')">ASSIGN TO SLOT</button><button class="dchip" style="border-color:#c33;color:#e77" onclick="trashLib('+i+')">🗑 TRASH</button><button class="dchip" onclick="sheetClose()">DONE</button></div>';
  sh.className='on';
 }
 function assignLib(i){
@@ -655,7 +712,6 @@ function assignLib(i){
  sh.className='on';
 }
 function doAssign(i,j){var a=lload();a[i].to=AST[j].file;lsave(a);drawGfx();openLib(i);gstat('assigned to '+AST[j].label)}
-function delLib(i){var a=lload();a.splice(i,1);lsave(a);drawGfx();sheetClose()}
 function pickAdd(){gmode={type:'lib'};document.getElementById('gfile').click()}
 document.getElementById('gfile').addEventListener('change',function(){
  var f=this.files[0];this.value='';if(!f||!gmode)return;

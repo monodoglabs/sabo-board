@@ -1,5 +1,5 @@
 {
- "board_version": 69,
+ "board_version": 70,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -13,8 +13,8 @@
   {
    "id": "solo",
    "name": "THE CHOICE \u2014 SOLO",
-   "sub": "v31 \u00b7 PLATE BAKED 116/490",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ee70323d7_choice_demo_v31.html",
+   "sub": "v32 \u00b7 OH CHIT v2 (press state wired)",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/316ee4a7b_choice_demo_v32.html",
    "kind": "demo",
    "cat": "screen"
   },
@@ -57,8 +57,8 @@
   {
    "id": "duo",
    "name": "THE CHOICE \u2014 DUO",
-   "sub": "v15 \u00b7 PAPERS v2",
-   "url": "https://media.base44.com/files/public/6a8b7346981ed7c96b9784cf/ac594ad7e_choice_demo_duo_v11.html",
+   "sub": "v12 \u00b7 OH CHIT v2 (press state wired)",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2c09d0feb_choice_demo_duo_v12.html",
    "kind": "demo",
    "cat": "screen"
   },
@@ -240,8 +240,8 @@
   {
    "id": "ohchit",
    "label": "OH CHIT BUTTON",
-   "file": "8ac534e0d_sabotask_button_oh_chit.png",
-   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8ac534e0d_sabotask_button_oh_chit.png",
+   "file": "fa76d0cd2_oh_chit_v2.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fa76d0cd2_oh_chit_v2.png",
    "use": "SOLO+DUO"
   },
   {
@@ -425,6 +425,13 @@
    "file": "4a215c65a_nextup_scroll_10.png",
    "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4a215c65a_nextup_scroll_10.png",
    "use": "THE DRAW SHUFFLE"
+  },
+  {
+   "id": "ohchitdown",
+   "label": "OH CHIT PRESSED",
+   "file": "becc36730_oh_chit_clicked_v2.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/becc36730_oh_chit_clicked_v2.png",
+   "use": "SOLO+DUO press state"
   }
  ]
 }

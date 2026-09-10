@@ -1,5 +1,5 @@
 {
- "board_version": 72,
+ "board_version": 73,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -140,6 +140,18 @@
    "stage": [
     1080,
     300
+   ]
+  },
+  {
+   "id": "flamelab",
+   "name": "FLAME LAB",
+   "sub": "v1 \u00b7 FLAME KIT \u2014 flamewrap/bob/flame + line + trail",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a5ffed0f4_flame_lab_v1.html",
+   "kind": "demo",
+   "cat": "lab",
+   "stage": [
+    1080,
+    160
    ]
   }
  ],
@@ -444,6 +456,657 @@
    "file": "becc36730_oh_chit_clicked_v2.png",
    "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/becc36730_oh_chit_clicked_v2.png",
    "use": "SOLO+DUO press state"
+  },
+  {
+   "id": "cherub-04-bubblegum",
+   "label": "CHERUB-04-BUBBLEGUM.PNG",
+   "file": "01668bf6d_cherub-04-bubblegum.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/01668bf6d_cherub-04-bubblegum.png",
+   "use": "Cherubs \u2014 cherubs killed by your ruling"
+  },
+  {
+   "id": "solo-task-06",
+   "label": "SOLO_TASK_06.PNG",
+   "file": "02d236152_solo_task_06.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/02d236152_solo_task_06.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-sub",
+   "label": "SABTASK_PLAYERPASS_SUB.PNG",
+   "file": "05730c4b1_sabtask_playerpass_sub.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/05730c4b1_sabtask_playerpass_sub.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-yourc",
+   "label": "SABOTASK_FLYOUTTAB_YOURCHITS.PNG",
+   "file": "057e767ab_sabotask_flyouttab_yourchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/057e767ab_sabotask_flyouttab_yourchits.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-fuse-bomb-v1",
+   "label": "SABOTASK_FUSE_BOMB_V1.PNG",
+   "file": "086ccc53e_sabotask_fuse_bomb_v1.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/086ccc53e_sabotask_fuse_bomb_v1.png",
+   "use": "Fuse & Bomb \u2014 "
+  },
+  {
+   "id": "sabotask-fuse-banner-v1-",
+   "label": "SABOTASK_FUSE_BANNER_V1_TRIM.PNG",
+   "file": "09d6a212a_sabotask_fuse_banner_v1_trim.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/09d6a212a_sabotask_fuse_banner_v1_trim.png",
+   "use": "Fuse & Bomb \u2014 superseded by fuse banner v2"
+  },
+  {
+   "id": "sabotask-flutouttabbutto",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_THEIRCHITS.PNG",
+   "file": "0a60d2ef5_sabotask_flutouttabbutton_theirchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0a60d2ef5_sabotask_flutouttabbutton_theirchits.png",
+   "use": "Buttons \u2014 THEIR CHITS killed + old naming generation"
+  },
+  {
+   "id": "sabotask-flyouttab-yourcx",
+   "label": "SABOTASK_FLYOUTTAB_YOURCHITS_CLICKED.PNG",
+   "file": "0af30db80_sabotask_flyouttab_yourchits_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0af30db80_sabotask_flyouttab_yourchits_clicked.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-seiz",
+   "label": "SABOTASK_AOCBUTTONS_SEIZE.PNG",
+   "file": "0e8326501_sabotask_aocbuttons_seize.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/0e8326501_sabotask_aocbuttons_seize.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-button-join",
+   "label": "SABOTASK_BUTTON_JOIN.PNG",
+   "file": "116554d42_sabotask_button_join.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/116554d42_sabotask_button_join.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "sabotask-flyout-chitkey",
+   "label": "SABOTASK_FLYOUT_CHITKEY.PNG",
+   "file": "131932f70_sabotask_flyout_chitkey.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/131932f70_sabotask_flyout_chitkey.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "duo-task-03",
+   "label": "DUO_TASK_03.PNG",
+   "file": "14e5f6d56_duo_task_03.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/14e5f6d56_duo_task_03.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotaskpass-shrouded",
+   "label": "SABOTASKPASS_SHROUDED.PNG",
+   "file": "1754bb4b5_sabotaskpass_shrouded.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1754bb4b5_sabotaskpass_shrouded.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-flutouttabbuttox",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_KEY.PNG",
+   "file": "196e40fd2_sabotask_flutouttabbutton_key.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/196e40fd2_sabotask_flutouttabbutton_key.png",
+   "use": "Buttons \u2014 old naming generation (flutouttabbutton)"
+  },
+  {
+   "id": "cherub-02-snapback",
+   "label": "CHERUB-02-SNAPBACK.PNG",
+   "file": "1a3a61d51_cherub-02-snapback.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1a3a61d51_cherub-02-snapback.png",
+   "use": "Cherubs \u2014 cherubs killed by your ruling"
+  },
+  {
+   "id": "sabotask-aocbuttons-shro",
+   "label": "SABOTASK_AOCBUTTONS_SHROUD.PNG",
+   "file": "1a46e85b6_sabotask_aocbuttons_shroud.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1a46e85b6_sabotask_aocbuttons_shroud.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-flyout-chits",
+   "label": "SABOTASK_FLYOUT_CHITS.PNG",
+   "file": "1b47c6e0d_sabotask_flyout_chits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1b47c6e0d_sabotask_flyout_chits.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-button-host",
+   "label": "SABOTASK_BUTTON_HOST.PNG",
+   "file": "1e95303bd_sabotask_button_host.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1e95303bd_sabotask_button_host.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "duo-task-08",
+   "label": "DUO_TASK_08.PNG",
+   "file": "203f4bd48_duo_task_08.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/203f4bd48_duo_task_08.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-yourcxx",
+   "label": "SABOTASK_FLYOUTTAB_YOURCHITS.PNG",
+   "file": "2379a8a28_sabotask_flyouttab_yourchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2379a8a28_sabotask_flyouttab_yourchits.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-fuse-bomb-cut-v",
+   "label": "SABOTASK_FUSE_BOMB_CUT_V1.PNG",
+   "file": "254da3c59_sabotask_fuse_bomb_cut_v1.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/254da3c59_sabotask_fuse_bomb_cut_v1.png",
+   "use": "Fuse & Bomb \u2014 my forensic bomb cut \u2014 her bomb v1 replaced it"
+  },
+  {
+   "id": "sabotask-flyout-aockey",
+   "label": "SABOTASK_FLYOUT_AOCKEY.PNG",
+   "file": "27555d167_sabotask_flyout_aockey.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/27555d167_sabotask_flyout_aockey.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-spik",
+   "label": "SABOTASK_AOCBUTTONS_SPIKE.PNG",
+   "file": "2e2214181_sabotask_aocbuttons_spike.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/2e2214181_sabotask_aocbuttons_spike.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-button-joinx",
+   "label": "SABOTASK_BUTTON_JOIN.PNG",
+   "file": "30c1a7399_sabotask_button_join.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/30c1a7399_sabotask_button_join.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "duo-task-10",
+   "label": "DUO_TASK_10.PNG",
+   "file": "31a55989d_duo_task_10.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/31a55989d_duo_task_10.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "solo-task-03",
+   "label": "SOLO_TASK_03.PNG",
+   "file": "3344c6c4c_solo_task_03.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3344c6c4c_solo_task_03.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-background",
+   "label": "SABOTASK_BACKGROUND.PNG",
+   "file": "3cc60a78d_sabotask_background.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3cc60a78d_sabotask_background.png",
+   "use": "Backgrounds \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-key",
+   "label": "SABOTASK_FLYOUTTAB_KEY.PNG",
+   "file": "3e6c8558c_sabotask_flyouttab_key.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3e6c8558c_sabotask_flyouttab_key.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-sabot",
+   "label": "SABTASK_PLAYERPASS_SABOTAGE.PNG",
+   "file": "3eec8714b_sabtask_playerpass_sabotage.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/3eec8714b_sabtask_playerpass_sabotage.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-logo",
+   "label": "SABOTASK_LOGO.PNG",
+   "file": "455182cb0_sabotask_logo.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/455182cb0_sabotask_logo.png",
+   "use": "Lobby & Logo \u2014 "
+  },
+  {
+   "id": "solo-task-08",
+   "label": "SOLO_TASK_08.PNG",
+   "file": "45dd3ee02_solo_task_08.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/45dd3ee02_solo_task_08.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "duo-task-05",
+   "label": "DUO_TASK_05.PNG",
+   "file": "462b021ac_duo_task_05.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/462b021ac_duo_task_05.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "duo-task-06",
+   "label": "DUO_TASK_06.PNG",
+   "file": "4af58fce2_duo_task_06.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4af58fce2_duo_task_06.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-flyout-arrow",
+   "label": "SABOTASK_FLYOUT_ARROW.PNG",
+   "file": "4cf2b2258_sabotask_flyout_arrow.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4cf2b2258_sabotask_flyout_arrow.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "solo-task-05",
+   "label": "SOLO_TASK_05.PNG",
+   "file": "4dc13bc71_solo_task_05.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4dc13bc71_solo_task_05.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-their",
+   "label": "SABOTASK_FLYOUTTAB_THEIRCHITS.PNG",
+   "file": "4ebf8a184_sabotask_flyouttab_theirchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4ebf8a184_sabotask_flyouttab_theirchits.png",
+   "use": "Flyout \u2014 THEIR CHITS tab killed by doctrine"
+  },
+  {
+   "id": "sabotask-flyout-chitsx",
+   "label": "SABOTASK_FLYOUT_CHITS.PNG",
+   "file": "4eee97e58_sabotask_flyout_chits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4eee97e58_sabotask_flyout_chits.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-sabotx",
+   "label": "SABTASK_PLAYERPASS_SABOTAGE.PNG",
+   "file": "502ebde28_sabtask_playerpass_sabotage.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/502ebde28_sabtask_playerpass_sabotage.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-steal",
+   "label": "SABTASK_PLAYERPASS_STEAL.PNG",
+   "file": "5106ecccd_sabtask_playerpass_steal.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5106ecccd_sabtask_playerpass_steal.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "solo-task-02",
+   "label": "SOLO_TASK_02.PNG",
+   "file": "5115dbe22_solo_task_02.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5115dbe22_solo_task_02.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-switc",
+   "label": "SABTASK_PLAYERPASS_SWITCH.PNG",
+   "file": "5251e4c3f_sabtask_playerpass_switch.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5251e4c3f_sabtask_playerpass_switch.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-key-c",
+   "label": "SABOTASK_FLYOUTTAB_KEY_CLICKED.PNG",
+   "file": "559674d9b_sabotask_flyouttab_key_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/559674d9b_sabotask_flyouttab_key_clicked.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabotask-flutouttabbuttoxx",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_THEIRCHITS_CLI",
+   "file": "5637ede11_sabotask_flutouttabbutton_theirchits_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5637ede11_sabotask_flutouttabbutton_theirchits_clicked.png",
+   "use": "Buttons \u2014 THEIR CHITS killed + old naming generation"
+  },
+  {
+   "id": "sabotask-flyouttab-theirx",
+   "label": "SABOTASK_FLYOUTTAB_THEIRCHITS_CLICKED.PN",
+   "file": "56e044ce5_sabotask_flyouttab_theirchits_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/56e044ce5_sabotask_flyouttab_theirchits_clicked.png",
+   "use": "Flyout \u2014 THEIR CHITS tab killed by doctrine"
+  },
+  {
+   "id": "sabotaskpass-shroudedx",
+   "label": "SABOTASKPASS_SHROUDED.PNG",
+   "file": "56f4d2dfd_sabotaskpass_shrouded.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/56f4d2dfd_sabotaskpass_shrouded.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "solo-task-10",
+   "label": "SOLO_TASK_10.PNG",
+   "file": "5d04813b3_solo_task_10.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5d04813b3_solo_task_10.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "solo-task-01",
+   "label": "SOLO_TASK_01.PNG",
+   "file": "5e3398a47_solo_task_01.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/5e3398a47_solo_task_01.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "duo-task-09",
+   "label": "DUO_TASK_09.PNG",
+   "file": "62ba764b0_duo_task_09.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/62ba764b0_duo_task_09.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-flutouttabbuttoxxx",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_YOURCHITS_CLIC",
+   "file": "69dd7c1ca_sabotask_flutouttabbutton_yourchits_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/69dd7c1ca_sabotask_flutouttabbutton_yourchits_clicked.png",
+   "use": "Buttons \u2014 old naming generation (flutouttabbutton)"
+  },
+  {
+   "id": "sabotask-button-buy-clic",
+   "label": "SABOTASK_BUTTON_BUY_CLICKED.PNG",
+   "file": "6bceb18ee_sabotask_button_buy_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6bceb18ee_sabotask_button_buy_clicked.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-swerv",
+   "label": "SABTASK_PLAYERPASS_SWERVE.PNG",
+   "file": "6c84674bd_sabtask_playerpass_swerve.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6c84674bd_sabtask_playerpass_swerve.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-nameplate-01",
+   "label": "SABOTASK_NAMEPLATE_01.PNG",
+   "file": "6d450ab85_sabotask_nameplate_01.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/6d450ab85_sabotask_nameplate_01.png",
+   "use": "Name Plates \u2014 nameplate 01 v1 \u2014 superseded by v2, kept for r"
+  },
+  {
+   "id": "sabtask-playerpass-sling",
+   "label": "SABTASK_PLAYERPASS_SLING.PNG",
+   "file": "71b212ec9_sabtask_playerpass_sling.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/71b212ec9_sabtask_playerpass_sling.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "duo-task-01",
+   "label": "DUO_TASK_01.PNG",
+   "file": "759f47b8b_duo_task_01.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/759f47b8b_duo_task_01.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-stealx",
+   "label": "SABTASK_PLAYERPASS_STEAL.PNG",
+   "file": "7908a7d63_sabtask_playerpass_steal.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7908a7d63_sabtask_playerpass_steal.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "9d729c212-csaleksi-regul",
+   "label": "9D729C212_CSALEKSI-REGULAR-WEBFONT.WOFF",
+   "file": "7be078a83_9d729c212_csaleksi-regular-webfont.woff",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7be078a83_9d729c212_csaleksi-regular-webfont.woff",
+   "use": "Fonts \u2014 "
+  },
+  {
+   "id": "sabotask-button-oh-chit",
+   "label": "SABOTASK_BUTTON_OH_CHIT.PNG",
+   "file": "8ac534e0d_sabotask_button_oh_chit.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8ac534e0d_sabotask_button_oh_chit.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-snit",
+   "label": "SABOTASK_AOCBUTTONS_SNITCH.PNG",
+   "file": "9b66fedee_sabotask_aocbuttons_snitch.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9b66fedee_sabotask_aocbuttons_snitch.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-snitx",
+   "label": "SABOTASK_AOCBUTTONS_SNITCH.PNG",
+   "file": "9db8a165f_sabotask_aocbuttons_snitch.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/9db8a165f_sabotask_aocbuttons_snitch.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-button-buy",
+   "label": "SABOTASK_BUTTON_BUY.PNG",
+   "file": "a01f49833_sabotask_button_buy.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a01f49833_sabotask_button_buy.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-stri",
+   "label": "SABOTASK_AOCBUTTONS_STRIKE.PNG",
+   "file": "a5222d1c7_sabotask_aocbuttons_strike.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a5222d1c7_sabotask_aocbuttons_strike.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "solo-task-07",
+   "label": "SOLO_TASK_07.PNG",
+   "file": "a53ef78b3_solo_task_07.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a53ef78b3_solo_task_07.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-button-hostx",
+   "label": "SABOTASK_BUTTON_HOST.PNG",
+   "file": "a871c8cf9_sabotask_button_host.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/a871c8cf9_sabotask_button_host.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "duo-task-04",
+   "label": "DUO_TASK_04.PNG",
+   "file": "ab6cd83dd_duo_task_04.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ab6cd83dd_duo_task_04.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-swap",
+   "label": "SABOTASK_AOCBUTTONS_SWAP.PNG",
+   "file": "b16936f15_sabotask_aocbuttons_swap.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b16936f15_sabotask_aocbuttons_swap.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-flyouttab-theirxx",
+   "label": "SABOTASK_FLYOUTTAB_THEIRCHITS.PNG",
+   "file": "b4e2d22f8_sabotask_flyouttab_theirchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b4e2d22f8_sabotask_flyouttab_theirchits.png",
+   "use": "Flyout \u2014 THEIR CHITS tab killed by doctrine"
+  },
+  {
+   "id": "sabotask-button-join-cli",
+   "label": "SABOTASK_BUTTON_JOIN_CLICKED.PNG",
+   "file": "b52aab09e_sabotask_button_join_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b52aab09e_sabotask_button_join_clicked.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-swapx",
+   "label": "SABOTASK_AOCBUTTONS_SWAP.PNG",
+   "file": "b931f8f6d_sabotask_aocbuttons_swap.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b931f8f6d_sabotask_aocbuttons_swap.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-flutouttabbuttoxxxx",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_KEY_CLICKED.PN",
+   "file": "bc63feb17_sabotask_flutouttabbutton_key_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/bc63feb17_sabotask_flutouttabbutton_key_clicked.png",
+   "use": "Buttons \u2014 old naming generation (flutouttabbutton)"
+  },
+  {
+   "id": "solo-task-09",
+   "label": "SOLO_TASK_09.PNG",
+   "file": "c0f2184d0_solo_task_09.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c0f2184d0_solo_task_09.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-closebutton",
+   "label": "SABOTASK_CLOSEBUTTON.PNG",
+   "file": "c16f2f206_sabotask_closebutton.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c16f2f206_sabotask_closebutton.png",
+   "use": "Lobby & Logo \u2014 "
+  },
+  {
+   "id": "sabotask-flutouttabbuttoxxxxx",
+   "label": "SABOTASK_FLUTOUTTABBUTTON_YOURCHITS.PNG",
+   "file": "c825afa11_sabotask_flutouttabbutton_yourchits.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c825afa11_sabotask_flutouttabbutton_yourchits.png",
+   "use": "Buttons \u2014 old naming generation (flutouttabbutton)"
+  },
+  {
+   "id": "sabotask-aocbuttons-strix",
+   "label": "SABOTASK_AOCBUTTONS_STRIKE.PNG",
+   "file": "cc0c24ab2_sabotask_aocbuttons_strike.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/cc0c24ab2_sabotask_aocbuttons_strike.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-spikx",
+   "label": "SABOTASK_AOCBUTTONS_SPIKE.PNG",
+   "file": "d14c73ce0_sabotask_aocbuttons_spike.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d14c73ce0_sabotask_aocbuttons_spike.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-closebuttonx",
+   "label": "SABOTASK_CLOSEBUTTON.PNG",
+   "file": "d6ef050c3_sabotask_closebutton.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d6ef050c3_sabotask_closebutton.png",
+   "use": "Lobby & Logo \u2014 "
+  },
+  {
+   "id": "duo-task-02",
+   "label": "DUO_TASK_02.PNG",
+   "file": "dbbcc8973_duo_task_02.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/dbbcc8973_duo_task_02.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-background-v2",
+   "label": "SABOTASK_BACKGROUND_V2.PNG",
+   "file": "dda55a55b_sabotask_background_v2.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/dda55a55b_sabotask_background_v2.png",
+   "use": "Backgrounds \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-shrox",
+   "label": "SABOTASK_AOCBUTTONS_SHROUD.PNG",
+   "file": "df68df12f_sabotask_aocbuttons_shroud.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/df68df12f_sabotask_aocbuttons_shroud.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "sabotask-fuse-banner-v2-",
+   "label": "SABOTASK_FUSE_BANNER_V2_TRIM.PNG",
+   "file": "e017d1946_sabotask_fuse_banner_v2_trim.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e017d1946_sabotask_fuse_banner_v2_trim.png",
+   "use": "Fuse & Bomb \u2014 "
+  },
+  {
+   "id": "permanent-marker-ttf",
+   "label": "PERMANENT_MARKER.TTF",
+   "file": "e2b769812_permanent_marker.ttf",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e2b769812_permanent_marker.ttf",
+   "use": "Fonts \u2014 Permanent Marker stand-in \u2014 retired (Break Marker + "
+  },
+  {
+   "id": "duo-task-07",
+   "label": "DUO_TASK_07.PNG",
+   "file": "e3bc23837_duo_task_07.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e3bc23837_duo_task_07.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "sabotask-background-v2x",
+   "label": "SABOTASK_BACKGROUND_V2.PNG",
+   "file": "e62c04dc7_sabotask_background_v2.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e62c04dc7_sabotask_background_v2.png",
+   "use": "Backgrounds \u2014 "
+  },
+  {
+   "id": "sabotask-aocbuttons-seizx",
+   "label": "SABOTASK_AOCBUTTONS_SEIZE.PNG",
+   "file": "e6c8815a7_sabotask_aocbuttons_seize.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/e6c8815a7_sabotask_aocbuttons_seize.png",
+   "use": "AOC Tools \u2014 "
+  },
+  {
+   "id": "cherub-07-vampire",
+   "label": "CHERUB-07-VAMPIRE.PNG",
+   "file": "ec451a0af_cherub-07-vampire.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ec451a0af_cherub-07-vampire.png",
+   "use": "Cherubs \u2014 cherubs killed by your ruling"
+  },
+  {
+   "id": "sabotask-flyouttab-keyx",
+   "label": "SABOTASK_FLYOUTTAB_KEY.PNG",
+   "file": "ef372a5dd_sabotask_flyouttab_key.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ef372a5dd_sabotask_flyouttab_key.png",
+   "use": "Flyout \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-subx",
+   "label": "SABTASK_PLAYERPASS_SUB.PNG",
+   "file": "f44254de3_sabtask_playerpass_sub.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f44254de3_sabtask_playerpass_sub.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-swervx",
+   "label": "SABTASK_PLAYERPASS_SWERVE.PNG",
+   "file": "f6c5f73d7_sabtask_playerpass_swerve.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f6c5f73d7_sabtask_playerpass_swerve.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabotask-button-host-cli",
+   "label": "SABOTASK_BUTTON_HOST_CLICKED.PNG",
+   "file": "f86dace1c_sabotask_button_host_clicked.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f86dace1c_sabotask_button_host_clicked.png",
+   "use": "Buttons \u2014 "
+  },
+  {
+   "id": "solo-task-04",
+   "label": "SOLO_TASK_04.PNG",
+   "file": "f89ca8c23_solo_task_04.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f89ca8c23_solo_task_04.png",
+   "use": "Task Papers \u2014 "
+  },
+  {
+   "id": "break-marker-webfont-wof",
+   "label": "BREAK_MARKER-WEBFONT.WOFF",
+   "file": "fb5b65fa4_break_marker-webfont.woff",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff",
+   "use": "Fonts \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-switcx",
+   "label": "SABTASK_PLAYERPASS_SWITCH.PNG",
+   "file": "fcbf3931d_sabtask_playerpass_switch.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fcbf3931d_sabtask_playerpass_switch.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "sabtask-playerpass-slingx",
+   "label": "SABTASK_PLAYERPASS_SLING.PNG",
+   "file": "fdce77e1a_sabtask_playerpass_sling.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fdce77e1a_sabtask_playerpass_sling.png",
+   "use": "Pass Icons \u2014 "
+  },
+  {
+   "id": "zztest",
+   "label": "ZZ TEST \u2014 KILL ME",
+   "file": "zz_test_slot.png",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/fb5b65fa4_break_marker-webfont.woff",
+   "use": "sacrificial slot \u2014 proves the DELETE rail, then dies"
   }
  ]
 }

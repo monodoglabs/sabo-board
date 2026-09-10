@@ -214,7 +214,7 @@ window.addEventListener('resize',fit);
 var SCREENKEY={solo:'solo_choice',duo:'duo_choice',monitor:'monitor'};
 var EXCLUDE={app:1,wrap:1,bg:1,flash:1,shake:1,gate:1};
 var KITDEFS=[
-  {id:'fusekit',lbl:'FUSE KIT',desc:'flame + both lines',members:['flamewrap','line','trail'],rets:['flamewrap','line','trail','bob','flame'],screens:['solo','duo','choicelab']},
+  {id:'fusekit',lbl:'FUSE KIT',desc:'flame + both lines',members:['flamewrap','line','trail'],rets:['flamewrap','line','trail','bob','flame'],screens:['solo','duo','choicelab','flamelab']},
   {id:'meterkit',lbl:'METER KIT',desc:'all 12 skull meters',members:['meter01','meter02','meter03','meter04','meter05','meter06','meter07','meter08','meter09','meter10','meter11','meter12'],rets:['meter01','meter02','meter03','meter04','meter05','meter06','meter07','meter08','meter09','meter10','meter11','meter12'],screens:['rest']}
 ];
 var KIT_ID=null,KIT_MEMBERS=[],KIT={};
@@ -633,9 +633,14 @@ function openSlot(i){var a=AST[i];var ov=gload()[a.file];
  sh.innerHTML='<img class="big" src="'+(ov||a.url)+'" alt=""><div class="gname">'+a.label+'</div><div class="gsub">'+a.use+' · '+(ov?'OVERRIDE LIVE — screens show YOUR art':'canon art')+'</div>'
  +'<div class="grow2"><button class="dchip" onclick="gmode={type:\'slot\',i:'+i+'};document.getElementById(\'gfile\').click()">REPLACE</button>'
  +(ov?'<button class="dchip" onclick="revertSlot('+i+')">REVERT</button>':'')
+ +'<button class="dchip" style="border-color:#c33;color:#e77" onclick="if(confirm(\'Kill this slot from the registry? Nigella pulls it on PULL.\'))killslot('+i+')">KILL</button>'
  +'<button class="dchip" onclick="sheetClose()">DONE</button></div>';
  sh.className='on';
 }
+/* kill: registry-level delete — drop flows to Nigella like SHIP, she pulls + pushes the manifest without the slot */
+function killslot(i){var a=AST[i];fetch(GFX_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'kill',file:a.file,name:a.id})}).then(function(r){return r.ok?r.json():Promise.reject(r.status)}).then(function(){gstat('KILL SENT — '+a.label+' — tell Nigella to PULL');sheetClose()}).catch(function(){gstat('KILL FAILED — check connection, try again')})}
+/* one-time wipe: CHOICE LAB seats reset to canon — she sets final positions herself */
+try{if(!localStorage.getItem('saboChoiceLabWipeV1')){['tuneseats_choicelab','tuneseats_push_choicelab','tuneseats_bak_choicelab'].forEach(function(k){try{if(localStorage.getItem(k)!==null)localStorage.removeItem(k)}catch(x){}});localStorage.setItem('saboChoiceLabWipeV1','1')}}catch(e){}
 function revertSlot(i){var a=AST[i];var o=gload();delete o[a.file];store.set('saboGfx',JSON.stringify(o));drawGfx();openSlot(i);gstat('reverted to canon')}
 function openLib(i){var it=lload()[i];
  var sh=document.getElementById('gsheet');

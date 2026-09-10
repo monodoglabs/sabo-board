@@ -1,5 +1,5 @@
 {
- "board_version": 70,
+ "board_version": 71,
  "refresh_seconds": 60,
  "demos": [
   {
@@ -128,6 +128,18 @@
    "stage": [
     600,
     470
+   ]
+  },
+  {
+   "id": "choicelab",
+   "name": "CHOICE LAB",
+   "sub": "v1 \u00b7 DUO FUSE STACK, canon seats",
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/57532f201_choice_lab_v1.html",
+   "kind": "demo",
+   "cat": "lab",
+   "stage": [
+    1080,
+    600
    ]
   }
  ],

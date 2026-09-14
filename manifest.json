@@ -1,5 +1,5 @@
 {
-  "board_version": 98,
+  "board_version": 97,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -22,7 +22,7 @@
       "id": "rest",
       "name": "REST SCREEN",
       "sub": "v32 · BREAKSCREEN BG v9",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/780ee6463_rest_v32.html",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ccbad0f10_rest_v32.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -30,7 +30,7 @@
       "id": "restghost",
       "name": "REST — GHOSTED PREVIEW",
       "sub": "v32 · BREAKSCREEN BG v9",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/4fba43727_restghost_v32.html",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b86e4ee26_restghost_v32.html",
       "kind": "demo",
       "cat": "screen"
     },
@@ -46,7 +46,7 @@
       "id": "lab",
       "name": "METER LAB",
       "sub": "v21 · BREAKSCREEN BG v9",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/1dfb3587b_lab_v21.html",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/074bfc838_lab_v21.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -190,9 +190,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v9)",
-      "file": "26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
+      "label": "METER BG (v8)",
+      "file": "92ca28b26_1564df83c_sabotask_breakscreen_skull_background_v8.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/92ca28b26_1564df83c_sabotask_breakscreen_skull_background_v8.png",
       "use": "REST METERS + LAB",
       "cat": "background"
     },

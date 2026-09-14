@@ -1,5 +1,5 @@
 {
-  "board_version": 97,
+  "board_version": 98,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -190,9 +190,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v8)",
-      "file": "92ca28b26_1564df83c_sabotask_breakscreen_skull_background_v8.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/92ca28b26_1564df83c_sabotask_breakscreen_skull_background_v8.png",
+      "label": "METER BG (v9)",
+      "file": "26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
       "use": "REST METERS + LAB",
       "cat": "background"
     },

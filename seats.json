@@ -1,6 +1,6 @@
 {
  "schema": 1,
- "updated": "2026-09-15 landing-lab pass (landing family registered: logo/buy/host/join, carriers landing + landinglab)",
+ "updated": "2026-09-15 landing tuner push baked (buy/join/logo, screen landing)",
  "note": "SABO SEAT SPEC - the single source of truth for baked seats + canon assets of the chit family. Bakes: her PUSH -> bake_push() updates this spec (newest supersedes) -> stamp ALL carriers -> canon_check MUST pass -> headless proof -> upload -> manifest bump -> screen wipe same-pass. NEVER hand-edit a carrier again.",
  "carrier_files": {
   "chitlab": "chitlab_v39.html",
@@ -269,7 +269,12 @@
     "landing",
     "landinglab"
    ],
-   "seat": {},
+   "seat": {
+    "dx": 40,
+    "dy": -70,
+    "s": 1.05,
+    "r": 1
+   },
    "base": "top:430px; transform translate(-50%,0) rotate(-1.5deg); width:920px; pushes compose on top as translate"
   },
   "buy": {
@@ -278,7 +283,12 @@
     "landing",
     "landinglab"
    ],
-   "seat": {},
+   "seat": {
+    "dx": 0,
+    "dy": -185,
+    "s": 1.25,
+    "r": 0
+   },
    "base": "top:1600px rule (.btn shared: left 200px width 680px); host hidden in prebuy state"
   },
   "host": {
@@ -287,8 +297,13 @@
     "landing",
     "landinglab"
    ],
-   "seat": {},
-   "base": "top:1600px rule (.btn shared: left 200px width 680px); host hidden in prebuy state"
+   "seat": {
+    "dx": 0,
+    "dy": -185,
+    "s": 1.25,
+    "r": 0
+   },
+   "base": "top:1600px rule (.btn shared: left 200px width 680px); hidden in prebuy state; seat MIRRORS BUY per the host-takes-the-buy-seat doctrine (15 Sep her push bake)"
   },
   "join": {
    "selector": "#join",
@@ -296,8 +311,13 @@
     "landing",
     "landinglab"
    ],
-   "seat": {},
-   "base": "top:1730px rule (.btn shared: left 200px width 680px)"
+   "seat": {
+    "dx": 0,
+    "dy": -170,
+    "s": 1,
+    "r": 0
+   },
+   "base": "top:1930px rule (.btn shared: left 200px width 680px) \u2014 inline top:1930 retired into the rule (v6.1)"
   }
  },
  "assets": {

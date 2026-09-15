@@ -472,7 +472,15 @@ function onDemoReady(){
 }
 
 /* ---------- viewer ---------- */
+var OPENSEQ=0;
 function openViewer(d){
+  var seq=++OPENSEQ, d0=d;
+  fetch(MAN+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
+    var nd=(m.demos||[]).filter(function(x){return x.id===d0.id})[0];
+    if(seq===OPENSEQ) openViewerGo(nd&&nd.url?nd:d0);
+  }).catch(function(){ if(seq===OPENSEQ) openViewerGo(d0); });
+}
+function openViewerGo(d){
   current=d;
   setKit();
   tload();
@@ -533,7 +541,7 @@ function renderMenu(m){
 }
 function refresh(){
   status('refreshing…');
-  fetch(MAN+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
+  fetch(MAN).then(function(r){return r.json()}).then(function(m){
     last=JSON.stringify(m);
     renderMenu(m);
     if(current){

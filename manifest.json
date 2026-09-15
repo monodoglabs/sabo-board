@@ -1,5 +1,5 @@
 {
-  "board_version": 129,
+  "board_version": 128,
   "refresh_seconds": 60,
   "demos": [
     {
@@ -21,32 +21,32 @@
     {
       "id": "rest",
       "name": "REST SCREEN",
-      "sub": "v35 · BREAKSCREEN BG v12 — newest complete Graphics Manager drop (housed v3_v2, source v3; no overwrite)",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/87b6dbcca_rest_v35.html",
+      "sub": "v35 · BREAKSCREEN BG v12",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/def8df088_rest_v35_mbgv12.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "restghost",
       "name": "REST — GHOSTED PREVIEW",
-      "sub": "v35 · BREAKSCREEN BG v12 — newest complete Graphics Manager drop (housed v3_v2, source v3; no overwrite)",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/79ef539dd_restghost_v35.html",
+      "sub": "v35 · BREAKSCREEN BG v12",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/8e7859a0f_restghost_v35_mbgv12.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "select",
       "name": "THE DRAW",
-      "sub": "v15 · SURVIVAL BANNER v2 — newest complete Graphics Manager drop, housed as 2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/c0a215755_select_asset_v3.html",
+      "sub": "v14 · TASK BG v2 — newest complete Graphics Manager drop housed as 1f4db284b_6bc9c6dfa_sabotask_task_background_v5_v2.jpg; this demo now carries the versioned background.",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/7e181d8f1_select_asset_v2.html",
       "kind": "demo",
       "cat": "screen"
     },
     {
       "id": "lab",
       "name": "METER LAB",
-      "sub": "v24 · BREAKSCREEN BG v12 — newest complete Graphics Manager drop (housed v3_v2, source v3; no overwrite)",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/47cf565bd_lab_v24.html",
+      "sub": "v24 · BREAKSCREEN BG v12",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/d640e636b_meter_lab_v24_mbgv12.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -97,8 +97,8 @@
     {
       "id": "bannerlab",
       "name": "BANNER LAB",
-      "sub": "v8 · SURVIVAL BANNER v2 — newest complete Graphics Manager drop, housed as 2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/f6e28a370_bannerlab_asset_v3.html",
+      "sub": "v7 · TASK BG v2 — newest complete Graphics Manager drop housed as 1f4db284b_6bc9c6dfa_sabotask_task_background_v5_v2.jpg; this demo now carries the versioned background.",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b9c4f2be3_bannerlab_asset_v2.html",
       "kind": "demo",
       "cat": "lab",
       "stage": [
@@ -180,10 +180,10 @@
     },
     {
       "id": "surbanner",
-      "label": "SURVIVAL BANNER (v2)",
-      "file": "2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/ea192c3e7_2d7edaed5_sabotask_survival_banner_v1_trim_v2.png",
-      "use": "REST + GHOSTED REST + THE DRAW + BANNER LAB",
+      "label": "SURVIVAL BANNER (v3)",
+      "file": "2d7edaed5_sabotask_survival_banner_v3_trim.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b2fb530a3_2d7edaed5_sabotask_survival_banner_v3_trim.png",
+      "use": "REST + BANNER LAB",
       "cat": "misc"
     },
     {
@@ -196,9 +196,9 @@
     },
     {
       "id": "mbg",
-      "label": "METER BG (v9)",
-      "file": "26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
-      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/26901d0c3_1564df83c_sabotask_breakscreen_skull_background_v9.png",
+      "label": "METER BG (v12)",
+      "file": "1564df83c_sabotask_breakscreen_skull_background_v12.png",
+      "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/b04f57371_1564df83c_sabotask_breakscreen_skull_background_v12.png",
       "use": "REST METERS + LAB",
       "cat": "background"
     },
@@ -1418,5 +1418,5 @@
       ]
     }
   ],
-  "build_note": "SURVIVAL BANNER v2 shipped from newest complete Graphics Manager drop; wired lockstep into REST, REST Ghost, THE DRAW, and Banner Lab."
+  "build_note": "v115 · TASK BG v2 — newest complete shipped Graphics Manager drop fca39ec8-38b0-4b40-b4ba-fd36dbb1dc8a; source 6bc9c6dfa_sabotask_task_background_v5.png, housed non-destructively as 1f4db284b_6bc9c6dfa_sabotask_task_background_v5_v2.jpg. Wired into every served demo that carried the old task background URL (solo, draw/select, duo, join, landing, flyout, banner lab, flyout lab, ghost lab, chit lab)."
 }

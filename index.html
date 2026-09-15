@@ -533,7 +533,7 @@ function renderMenu(m){
 }
 function refresh(){
   status('refreshing…');
-  fetch(MAN).then(function(r){return r.json()}).then(function(m){
+  fetch(MAN+'?cb='+Date.now(),{cache:'no-store'}).then(function(r){return r.json()}).then(function(m){
     last=JSON.stringify(m);
     renderMenu(m);
     if(current){

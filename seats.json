@@ -1,0 +1,271 @@
+{
+ "schema": 1,
+ "updated": "2026-09-15T14:00:00+01:00",
+ "note": "SABO SEAT SPEC - the single source of truth for baked seats + canon assets of the chit family. Bakes: her PUSH -> bake_push() updates this spec (newest supersedes) -> stamp ALL carriers -> canon_check MUST pass -> headless proof -> upload -> manifest bump -> screen wipe same-pass. NEVER hand-edit a carrier again.",
+ "carrier_files": {
+  "chitlab": "chitlab_v29.html",
+  "picklab": "picklab_v8.html",
+  "solo": "solo_v61.html",
+  "duo": "duo_v40.html"
+ },
+ "elements": {
+  "chitbg": {
+   "selector": "#chitbg",
+   "carriers": [
+    "chitlab",
+    "picklab",
+    "solo",
+    "duo"
+   ],
+   "seat": {},
+   "base": "top:-285px (paper fix baked into base CSS; her pushes compose on top as translate)"
+  },
+  "chitflyout": {
+   "selector": "#chitflyout",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo",
+    "picklab"
+   ],
+   "seat": {},
+   "base": "top:2620px parked / 280px picklab; dy 280 baked into JS slide math"
+  },
+  "hint_SWERVE": {
+   "selector": ".chithint",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "dx": 0,
+    "dy": -340,
+    "s": 1,
+    "r": 0
+   },
+   "base": "class rule shared by all 6 hint strips; top:1296px + transform:scale(.75) baked base"
+  },
+  "backbtn": {
+   "selector": "#backbtn",
+   "carriers": [
+    "chitlab"
+   ],
+   "seat": {
+    "dx": 875,
+    "dy": 25,
+    "s": 1.3,
+    "r": 0
+   },
+   "base": "left:24 top:30 130x126, inside #chitflyout; chitlab-only per her ruling"
+  },
+  "lineup": {
+   "selector": "#lineup",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": 0,
+    "dy": 390,
+    "s": 1,
+    "r": 0
+   },
+   "base": "top:990px"
+  },
+  "polcard": {
+   "selector": "#polcard",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": -185,
+    "dy": -15,
+    "s": 0.95,
+    "r": -7
+   },
+   "base": ""
+  },
+  "polL": {
+   "selector": "#polL",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": -120,
+    "dy": 5,
+    "s": 0.85,
+    "r": 0
+   },
+   "base": ""
+  },
+  "polR": {
+   "selector": "#polR",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": -275,
+    "dy": 10,
+    "s": 0.85,
+    "r": 0
+   },
+   "base": ""
+  },
+  "taphint": {
+   "selector": "#taphint",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": 360,
+    "dy": -30,
+    "s": 1.05,
+    "r": 7
+   },
+   "base": "fixed sibling layer over the photo window"
+  },
+  "victag": {
+   "selector": "#victag",
+   "carriers": [
+    "chitlab",
+    "picklab"
+   ],
+   "seat": {
+    "dx": 155,
+    "dy": -195,
+    "s": 1.1,
+    "r": 0
+   },
+   "base": "centred double-lined white, column layout"
+  },
+  "selring": {
+   "selector": "#selring",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {},
+   "base": "top:-9999px parked; JS-seated on pick - dy -285 folded into base"
+  },
+  "lockbar": {
+   "selector": "#lockbar",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {},
+   "base": "top:1666px - dy -275 folded into base"
+  },
+  "cp1": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 105,
+    "top": 260,
+    "s": 1.3,
+    "r": -3
+   }
+  },
+  "cp2": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 410,
+    "top": 270,
+    "s": 1.3,
+    "r": 0
+   }
+  },
+  "cp3": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 715,
+    "top": 260,
+    "s": 1.3,
+    "r": 3
+   }
+  },
+  "cp4": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 105,
+    "top": 655,
+    "s": 1.3,
+    "r": 2
+   }
+  },
+  "cp5": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 410,
+    "top": 645,
+    "s": 1.3,
+    "r": 2
+   }
+  },
+  "cp6": {
+   "seat_kind": "inline",
+   "carriers": [
+    "chitlab",
+    "solo",
+    "duo"
+   ],
+   "seat": {
+    "left": 715,
+    "top": 655,
+    "s": 1.2825,
+    "r": -1
+   }
+  }
+ },
+ "assets": {
+  "chit_background": {
+   "url": "https://base44.app/api/apps/6a8b7346981ed7c96b9784cf/files/mp/public/6a8b7346981ed7c96b9784cf/124102e45_chit_bg_v3.png",
+   "gate": "124102e45_chit_bg_v3.png",
+   "pattern": "[0-9a-f]+_sabotask_chit_background_v[0-9]+\\.png|[0-9a-f]+_chit_bg_v[0-9]+\\.png",
+   "carriers": [
+    "chitlab",
+    "picklab",
+    "solo",
+    "duo"
+   ],
+   "gates": {
+    "chitlab": 0,
+    "picklab": 0,
+    "solo": 1,
+    "duo": 1
+   },
+   "note": "visible img in all four; preload-gate P+'name' form in solo+duo ONLY (gates map). v3 472x1024, aspect matches v2 - zero seat remath."
+  }
+ }
+}
